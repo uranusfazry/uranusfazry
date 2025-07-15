@@ -1,1142 +1,746 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLBB BY ONE PROFESIONAL - Edisi Event Fazry</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --dark-primary: #0a0a0a;
-            --dark-secondary: #121212;
-            --accent-red: #d92b2b;
-            --accent-red-rgb: 217, 43, 43;
-            --accent-blue: #2b5fd9;
-            --text-primary: #e0e0e0;
-            --text-secondary: #9e9e9e;
-            --glow-effect: 0 0 15px rgba(217, 43, 43, 0.7);
-        }
-
-        /* Light mode theme variables */
-        body.light-mode {
-            --dark-primary: #f5f5f5;
-            --dark-secondary: #ffffff;
-            --text-primary: #121212;
-            --text-secondary: #424242;
-            --glow-effect: 0 0 15px rgba(43, 93, 217, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--dark-primary);
-            color: var(--text-primary);
-            background-image:
-                radial-gradient(circle at 25% 25%, rgba(var(--accent-red-rgb), 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(43, 93, 217, 0.1) 0%, transparent 50%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
-        
-        body.light-mode {
-            background-image: none;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 30px;
-        }
-        
-        body.light-mode header {
-            border-bottom-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: var(--glow-effect);
-            transition: box-shadow 0.4s ease;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, var(--accent-red), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
-
-        nav a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        nav a:hover {
-            color: var(--accent-red);
-        }
-
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 40px 0;
-            margin-bottom: 50px;
-        }
-
-        .hero-image {
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 30px;
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            min-height: 200px;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .hero-text h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, var(--accent-red), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 25px;
-            line-height: 1.7;
-            white-space: pre-wrap; /* To respect newlines in the poem */
-            font-style: italic;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(var(--accent-red-rgb), 0.4);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(var(--accent-red-rgb), 0.6);
-        }
-        
-        #main-content {
-            opacity: 1;
-            max-height: 10000px;
-            transition: opacity 1s ease-in-out, max-height 1.5s ease-in-out, margin-top 1s ease;
-            overflow: hidden;
-            margin-top: 0;
-        }
-
-        #main-content.hidden {
-            opacity: 0;
-            max-height: 0;
-            margin-top: 0;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .feature-card {
-            background-color: var(--dark-secondary);
-            border-radius: 10px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        body.light-mode .feature-card {
-            border-color: rgba(0, 0, 0, 0.08);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border-color: rgba(var(--accent-red-rgb), 0.3);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-red);
-            height: 40px;
-            width: 40px;
-        }
-        
-        .feature-icon svg {
-            fill: currentColor;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .duel-section {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .duel-section h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
-        }
-
-        .duel-container {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-
-        .duel-player {
-            width: 300px;
-            background-color: var(--dark-secondary);
-            border-radius: 10px;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .duel-player:hover {
-            transform: scale(1.03);
-        }
-
-        .player-red {
-            border-top: 5px solid var(--accent-red);
-        }
-
-        .player-blue {
-            border-top: 5px solid var(--accent-blue);
-        }
-
-        .player-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .player-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .player-name {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .player-rank {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .player-socials {
-            display: flex;
-            gap: 15px;
-            margin-top: auto;
-            padding-top: 15px;
-        }
-        
-        .player-socials a {
-            color: var(--text-secondary);
-            transition: color 0.3s ease;
-        }
-        
-        .player-socials a:hover {
-            color: var(--text-primary);
-        }
-        
-        .player-socials svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .vs-circle {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background-color: var(--dark-primary);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-
-        .duel-button {
-            margin-top: 20px;
-            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .duel-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(var(--accent-red-rgb), 0.5);
-        }
-        
-        .event-section {
-            padding: 50px 20px;
-            margin: 80px 0;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            background: var(--dark-secondary);
-            border: 1px solid rgba(var(--accent-red-rgb), 0.3);
-        }
-        
-        .event-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(var(--accent-red-rgb), 0.15), transparent 40%);
-            animation: rotate-glow 15s linear infinite;
-        }
-        
-        @keyframes rotate-glow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .event-header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .event-header .event-title {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .event-header .event-title span {
-            background: linear-gradient(to right, var(--accent-red), #ff7e5f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .event-header .event-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .event-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 50px;
-            align-items: center;
-            position: relative;
-        }
-        
-        .master-column {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .master-card {
-            background-color: #000;
-            border: 2px solid var(--accent-red);
-            box-shadow: 0 0 20px rgba(var(--accent-red-rgb), 0.5), 0 0 40px rgba(var(--accent-red-rgb), 0.3);
-            animation: pulse-glow 2s infinite alternate;
-        }
-
-        @keyframes pulse-glow {
-            from { box-shadow: 0 0 20px rgba(var(--accent-red-rgb), 0.5), 0 0 40px rgba(var(--accent-red-rgb), 0.3); }
-            to { box-shadow: 0 0 30px rgba(var(--accent-red-rgb), 0.7), 0 0 60px rgba(var(--accent-red-rgb), 0.5); }
-        }
-        
-        .rules-column h3 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent-red);
-            display: inline-block;
-        }
-
-        .rules-list {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .rules-list li {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-left: 5px solid var(--accent-red);
-            padding: 20px;
-            border-radius: 8px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .rules-list li:hover {
-            transform: translateX(10px);
-            background: rgba(var(--accent-red-rgb), 0.1);
-        }
-
-        .rules-list li strong {
-            color: var(--accent-red);
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .rules-list ul {
-            padding-left: 20px;
-            margin-top: 10px;
-            color: var(--text-secondary);
-        }
-
-        .challenge-footer {
-            text-align: center;
-            margin-top: 60px;
-            position: relative;
-        }
-        
-        .challenge-footer p {
-            font-size: 1.3rem;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-        
-        .trakteer-button {
-            font-size: 1.2rem;
-            padding: 15px 40px;
-            font-weight: 700;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 60px;
-        }
-        
-        body.light-mode footer {
-            border-top-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 992px) {
-            .event-layout {
-                grid-template-columns: 1fr;
-                gap: 60px;
-            }
-            .master-column {
-                order: -1;
-            }
-            .rules-column {
-                text-align: center;
-            }
-            .rules-column h3 {
-                display: inline-block;
-            }
-            .rules-list li {
-                text-align: left;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header { flex-direction: column; gap: 20px; }
-            nav ul { gap: 15px; }
-            .hero-text h1 { font-size: 2rem; }
-            .duel-container { flex-direction: column; align-items: center; gap: 70px; }
-            .duel-player { margin-bottom: 30px; }
-            .event-header .event-title { font-size: 2.2rem; }
-        }
-
-        .skeleton {
-            background: linear-gradient(90deg, #2a2a2a, #3a3a3a, #2a2a2a);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s infinite linear;
-        }
-        
-        body.light-mode .skeleton {
-            background: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
-        }
-
-        @keyframes skeleton-loading {
-            0% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        #toast-notification {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #222;
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease, bottom 0.4s ease;
-        }
-
-        #toast-notification.show {
-            opacity: 1;
-            visibility: visible;
-            bottom: 30px;
-        }
-
-        /* Watermark Styles */
-        :root {
-            --glow-color: hsl(186, 100%, 50%);
-            --background-color: rgba(10, 25, 40, 0.85);
-            --border-color: rgba(127, 255, 212, 0.3);
-            --text-color: rgba(230, 255, 255, 0.95);
-            --particle-base-hue: 186;
-            --particle-base-lightness: 60;
-        }
-
-        @keyframes slideUpFadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes logo3DFlip {
-            0% { transform: rotateY(0deg); filter: brightness(1); }
-            50% { transform: rotateY(180deg); filter: brightness(2) drop-shadow(0 0 8px var(--glow-color)); }
-            100% { transform: rotateY(360deg); filter: brightness(1); }
-        }
-        
-        #futuristic-watermark {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            padding: 8px 15px;
-            min-width: 212px;
-            background: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 500;
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(var(--glow-color), 0.15),
-                        0 0 30px rgba(var(--glow-color), 0.1),
-                        inset 0 0 10px rgba(var(--glow-color), 0.1);
-            z-index: 9999;
-            cursor: pointer;
-            user-select: none;
-            overflow: hidden;
-            opacity: 0;
-            animation: slideUpFadeIn 1s ease-out 0.5s forwards;
-            transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        
-        #futuristic-watermark:hover {
-            transform: translateY(-5px) scale(1.03);
-            border-color: rgba(127, 255, 212, 0.8);
-            box-shadow: 0 0 25px rgba(var(--glow-color), 0.4),
-                        0 0 50px rgba(var(--glow-color), 0.25),
-                        inset 0 0 12px rgba(var(--glow-color), 0.2);
-        }
-
-        #futuristic-watermark.light-mode {
-            --glow-color: hsl(220, 90%, 60%);
-            --background-color: rgba(245, 248, 252, 0.85);
-            --border-color: rgba(60, 100, 150, 0.3);
-            --text-color: rgba(10, 25, 40, 0.95);
-            --particle-base-hue: 220;
-            --particle-base-lightness: 40;
-        }
-        
-        #particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .f-content-wrapper {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 18px;
-        }
-
-        .f-content {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .f-content.hidden {
-            opacity: 0;
-            pointer-events: none;
-            position: absolute;
-            transform: scale(0.9);
-        }
-
-        .f-logo-container {
-            width: 18px;
-            height: 18px;
-            transition: transform 0.4s ease;
-            flex-shrink: 0;
-        }
-
-        .f-logo-container.reacting {
-            animation: logo3DFlip 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        
-        .f-logo-container svg {
-            width: 100%;
-            height: 100%;
-            stroke: var(--glow-color);
-            stroke-width: 8;
-            transition: stroke 0.5s ease;
-        }
-        
-        #f-watermark-text, #f-follow-message {
-            transition: color 0.5s ease;
-        }
-
-        #f-watermark-text {
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        #f-follow-message {
-            font-size: 11px;
-            letter-spacing: 0.2px;
-            font-weight: 700;
-            text-align: center;
-            white-space: nowrap;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Links - 3D & Futuristic UI</title>
+  
+  <!-- Link Font & Ikon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Impor Three.js untuk animasi 3D -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <style>
+    /* --- Pengaturan Tema Dasar --- */
+    :root {
+      --primary: #4f46e5;
+      --secondary: #6366f1;
+      --text: #1e293b;
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --hover: #3b82f6;
+      --particle-3d-color: '#4f46e5'; 
+      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    [data-theme="dark"] {
+      --primary: #6366f1;
+      --secondary: #818cf8;
+      --text: #e2e8f0;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --hover: #93c5fd;
+      --particle-3d-color: '#818cf8';
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      color: var(--text);
+      background-color: var(--bg);
+      transition: var(--transition);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* --- Canvas untuk Animasi 3D --- */
+    #particle-canvas-3d {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* --- Gaya Elemen Umum --- */
+    header {
+      padding: 2rem;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile {
+      margin: 0 auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--primary);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .profile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile img { width: 100%; height: 100%; object-fit: cover; }
+
+    h1 {
+      margin-top: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      transition: var(--transition);
+    }
+    
+    [data-theme="dark"] h1 {
+      text-shadow: 0 0 10px var(--secondary), 0 0 12px var(--primary);
+    }
+
+    [data-theme="dark"] .profile {
+      border-color: var(--secondary);
+      box-shadow: 0 0 20px var(--secondary), 0 0 30px var(--primary);
+    }
+
+    .bio {
+      margin: 1rem auto;
+      max-width: 500px;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--card-bg);
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      z-index: 100;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 600px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .link-item {
+      background-color: var(--card-bg);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .link-item:nth-child(1) { animation-delay: 0.2s; }
+    .link-item:nth-child(2) { animation-delay: 0.4s; }
+    .link-item:nth-child(3) { animation-delay: 0.6s; }
+    .link-item:nth-child(4) { animation-delay: 0.8s; }
+    .link-item:nth-child(5) { animation-delay: 1s; }
+
+    .link-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      background-color: var(--hover);
+      color: white;
+    }
+    
+    [data-theme="dark"] .link-item:hover {
+      box-shadow: 0 0 25px var(--hover);
+    }
+
+    .link-item:hover .link-icon, .link-item:hover .link-text {
+      color: white;
+    }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      color: var(--primary);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .link-content { flex: 1; }
+    .link-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.2rem; }
+    .link-text { font-size: 0.9rem; opacity: 0.8; }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      opacity: 0;
+      transform: scale(0.5);
+      animation: popIn 0.5s forwards;
+    }
+
+    @keyframes popIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .social-link:nth-child(1) { animation-delay: 1.2s; }
+    .social-link:nth-child(2) { animation-delay: 1.4s; }
+    .social-link:nth-child(3) { animation-delay: 1.6s; }
+    .social-link:nth-child(4) { animation-delay: 1.8s; }
+
+    .social-link:hover {
+      transform: translateY(-5px) scale(1.1);
+      color: white;
+      background-color: var(--primary);
+    }
+    
+    [data-theme="dark"] .social-link:hover {
+      box-shadow: 0 0 20px var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.8rem;
+      color: var(--text);
+      opacity: 0.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .profile { width: 100px; height: 100px; }
+      h1 { font-size: 1.5rem; }
+      .bio { font-size: 0.9rem; }
+      .link-icon { width: 35px; height: 35px; font-size: 0.9rem; }
+      .link-title { font-size: 1rem; }
+      .link-text { font-size: 0.8rem; }
+      .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
+    }
+    
+    /* --- GAYA WATERMARK FUTURISTIK (BARU) --- */
+    #futuristic-watermark {
+        --glow-color: hsl(186, 100%, 50%);
+        --background-color: rgba(10, 25, 40, 0.85);
+        --border-color: rgba(127, 255, 212, 0.3);
+        --text-color: rgba(230, 255, 255, 0.95);
+        --particle-base-hue: 186;
+        --particle-base-lightness: 60;
+    }
+    
+    @keyframes slideUpFadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes logo3DFlip {
+        0% { transform: rotateY(0deg); filter: brightness(1); }
+        50% { transform: rotateY(180deg); filter: brightness(2) drop-shadow(0 0 8px var(--glow-color)); }
+        100% { transform: rotateY(360deg); filter: brightness(1); }
+    }
+    
+    #futuristic-watermark {
+        position: fixed;
+        bottom: 25px;
+        left: 25px;
+        padding: 8px 15px;
+        min-width: 212px;
+        background: var(--background-color);
+        color: var(--text-color);
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 500;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(var(--glow-color), 0.15), 0 0 30px rgba(var(--glow-color), 0.1), inset 0 0 10px rgba(var(--glow-color), 0.1);
+        z-index: 9999;
+        cursor: pointer;
+        user-select: none;
+        overflow: hidden;
+        opacity: 0;
+        animation: slideUpFadeIn 1s ease-out 0.5s forwards;
+        transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    
+    #futuristic-watermark:hover {
+        transform: translateY(-5px) scale(1.03);
+        border-color: rgba(127, 255, 212, 0.8);
+        box-shadow: 0 0 25px rgba(var(--glow-color), 0.4), 0 0 50px rgba(var(--glow-color), 0.25), inset 0 0 12px rgba(var(--glow-color), 0.2);
+    }
+    
+    #futuristic-watermark.light-mode {
+        --glow-color: hsl(220, 90%, 60%);
+        --background-color: rgba(245, 248, 252, 0.85);
+        --border-color: rgba(60, 100, 150, 0.3);
+        --text-color: rgba(10, 25, 40, 0.95);
+        --particle-base-hue: 220;
+        --particle-base-lightness: 40;
+    }
+    
+    #futuristic-watermark #particle-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+    
+    .f-content-wrapper {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 18px;
+    }
+    
+    .f-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    .f-content.hidden {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        transform: scale(0.9);
+    }
+    
+    .f-logo-container {
+        width: 18px;
+        height: 18px;
+        transition: transform 0.4s ease;
+        flex-shrink: 0;
+    }
+    
+    .f-logo-container.reacting {
+        animation: logo3DFlip 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    
+    .f-logo-container svg {
+        width: 100%;
+        height: 100%;
+        stroke: var(--glow-color);
+        stroke-width: 8;
+        transition: stroke 0.5s ease;
+    }
+    
+    #f-watermark-text, #f-follow-message {
+        transition: color 0.5s ease;
+    }
+    
+    #f-watermark-text {
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    
+    #f-follow-message {
+        font-size: 11px;
+        letter-spacing: 0.2px;
+        font-weight: 700;
+        text-align: center;
+        white-space: nowrap;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/621a0497-a787-4a0a-ae60-663956123cce.png" alt="Logo MLBB BY ONE PROFESIONAL">
-                <div class="logo-text">MLBB BY ONE PROFESIONAL</div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#special-event">Event</a></li>
-                    <li><a href="#features">Fitur</a></li>
-                    <li><a href="#duel">Duel</a></li>
-                </ul>
-            </nav>
-        </header>
+  
+  <canvas id="particle-canvas-3d"></canvas>
 
-        <main>
-            <section id="home" class="hero">
-                <div class="hero-image skeleton">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9d5ee81c-963e-4f7b-8f96-e9541313a9a5.png" alt="Arena fantasi gelap untuk pertarungan 1v1 Mobile Legends" data-img-loader>
-                </div>
-                <div class="hero-text">
-                    <h1>BUKTIKAN DOMINASIMU DI ARENA KEGELAPAN</h1>
-                    <p>Masuki pertarungan, arena kegelapan,
-1v1 terselubung kehancuran.
-Mobile Legends jadi medan murka,
-tempat jiwa-jiwa diuji luka.
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
 
-Setiap lawan datang dengan nyali,
-membawa harapan, ambisi sekali.
-Namun satu per satu jatuh tak berdaya,
-dalam bayangan yang menelan segalanya.
+  <header>
+    <div class="profile">
+      <img src="https://i.postimg.cc/RZ74w0gj/IMG-20250715-WA0026.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/4f46e5/ffffff?text=User';">
+    </div>
+    <h1>My Link Collection</h1>
+    <p class="bio">
+      Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya mulai dari arena permainan hingga eksplorasi kreatif dan inisiatif personal.
+    </p>
+  </header>
 
-Bayangan menyelimuti tiap inci tanah,
-jeritan kekalahan memekakkan langkah.
-Satu per satu menghilang perlahan,
-tanpa jejak, tanpa perlawanan.
+  <div class="container">
+    <div class="links">
+      <a href="https://bit.ly/uranusfazry" class="link-item" target="_blank">
+        <div class="link-icon">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <div class="link-content">
+          <div class="link-title">BY ONE SEKARANG</div>
+          <div class="link-text">Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah</div>
+        </div>
+      </a>
 
-Tiada ampun, tiada pintu keluar,
-hanya gelap dan akhir yang menggemetar.
-Di tengah darah dan reruntuhan dendam,
-tersisa satu... penunggu kelam.
+      <a href="https://example.com/studio" class="link-item" target="_blank">
+        <div class="link-icon">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="link-content">
+          <div class="link-title">Uranus Studio</div>
+          <div class="link-text">Solusi digital untuk mengubah kreativitas menjadi penghasilan</div>
+        </div>
+      </a>
 
-AKU URANUS FAZRY Sang Raja Terakhir.
-Penghancur harapan yang hadir terakhir.
-Penghapus mimpi para penantang,
-aku akhir dari semua yang datang.</p>
-                    <button id="reveal-button" class="cta-button">MULAI DUEL SEKARANG</button>
-                </div>
-            </section>
-            
-            <div id="main-content" class="hidden">
-                <section id="features" class="features">
-                    <div class="feature-card glow-on-hover">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.293 3.707a1 1 0 0 1 1.414 0l1.293 1.293a1 1 0 0 1 0 1.414L13.414 14H12v-1.414l7.293-7.293-1-1zM4 20.732a1 1 0 0 1-1.707-.707l1-3.464a1 1 0 0 1 .5-.7L16.586 3.071l4 4L7.793 19.864a1 1 0 0 1-.7.5l-3.464 1a1 1 0 0 1-.629.068z" fill="currentColor"/></svg>
-                        </div>
-                        <h3>Pertarungan 1v1 Brutal</h3>
-                        <p>Masuki duel berdarah tanpa ampun. Uji nyalimu dalam pertarungan satu lawan satu tanpa gangguan, tanpa alasan, dan tanpa belas kasihan. Hanya satu yang berdiri di akhir.</p>
-                    </div>
-                    <div class="feature-card glow-on-hover">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 2H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm-9 2h4v16h-4V4zm-2 5h2v11H8V9zm8 3h-2v8h2v-8zM5 4h1v16H5V4zm14 16h-1V4h1v16z" fill="currentColor"/></svg>
-                        </div>
-                        <h3>Peringkat Arena Gelap</h3>
-                        <p>Naiki tangga bayangan... atau tenggelam dalam kegelapan. Tiap kemenangan mendekatkanmu pada tahta, tapi tiap kekalahan menyeretmu lebih dalam ke jurang tanpa cahaya. Hanya yang terkuat bisa disebut penguasa arena.</p>
-                    </div>
-                    <div class="feature-card glow-on-hover">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>
-                        </div>
-                        <h3>Hadiah Dari Kegelapan</h3>
-                        <p>Hadiah untuk para penyintas... kutukan bagi yang gagal. Raih skin, lencana, dan gelar bertema kegelapan simbol kejayaan bagi mereka yang menaklukkan Duel Arena. Yang Kuat yang akan bertahan dan yang lemah hanya akan jadi kenangan.</p>
-                    </div>
-                </section>
-                
-                <section id="special-event" class="event-section">
-                    <div class="event-header">
-                        <h2 class="event-title">EVENT SPESIAL: <span>SATU LAWAN SATU</span></h2>
-                        <p class="event-subtitle">Tantang Sang Master Fazry, dan biarkan darahmu jadi bukti... apakah kau layak menjadi Raja, atau sekadar tumbal yang terlupakan di kegelapan.</p>
-                    </div>
-                    <div class="event-layout">
-                        <div class="master-column">
-                            <div class="duel-player master-card">
-                                <div class="player-avatar skeleton">
-                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5a466eaa-7dd7-464e-909d-044420c49e71.png" alt="Master Fazry, Sang Raja Uranus" data-img-loader>
-                                </div>
-                                <h3 class="player-name">MASTER FAZRY</h3>
-                                <p class="player-rank">Sang Raja Uranus</p>
-                            </div>
-                        </div>
-                        <div class="rules-column">
-                            <h3>Peraturan Satu VS Satu</h3>
-                            <ol class="rules-list">
-                                <li><strong>Mode Pertandingan:</strong> Mid Lane only, no buff. Menang dengan 3 kill. Boleh recall.</li>
-                                <li><strong>Format Kemenangan:</strong> Wajib menang 3 match (Best of 3). Jika kalah 1 match, langsung tereliminasi/gugur.</li>
-                                <li>
-                                    <strong>Pemilihan Hero:</strong>
-                                    <ul>
-                                        <li>Match 1: Hero bebas.</li>
-                                        <li>Match 2: Hero bebas (tidak boleh sama dengan Match 1).</li>
-                                        <li>Match 3: Wajib memakai salah satu hero yang termasuk dalam event skin yang diinginkan. Contoh: Jika hadiahnya adalah skin kolaborasi Naruto, Anda bisa memilih Suyou(Sasuke), Lukas(Naruto), Kalea(Sakura), Hayabusa(Kakashi). Jika menang, Anda bebas memilih salah satu dari keempat skin tersebut sebagai hadiah.</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <strong>Struktur Hadiah:</strong>
-                                    <ul>
-                                        <li>Menang 1 match: Mendapatkan pengalaman berharga.</li>
-                                        <li>Menang 2 match: Mendapatkan Starlight Premium.</li>
-                                        <li>Menang 3 match: Mendapatkan Skin yang diinginkan sesuai aturan Match 3.</li>
-                                    </ul>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="challenge-footer">
-                        <p>Kalahkan MASTER FAZRY dan dapatkan hadiahnya! Hanya satu orang yang akan menjadi Raja.</p>
-                        <a href="https://trakteer.id/uranusfazry/tip" target="_blank" class="cta-button trakteer-button">1V1 SEKARANG JIKA BERANI☠️</a>
-                    </div>
-                </section>
+      <a href="https://example.com/uranustify" class="link-item" target="_blank">
+        <div class="link-icon">
+          <i class="fas fa-music"></i>
+        </div>
+        <div class="link-content">
+          <div class="link-title">Uranustify</div>
+          <div class="link-text">Simpan & dengarkan musik favoritmu tanpa batas dimanapun dan kapanpun tanpa iklan</div>
+        </div>
+      </a>
 
-                <section id="duel" class="duel-section">
-                    <h2>CARI LAWANMU DAN HADAPI MIMPI BURUK YANG BARU</h2>
-                    <div class="duel-container">
-                        <div class="duel-player player-red">
-                            <div class="vs-circle">VS</div>
-                            <div class="player-avatar skeleton">
-                                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5a466eaa-7dd7-464e-909d-044420c49e71.png" alt="URANUS FAZRY" data-img-loader>
-                            </div>
-                            <h3 class="player-name">URANUS FAZRY</h3>
-                            <p class="player-rank">TOP GLOBAL 1 URANUS</p>
-                             <div class="player-socials">
-                                <a href="https://www.tiktok.com/@uranusfazry?_t=ZS-8y0wmn4w7NJ&_r=1" target="_blank" title="TikTok">
-                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <defs>
-                                            <path id="tiktok-path-shape" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.86-.95-6.69-2.81-1.75-1.76-2.84-4.14-2.82-6.53-.01-1.29.28-2.58.82-3.79 1.06-2.38 3.32-4.21 5.9-4.79 1.02-.22 2.05-.31 3.08-.32.01 2.54-.01 5.08.01 7.63-.01 1.73-1.16 3.2-2.74 3.78-1.58.58-3.35.3-4.76-.69-.4-.28-.76-.63-1.08-1.01-.01-1.02.01-2.04.01-3.06.01-2.2-.08-4.4-.02-6.6.09-1.6.82-3.15 2.02-4.25 1.14-1.03 2.6-1.54 4.1-1.65.02.02.02.02.02.02z"/>
-                                        </defs>
-                                        <g>
-                                            <use href="#tiktok-path-shape" fill="#FE2C55" transform="translate(1.2, 1.2)"/>
-                                            <use href="#tiktok-path-shape" fill="#25F4EE" transform="translate(-1.2, -1.2)"/>
-                                            <use href="#tiktok-path-shape" fill="white"/>
-                                        </g>
-                                    </svg>
-                                </a>
-                            </div>
-                            <button class="duel-button">TANTANG</button>
-                        </div>
-                        <div class="duel-player player-blue">
-                             <div class="player-avatar skeleton">
-                                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4fffc2b4-e602-477a-9e2f-91633a4a521d.png" alt="MURID URANUS FAZRY" data-img-loader>
-                            </div>
-                            <h3 class="player-name">MURID URANUS FAZRY</h3>
-                            <p class="player-rank">PRO PLAYER ALL HERO</p>
-                            <div class="player-socials">
-                                <a href="https://youtube.com/@uranusfazry?si=u-qyqLtcktit6zkW" target="_blank" title="YouTube">
-                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                </a>
-                            </div>
-                            <button class="duel-button">TANTANG</button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
+      <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" class="link-item" target="_blank">
+        <div class="link-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <div class="link-content">
+          <div class="link-title">Uranus App & Web</div>
+          <div class="link-text">Ingin punya aplikasi atau website seperti Uranus Fazry? Dapatkan dengan harga terjangkau langsung dariku. Cepat, mudah, dan siap pakai</div>
+        </div>
+      </a>
 
-        <footer id="about">
-            <div class="footer-links">
-                <a href="#">Ketentuan</a>
-                <a href="#">Privasi</a>
-                <a href="#">FAQ</a>
-                <a href="#">Dukungan</a>
-            </div>
-            <p class="copyright">© 2025 MLBB BY ONE PROFESIONAL. Tidak berafiliasi dengan Moonton.</p>
-        </footer>
+      <a href="https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com&su=Judul%20Email&body=Halo%20saya%20ingin%20kolaborasi" class="link-item" target="_blank">
+        <div class="link-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="link-content">
+          <div class="link-title">Contact Me</div>
+          <div class="link-text">Get in touch for collaborations</div>
+        </div>
+      </a>
     </div>
 
-    <div id="toast-notification"></div>
-    
-    <div id="dark-mode-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
-        <button style="background: #121212; color: white; border: 1px solid #333; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">🌓</button>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@uranusfazry?_t=ZS-8y1ncR7XOi1&_r=1" class="social-link" target="_blank">
+        <i class="fab fa-tiktok"></i>
+      </a>
+      <a href="https://youtube.com/@uranusfazry?si=pbliTKOKTkiCcxvu" class="social-link" target="_blank">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://www.instagram.com/kingbewan?igsh=NHlyNnRzZ21wZjBi" class="social-link" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.facebook.com/share/1AfJHVfSY6/" class="social-link" target="_blank">
+        <i class="fab fa-facebook"></i>
+      </a>
     </div>
+  </div>
+
+  <footer>
+    © 2025 Created by Uranus Fazry | All Rights Reserved
+  </footer>
+
+  <script>
+    // --- Skrip Animasi Partikel 3D dengan Three.js ---
+    let scene, camera, renderer, particles3D;
+    let mouseX = 0, mouseY = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+
+    function getParticleColor() {
+      const colorString = getComputedStyle(document.documentElement).getPropertyValue('--particle-3d-color').trim();
+      return colorString.replace(/'/g, '');
+    }
+
+    function init3D() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.z = 1000;
+
+      const particleColor = getParticleColor();
+      const material = new THREE.PointsMaterial({
+        color: new THREE.Color(particleColor),
+        size: 2,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        sizeAttenuation: true
+      });
+
+      const geometry = new THREE.BufferGeometry();
+      const vertices = [];
+      const particleCount = 5000;
+      for (let i = 0; i < particleCount; i++) {
+        const x = Math.random() * 2000 - 1000;
+        const y = Math.random() * 2000 - 1000;
+        const z = Math.random() * 2000 - 1000;
+        vertices.push(x, y, z);
+      }
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+      
+      particles3D = new THREE.Points(geometry, material);
+      scene.add(particles3D);
+
+      const canvas = document.getElementById('particle-canvas-3d');
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      document.addEventListener('mousemove', onDocumentMouseMove, false);
+      window.addEventListener('resize', onWindowResize, false);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function onDocumentMouseMove(event) {
+      mouseX = event.clientX - windowHalfX;
+      mouseY = event.clientY - windowHalfY;
+    }
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+      const time = Date.now() * 0.00005;
+      camera.position.x += (mouseX - camera.position.x) * 0.05;
+      camera.position.y += (-mouseY - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+      particles3D.rotation.x = time * 0.2;
+      particles3D.rotation.y = time * 0.4;
+      renderer.render(scene, camera);
+    }
     
-    <audio id="background-music" loop>
-        <source src="https://c.top4top.io/m_3457ukcau0.mp3" type="audio/mpeg">
-        Browser Anda tidak mendukung elemen audio.
-    </audio>
+    function updateParticleColor() {
+        if (particles3D) {
+            const newColor = getParticleColor();
+            particles3D.material.color.set(newColor);
+        }
+    }
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const revealButton = document.getElementById('reveal-button');
-            const contentToReveal = document.getElementById('main-content');
-            const bgMusic = document.getElementById('background-music');
-            const toast = document.getElementById('toast-notification');
-            const body = document.body;
-            const darkModeToggle = document.getElementById('dark-mode-toggle');
+    // --- Skrip Tombol Tema ---
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    themeToggle.addEventListener('click', () => {
+      const html = document.documentElement;
+      const isLight = html.getAttribute('data-theme') === 'light';
+      
+      if (isLight) {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+      }
+      updateParticleColor();
+    });
+    
+    init3D();
+    animate3D();
+  </script>
 
-            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            function showToast(message) {
-                toast.textContent = message;
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-            }
-            
-            if (revealButton && contentToReveal && bgMusic) {
-                revealButton.addEventListener('click', () => {
-                    if (contentToReveal.classList.contains('hidden')) {
-                        contentToReveal.classList.remove('hidden');
-                        bgMusic.play().catch(error => {
-                            console.error("Gagal memutar musik:", error);
-                            showToast("Browser memblokir pemutaran otomatis.");
-                        });
-                        showToast("Musik dimulai... Selamat bertarung!");
-                        revealButton.textContent = "SELAMAT DATANG DI ARENA";
-                        revealButton.style.cursor = "default";
-                        revealButton.disabled = true;
-                        setTimeout(() => {
-                           document.querySelector('#features').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 200);
-                    }
-                }, { once: true });
-            }
-
-            document.querySelectorAll('.duel-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const playerName = this.closest('.duel-player').querySelector('.player-name').textContent;
-                    showToast(`Permintaan duel dikirim ke ${playerName}!`);
-                    this.textContent = 'MENUNGGU...';
-                    this.style.opacity = '0.7';
-                    this.disabled = true;
-                    setTimeout(() => {
-                        this.textContent = 'TANTANG';
-                        this.style.opacity = '1';
-                        this.disabled = false;
-                    }, 2000);
-                });
-            });
-
-            darkModeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-            });
-
-            const imagesToLoad = document.querySelectorAll('img[data-img-loader]');
-            imagesToLoad.forEach(img => {
-                const removeSkeleton = () => {
-                    const parent = img.parentElement;
-                    if (parent && parent.classList.contains('skeleton')) {
-                        parent.classList.remove('skeleton');
-                    }
-                };
-                if (img.complete) {
-                    removeSkeleton();
-                } else {
-                    img.addEventListener('load', removeSkeleton);
-                    img.addEventListener('error', () => {
-                        console.error('Gagal memuat gambar:', img.src);
-                        removeSkeleton();
-                    });
-                }
-            });
-        });
-    </script>
-    <script>
-      (function() {
-        function initializeWatermark() {
-            const watermarkHTML = `
-              <div id="futuristic-watermark" title="Design by ©URANUSFAZRY">
-                <canvas id="particle-canvas"></canvas>
-                <div class="f-content-wrapper">
-                  <div id="f-main-content" class="f-content">
-                    <div class="f-logo-container">
-                      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M20 20 L80 20 L80 80 L20 80 Z" stroke-opacity="0.5"/>
-                          <path d="M50 5 L95 50 L50 95 L5 50 Z"/>
-                      </svg>
-                    </div>
-                    <span id="f-watermark-text">©URANUSFAZRY</span>
-                  </div>
-                  <div id="f-follow-content" class="f-content hidden">
-                      <span id="f-follow-message"></span>
-                  </div>
+  <!-- SKRIP WATERMARK FUTURISTIK (BARU) -->
+  <script>
+  (function() {
+    function initializeWatermark() {
+        const watermarkHTML = `
+          <div id="futuristic-watermark" title="Design by ©URANUSFAZRY">
+            <canvas id="particle-canvas"></canvas>
+            <div class="f-content-wrapper">
+              <div id="f-main-content" class="f-content">
+                <div class="f-logo-container">
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 20 L80 20 L80 80 L20 80 Z" stroke-opacity="0.5"/>
+                      <path d="M50 5 L95 50 L50 95 L5 50 Z"/>
+                  </svg>
                 </div>
+                <span id="f-watermark-text">©URANUSFAZRY</span>
               </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', watermarkHTML);
+              <div id="f-follow-content" class="f-content hidden">
+                  <span id="f-follow-message"></span>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', watermarkHTML);
 
-            const watermarkEl = document.getElementById('futuristic-watermark');
-            const textEl = document.getElementById('f-watermark-text');
-            const logoEl = watermarkEl.querySelector('.f-logo-container');
-            const mainContentEl = document.getElementById('f-main-content');
-            const followContentEl = document.getElementById('f-follow-content');
-            const followMessageEl = document.getElementById('f-follow-message');
-            
-            let isAnimating = false;
-            let autoPlayInterval = null;
-            let currentSequence = 0;
-            const sequenceActions = ['scramble', 'logo', 'youtube', 'tiktok', 'reset'];
+        const watermarkEl = document.getElementById('futuristic-watermark');
+        const textEl = document.getElementById('f-watermark-text');
+        const logoEl = watermarkEl.querySelector('.f-logo-container');
+        const mainContentEl = document.getElementById('f-main-content');
+        const followContentEl = document.getElementById('f-follow-content');
+        const followMessageEl = document.getElementById('f-follow-message');
+        
+        let isAnimating = false;
+        let autoPlayInterval = null;
+        let currentSequence = 0;
+        const sequenceActions = ['scramble', 'logo', 'youtube', 'tiktok', 'reset'];
 
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            const resizeCanvas = () => { if (watermarkEl) { canvas.width = watermarkEl.offsetWidth; canvas.height = watermarkEl.offsetHeight; } };
-            class Particle {
-                constructor() { this.reset(); this.baseSpeedX = (Math.random() - 0.5) * 0.5; this.baseSpeedY = (Math.random() - 0.5) * 0.5; this.speedX = this.baseSpeedX; this.speedY = this.baseSpeedY; }
-                update() {
-                    this.x += this.speedX; this.y += this.speedY; this.opacity -= this.fadeSpeed;
-                    if (this.opacity <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
-                }
-                draw() {
-                    const style = getComputedStyle(watermarkEl);
-                    const hue = style.getPropertyValue('--particle-base-hue').trim();
-                    const lightness = parseFloat(style.getPropertyValue('--particle-base-lightness').trim());
-                    ctx.globalAlpha = this.opacity;
-                    ctx.fillStyle = `hsl(${hue}, 100%, ${lightness + this.opacity * 40}%)`;
-                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-                }
-                reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.opacity = Math.random() * 0.5 + 0.2; this.size = Math.random() * 1.5 + 0.5; this.fadeSpeed = Math.random() * 0.015 + 0.005; }
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const resizeCanvas = () => { if (watermarkEl) { canvas.width = watermarkEl.offsetWidth; canvas.height = watermarkEl.offsetHeight; } };
+        class Particle {
+            constructor() { this.reset(); this.baseSpeedX = (Math.random() - 0.5) * 0.5; this.baseSpeedY = (Math.random() - 0.5) * 0.5; this.speedX = this.baseSpeedX; this.speedY = this.baseSpeedY; }
+            update() {
+                this.x += this.speedX; this.y += this.speedY; this.opacity -= this.fadeSpeed;
+                if (this.opacity <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
             }
-            const animateParticles = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); ctx.globalAlpha = 1.0; requestAnimationFrame(animateParticles); };
-            
-            const textScramble = (el) => {
-                const originalText = "©URANUSFAZRY";
-                const chars = '!<>*#{}[]'; let frame = 0; isAnimating = true;
-                const interval = setInterval(() => {
-                    el.innerText = originalText.split('').map((char, i) => { const p = (frame - i * 2) / 15; if (p < 0) return ' '; if (p > 1) return char; return chars[Math.floor(Math.random() * chars.length)]; }).join('');
-                    if (frame >= originalText.length * 2 + 15) { clearInterval(interval); el.innerText = originalText; isAnimating = false; } frame++;
-                }, 30);
-            };
-
-            const typewriter = (el, text) => {
-                let i = 0; el.innerHTML = ""; isAnimating = true;
-                const interval = setInterval(() => {
-                    if (i < text.length) { el.innerHTML += text.charAt(i); i++; } 
-                    else { clearInterval(interval); isAnimating = false; }
-                }, 50);
-            };
-
-            const runAutoSequence = () => {
-                if (isAnimating) return;
-                const action = sequenceActions[currentSequence];
-                switch (action) {
-                    case 'scramble': textScramble(textEl); break;
-                    case 'logo':
-                        isAnimating = true;
-                        logoEl.classList.add('reacting');
-                        logoEl.addEventListener('animationend', () => { logoEl.classList.remove('reacting'); isAnimating = false; }, { once: true });
-                        break;
-                    case 'youtube':
-                        isAnimating = true;
-                        mainContentEl.classList.add('hidden');
-                        setTimeout(() => {
-                            followContentEl.classList.remove('hidden');
-                            typewriter(followMessageEl, "Follow uranusfazry YouTube");
-                        }, 400);
-                        break;
-                    case 'tiktok': 
-                        typewriter(followMessageEl, "Follow uranusfazry TikTok"); 
-                        break;
-                    case 'reset':
-                        isAnimating = true;
-                        followContentEl.classList.add('hidden');
-                        setTimeout(() => {
-                            mainContentEl.classList.remove('hidden');
-                            isAnimating = false;
-                        }, 400);
-                        break;
-                }
-                currentSequence = (currentSequence + 1) % sequenceActions.length;
-            };
-
-            const startAutoPlay = () => {
-                if (autoPlayInterval) clearInterval(autoPlayInterval);
-                runAutoSequence();
-                autoPlayInterval = setInterval(runAutoSequence, 3500);
-            };
-
-            watermarkEl.addEventListener('click', () => { watermarkEl.classList.toggle('light-mode'); });
-            
-            const init = () => {
-                resizeCanvas();
-                for (let i = 0; i < 40; i++) particles.push(new Particle());
-                animateParticles();
-                window.addEventListener('resize', resizeCanvas);
-                startAutoPlay();
-            };
-            init();
+            draw() {
+                const style = getComputedStyle(watermarkEl);
+                const hue = style.getPropertyValue('--particle-base-hue').trim();
+                const lightness = parseFloat(style.getPropertyValue('--particle-base-lightness').trim());
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = `hsl(${hue}, 100%, ${lightness + this.opacity * 40}%)`;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+            reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.opacity = Math.random() * 0.5 + 0.2; this.size = Math.random() * 1.5 + 0.5; this.fadeSpeed = Math.random() * 0.015 + 0.005; }
         }
+        const animateParticles = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); ctx.globalAlpha = 1.0; requestAnimationFrame(animateParticles); };
+        
+        const textScramble = (el) => {
+            const originalText = "©URANUSFAZRY";
+            const chars = '!<>*#{}[]'; let frame = 0; isAnimating = true;
+            const interval = setInterval(() => {
+                el.innerText = originalText.split('').map((char, i) => { const p = (frame - i * 2) / 15; if (p < 0) return ' '; if (p > 1) return char; return chars[Math.floor(Math.random() * chars.length)]; }).join('');
+                if (frame >= originalText.length * 2 + 15) { clearInterval(interval); el.innerText = originalText; isAnimating = false; } frame++;
+            }, 30);
+        };
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeWatermark);
-        } else {
-            initializeWatermark();
-        }
-      })();
-    </script>
+        const typewriter = (el, text) => {
+            let i = 0; el.innerHTML = ""; isAnimating = true;
+            const interval = setInterval(() => {
+                if (i < text.length) { el.innerHTML += text.charAt(i); i++; } 
+                else { clearInterval(interval); isAnimating = false; }
+            }, 50);
+        };
+
+        const runAutoSequence = () => {
+            if (isAnimating) return;
+            const action = sequenceActions[currentSequence];
+            switch (action) {
+                case 'scramble': textScramble(textEl); break;
+                case 'logo':
+                    isAnimating = true;
+                    logoEl.classList.add('reacting');
+                    logoEl.addEventListener('animationend', () => { logoEl.classList.remove('reacting'); isAnimating = false; }, { once: true });
+                    break;
+                case 'youtube':
+                    isAnimating = true;
+                    mainContentEl.classList.add('hidden');
+                    setTimeout(() => {
+                        followContentEl.classList.remove('hidden');
+                        typewriter(followMessageEl, "Follow uranusfazry YouTube");
+                    }, 400);
+                    break;
+                case 'tiktok': 
+                    typewriter(followMessageEl, "Follow uranusfazry TikTok"); 
+                    break;
+                case 'reset':
+                    isAnimating = true;
+                    followContentEl.classList.add('hidden');
+                    setTimeout(() => {
+                        mainContentEl.classList.remove('hidden');
+                        isAnimating = false;
+                    }, 400);
+                    break;
+            }
+            currentSequence = (currentSequence + 1) % sequenceActions.length;
+        };
+
+        const startAutoPlay = () => {
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            runAutoSequence();
+            autoPlayInterval = setInterval(runAutoSequence, 3500);
+        };
+
+        watermarkEl.addEventListener('click', () => { watermarkEl.classList.toggle('light-mode'); });
+        
+        const init = () => {
+            resizeCanvas();
+            for (let i = 0; i < 40; i++) particles.push(new Particle());
+            animateParticles();
+            window.addEventListener('resize', resizeCanvas);
+            startAutoPlay();
+        };
+        init();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeWatermark);
+    } else {
+        initializeWatermark();
+    }
+  })();
+  </script>
 </body>
 </html>
