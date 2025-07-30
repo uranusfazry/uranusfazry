@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Links - 3D & Futuristic UI</title>
   
-  
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap" rel="stylesheet">
 
-  
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
   <style>
     /* --- Pengaturan Tema Dasar --- */
@@ -31,7 +28,7 @@
       --primary: #6366f1;
       --secondary: #818cf8;
       --text: #e2e8f0;
-      --bg: #0f172a;
+      --bg: #0c001a; /* Latar belakang ungu gelap pekat untuk tema gelap */
       --card-bg: #1e293b;
       --hover: #93c5fd;
       --particle-3d-color: '#818cf8';
@@ -52,6 +49,27 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Membuat latar belakang bintang menggunakan pseudo-element (hanya di mode gelap) */
+    [data-theme="dark"] body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+            radial-gradient(1px 1px at 80% 10%, #fff, transparent),
+            radial-gradient(1px 1px at 50% 70%, #fff, transparent),
+            radial-gradient(2px 2px at 90% 80%, #ddd, transparent),
+            radial-gradient(2px 2px at 10% 90%, #eee, transparent);
+        background-repeat: repeat;
+        background-size: 300px 300px;
+        opacity: 0.6;
+        z-index: -2; /* Di bawah canvas partikel */
     }
 
     /* --- Canvas untuk Animasi 3D --- */
@@ -96,27 +114,87 @@
 
     .profile img { width: 100%; height: 100%; object-fit: cover; }
 
-    h1 {
-      margin-top: 1.5rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
-      transition: var(--transition);
-    }
-    
-    [data-theme="dark"] h1 {
-      text-shadow: 0 0 10px var(--secondary), 0 0 12px var(--primary);
-    }
-
     [data-theme="dark"] .profile {
       border-color: var(--secondary);
       box-shadow: 0 0 20px var(--secondary), 0 0 30px var(--primary);
     }
+    
+    /* --- GAYA JUDUL ANIMASI --- */
+    .title-container {
+        text-align: center;
+        perspective: 1000px;
+        margin-top: 1.5rem;
+    }
 
+    .animated-title {
+        font-family: 'Exo 2', sans-serif;
+        font-size: clamp(2.5rem, 10vw, 6rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transition: all 0.5s ease-in-out;
+    }
+
+    /* Gaya Default (Mode Gelap) */
+    [data-theme="dark"] .animated-title {
+        background-image: linear-gradient(125deg, 
+            #ff25b2, #b832ff, #324fff, #25ffde, #ff25b2
+        );
+        animation: 
+            gradient-flow 8s ease-in-out infinite,
+            float-effect 6s ease-in-out infinite,
+            glow-effect 2.5s linear infinite;
+    }
+
+    /* Gaya Override (Mode Terang) */
+    [data-theme="light"] .animated-title {
+        background-image: linear-gradient(125deg, 
+            #007BFF, #4682B4, #3b82f6, #6366f1, #007BFF
+        );
+        animation: 
+            gradient-flow 10s ease-in-out infinite, /* Sedikit lebih lambat untuk kesan tenang */
+            float-effect 6s ease-in-out infinite,
+            day-shadow-effect 3s ease-in-out infinite;
+    }
+
+    /* Animasi Aliran Gradasi */
+    @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Animasi Efek Mengambang */
+    @keyframes float-effect {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* Animasi Efek Cahaya (Mode Gelap) */
+    @keyframes glow-effect {
+        0%, 100% {
+            text-shadow: 0 0 10px #ff25b2, 0 0 20px #b832ff, 0 0 30px #324fff;
+        }
+        50% {
+            text-shadow: 0 0 20px #25ffde, 0 0 30px #324fff, 0 0 40px #b832ff;
+        }
+    }
+
+    /* Animasi Efek Bayangan (Mode Terang) */
+    @keyframes day-shadow-effect {
+        0%, 100% {
+            text-shadow: 2px 2px 4px rgba(40, 50, 60, 0.2);
+        }
+        50% {
+            text-shadow: 3px 4px 7px rgba(40, 50, 60, 0.3);
+        }
+    }
+    
     .bio {
       margin: 1rem auto;
       max-width: 500px;
@@ -280,7 +358,6 @@
 
     @media (max-width: 768px) {
       .profile { width: 100px; height: 100px; }
-      h1 { font-size: 1.5rem; }
       .bio { font-size: 0.9rem; }
       .link-icon { width: 35px; height: 35px; font-size: 0.9rem; }
       .link-title { font-size: 1rem; }
@@ -288,7 +365,7 @@
       .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
     }
     
-    /* --- GAYA WATERMARK FUTURISTIK (BARU) --- */
+    /* --- GAYA WATERMARK FUTURISTIK --- */
     #futuristic-watermark {
         --glow-color: hsl(186, 100%, 50%);
         --background-color: rgba(10, 25, 40, 0.85);
@@ -424,14 +501,16 @@
   <canvas id="particle-canvas-3d"></canvas>
 
   <button class="theme-toggle" id="themeToggle">
-    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
   </button>
 
   <header>
     <div class="profile">
       <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/4f46e5/ffffff?text=User';">
     </div>
-    <h1>My Link Collection</h1>
+    <div class="title-container">
+        <h1 class="animated-title">Uranus Fazry</h1>
+    </div>
     <p class="bio">
       Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya mulai dari arena permainan hingga eksplorasi kreatif dan inisiatif personal.
     </p>
@@ -466,6 +545,16 @@
         <div class="link-content">
           <div class="link-title">Uranustify</div>
           <div class="link-text">Simpan & dengarkan musik favoritmu tanpa batas dimanapun dan kapanpun tanpa iklan</div>
+        </div>
+      </a>
+      
+      <a href="https://menghasil-uang.vercel.app" class="link-item" target="_blank">
+        <div class="link-icon">
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div class="link-content">
+          <div class="link-title">Cara Menghasilkan Uang dari Uranus Studio & Uranustify</div>
+          <div class="link-text">Hasilkan uang dari gambar, video, kata, dan musik melalui Uranus Studio & Uranustify</div>
         </div>
       </a>
 
@@ -576,8 +665,10 @@
       camera.position.x += (mouseX - camera.position.x) * 0.05;
       camera.position.y += (-mouseY - camera.position.y) * 0.05;
       camera.lookAt(scene.position);
-      particles3D.rotation.x = time * 0.2;
-      particles3D.rotation.y = time * 0.4;
+      if (particles3D) {
+        particles3D.rotation.x = time * 0.2;
+        particles3D.rotation.y = time * 0.4;
+      }
       renderer.render(scene, camera);
     }
     
@@ -594,25 +685,28 @@
     
     themeToggle.addEventListener('click', () => {
       const html = document.documentElement;
-      const isLight = html.getAttribute('data-theme') === 'light';
+      const isDark = html.getAttribute('data-theme') === 'dark';
       
-      if (isLight) {
-        html.setAttribute('data-theme', 'dark');
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-      } else {
+      if (isDark) {
         html.setAttribute('data-theme', 'light');
         themeIcon.classList.replace('fa-sun', 'fa-moon');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
       }
       updateParticleColor();
     });
     
-    init3D();
-    animate3D();
+    // Inisialisasi dan jalankan animasi
+    try {
+        init3D();
+        animate3D();
+    } catch(e) {
+        console.error("Three.js initialization failed: ", e);
+    }
   </script>
 
-  
-
-<script>
+  <script>
   (function() {
     function initializeWatermark() {
         const watermarkHTML = `
@@ -637,6 +731,8 @@
         document.body.insertAdjacentHTML('beforeend', watermarkHTML);
 
         const watermarkEl = document.getElementById('futuristic-watermark');
+        if (!watermarkEl) return; // Hentikan jika elemen tidak ditemukan
+
         const textEl = document.getElementById('f-watermark-text');
         const logoEl = watermarkEl.querySelector('.f-logo-container');
         const mainContentEl = document.getElementById('f-main-content');
