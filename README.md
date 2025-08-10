@@ -1,4 +1,4 @@
-# Uranusfazry – My Links (3D & Futuristic UI)
+# Uranus Fazry – My Links (3D & Futuristic UI)
 
 Selamat datang di pusat berbagai proyek digital yang dirancang dan dibangun oleh **Uranus Fazry**. Di halaman ini, Anda dapat menjelajahi ragam karya kreatif, mulai dari aplikasi media hingga proyek personal dan digital lainnya.
 
@@ -27,3 +27,16 @@ Selamat datang di pusat berbagai proyek digital yang dirancang dan dibangun oleh
 1. Kunjungi halaman utama: `https://website-by-one.vercel.app/`.  
 2. Klik proyek yang ingin Anda lihat atau akses.  
 3. Untuk kolaborasi atau pertanyaan, gunakan link “Contact Me” untuk menghubungi langsung via email.
+
+---
+
+**Tips Tambahan (Opsional)**:  
+Jika Anda ingin memperkaya README ini, dapat menambahkan bagian:
+
+- Tautan GitHub (jika tersedia) untuk masing-masing proyek.  
+- Teknologi yang digunakan di setiap proyek—misalnya: Next.js, Tailwind CSS, React, dll.  
+- Petunjuk deployment atau cara setup proyek secara lokal untuk pengembang lain.
+
+---
+
+Semoga README ini membantu merepresentasikan situs kamu dengan lebih profesional dan langsung ke inti.0
