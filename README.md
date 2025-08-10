@@ -1,8 +1,8 @@
-# Uranusfazry – My Links (3D & Futuristic UI)
+# Uranus Fazry – My Links (3D & Futuristic UI)
 
 Selamat datang di pusat berbagai proyek digital yang dirancang dan dibangun oleh **Uranus Fazry**. Di halaman ini, Anda dapat menjelajahi ragam karya kreatif, mulai dari aplikasi media hingga proyek personal dan digital lainnya.
 
-##  Proyek Utama
+## Proyek Utama
 
 - **BY ONE SEKARANG** – Tantang aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah.  
 - **TESTIMONI BY ONE** – Semua kekalahan dan penderitaanmu saat berhadapan dengan sang Master ada di sini.  
@@ -22,6 +22,13 @@ Selamat datang di pusat berbagai proyek digital yang dirancang dan dibangun oleh
 - **Navigasi Ringkas**: Semua link utama tersedia dalam satu halaman, membuat eksplorasi mudah dan cepat.  
 - **Portofolio Serba Guna**: Menampilkan berbagai karya—dari hiburan dan musik hingga teknologi finansial dan blog.
 
+## Teknologi yang Digunakan
+
+- **Next.js** — Framework React untuk membangun UI cepat dan responsif.  
+- **React.js** — Library JavaScript untuk membangun komponen interaktif.  
+- **Tailwind CSS** — Framework CSS utility-first untuk styling cepat dan konsisten.  
+- **Vercel** — Platform hosting dan deployment instan.
+
 ## Cara Menggunakan
 
 1. Kunjungi halaman utama: `https://website-by-one.vercel.app/`.  
@@ -30,13 +37,9 @@ Selamat datang di pusat berbagai proyek digital yang dirancang dan dibangun oleh
 
 ---
 
-**Tips Tambahan (Opsional)**:  
-Jika Anda ingin memperkaya README ini, dapat menambahkan bagian:
-
-- Tautan GitHub (jika tersedia) untuk masing-masing proyek.  
-- Teknologi yang digunakan di setiap proyek—misalnya: Next.js, Tailwind CSS, React, dll.  
+**Tips Pengembangan Lanjutan**:  
+Jika Anda ingin memperluas README ini, Anda dapat menambahkan:
+- Tautan GitHub untuk masing-masing proyek.  
 - Petunjuk deployment atau cara setup proyek secara lokal untuk pengembang lain.
 
 ---
-
-Semoga README ini membantu merepresentasikan situs kamu dengan lebih profesional dan langsung ke inti.0
