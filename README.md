@@ -1,47 +1,50 @@
-# Uranusfazry – My Links (3D & Futuristic UI)
+# 🌌 Uranusfazry Website by One
 
-Selamat datang di pusat berbagai proyek digital yang dirancang dan dikelola oleh **Uranus Fazry**. Di halaman ini kamu bisa menjelajahi karya-karya kreatif saya—mulai dari game, musik, teknologi kripto, hingga proyek web & aplikasi.
-
----
-
-##  Proyek Utama
-
-| Proyek               | Deskripsi                                                                                       | Tautan                                              |
-|----------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------|
-| **BY ONE SEKARANG**  | Tantang aku sekarang — buktikan siapa yang pantas menjadi Raja dan raih hadiahnya.             | [Kunjungi](https://website-induk.vercel.app/)       |
-| **TESTIMONI BY ONE** | Semua kekalahan dan penderitaanmu saat melawan Sang Master tersedia di sini.                   | [Kunjungi](https://testimoni-dun.vercel.app/)       |
-| **Uranus Studio**    | Platform solusi digital untuk mengubah kreativitas menjadi peluang penghasilan.                 | [Kunjungi](https://musicfazry.vercel.app/)          |
-| **Uranustify Desktop** | Dengarkan musik favorit tanpa iklan, kapan saja dan di mana saja.                          | [Kunjungi](https://uranustify-desktop.vercel.app/)  |
-| **Uranustify Mobile** | Streaming dan simpan musik pribadi — tanpa batas dan tanpa iklan di perangkat mobile.        | [Kunjungi](https://uranustify.vercel.app/)          |
-| **Uranus Crypto**    | Strategi trading kripto cerdas untuk mendapatkan profit konsisten dan mengelola risiko.        | [Kunjungi](https://uranus-crypto-three.vercel.app/) |
-| **Uranus Space**     | Koleksi karya premium siap pakai dengan kualitas dan inovasi tinggi.                           | [Kunjungi](https://trakteer.id/)                    |
-| **Uranus WiFi**      | Internet nirkabel cepat & stabil untuk kebutuhan online harian Anda.                           | [Kunjungi](https://uranusfazry-wifi-wireless.vercel.app/) |
-| **Uranus Play**      | Game multiplayer langsung main tanpa install—hiburan tanpa repot!                             | [Kunjungi](https://uranus-play.vercel.app/)         |
-| **Uranus Blogger**   | Artikel informatif, singkat, dan bermanfaat untuk berbagai topik.                             | [Kunjungi](https://uranusfazry.blogspot.com/)       |
-| **Uranus App & Web** | Solusi aplikasi dan situs web custom — cepat, mudah, dan terjangkau.                         | [Konsultasi via WhatsApp](https://wa.me/)           |
-| **Contact Me**       | Kolaborasi atau pertanyaan? Hubungi saya langsung via email.                                  | [Email](mailto:uranusfazry@example.com)             |
+**Website by One** adalah proyek web kreatif dari **Uranus Fazry** yang menampilkan desain modern, responsif, dan siap digunakan untuk berbagai kebutuhan personal maupun bisnis.  
+Dibuat dengan perhatian pada detail, performa, dan pengalaman pengguna yang optimal.
 
 ---
 
-##  Fitur Utama
-
-- **Desain Futuristik 3D** – Antarmuka modern dengan visual yang memukau.
-- **Hub Otomatis Semesta** – Semua proyek utama terkonsentrasi dalam satu halaman efisien.
-- **Ragam Konten & Layanan** – Mencakup hiburan, musik, game, blog, teknologi, hingga layanan pengembangan digital.
-
----
-
-##  Teknologi yang Digunakan
-
-- **Front-end**: Next.js, React.js, Tailwind CSS  
-- **Hosting / Deployment**: Vercel  
-- **Desain UI**: Tema Futuristik & 3D  
-- **Pendukung Dev**: Git, Figma, Canva
+## 🚀 Fitur Utama
+- **UI Modern & Responsif** — Tampilan bersih yang menyesuaikan di semua perangkat.
+- **Performa Tinggi** — Optimasi loading cepat dan ringan.
+- **Struktur SEO-Friendly** — Siap mendukung pencarian Google.
+- **Kustomisasi Mudah** — Mudah diubah sesuai kebutuhan proyek.
 
 ---
 
-##  Cara Install Secara Lokal *(Opsional)*
+## 🛠️ Teknologi yang Digunakan
+- **Next.js** — Framework React untuk aplikasi web modern.
+- **Tailwind CSS** — Styling cepat dengan utility-first CSS.
+- **Vercel** — Hosting cepat dan gratis untuk deployment instan.
 
-1. Clone repositori ini:
-   ```bash
-   git clone https://github.com/username/repo-name.git
+---
+
+## 📸 Preview
+![Website by One Preview](https://website-by-one.vercel.app/preview-image.png)
+
+---
+
+## 📢 Ads Banner
+Banner ini bisa digunakan untuk promosi proyek di media sosial atau GitHub.
+
+**Desain Iklan (Konsep)**  
+> Latar belakang: nuansa galaksi futuristik  
+> Font: modern sans-serif futuristik  
+> Elemen: hologram logo, efek glow biru & ungu  
+> Tagline: *"Uranus Fazry — Your Digital Universe"*
+
+---
+
+## 🔗 Link Proyek
+🌐 **Live Demo:** [website-by-one.vercel.app](https://website-by-one.vercel.app/)  
+📦 **Repository:** *(Link GitHub jika tersedia)*
+
+---
+
+## 📄 Lisensi
+Proyek ini dilisensikan di bawah **MIT License** — bebas digunakan dan dimodifikasi.
+
+---
+
+© 2025 Uranus Fazry — All rights reserved.
