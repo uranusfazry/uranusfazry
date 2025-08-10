@@ -1,50 +1,50 @@
-# 🌌 Uranusfazry Website by One
+# 🌌 Uranusfazry — Website by One
 
-**Website by One** adalah proyek web kreatif dari **Uranus Fazry** yang menampilkan desain modern, responsif, dan siap digunakan untuk berbagai kebutuhan personal maupun bisnis.  
-Dibuat dengan perhatian pada detail, performa, dan pengalaman pengguna yang optimal.
+> **Website by One** adalah proyek web kreatif dari **Uranus Fazry** yang menggabungkan desain modern, performa optimal, dan responsivitas penuh.  
+> Dibuat untuk memenuhi kebutuhan **personal** maupun **bisnis** dengan standar desain profesional.
+
+---
+
+![Preview](https://website-by-one.vercel.app/preview-image.png)
+
+<p align="center">
+  <a href="https://website-by-one.vercel.app/"><img src="https://img.shields.io/badge/Live_Demo-Visit_Now-blue?style=for-the-badge"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge"></a>
+  <a href="#"><img src="https://img.shields.io/github/license/uranusfazry/website-by-one?style=for-the-badge"></a>
+</p>
 
 ---
 
 ## 🚀 Fitur Utama
-- **UI Modern & Responsif** — Tampilan bersih yang menyesuaikan di semua perangkat.
-- **Performa Tinggi** — Optimasi loading cepat dan ringan.
-- **Struktur SEO-Friendly** — Siap mendukung pencarian Google.
-- **Kustomisasi Mudah** — Mudah diubah sesuai kebutuhan proyek.
+- **UI Modern & Responsif** — Tampilan bersih dan adaptif di semua perangkat.
+- **Performa Tinggi** — Optimasi kecepatan loading dan rendering.
+- **SEO-Friendly** — Struktur siap mendukung peringkat di Google.
+- **Kustomisasi Mudah** — Fleksibel untuk modifikasi sesuai kebutuhan.
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
-- **Next.js** — Framework React untuk aplikasi web modern.
-- **Tailwind CSS** — Styling cepat dengan utility-first CSS.
-- **Vercel** — Hosting cepat dan gratis untuk deployment instan.
+| Teknologi      | Fungsi                         |
+|----------------|--------------------------------|
+| **Next.js**    | Framework React modern         |
+| **TailwindCSS**| Styling cepat dengan utility   |
+| **Vercel**     | Hosting cepat & gratis         |
 
 ---
 
-## 📸 Preview
-![Website by One Preview](https://website-by-one.vercel.app/preview-image.png)
-
----
-
-## 📢 Ads Banner
-Banner ini bisa digunakan untuk promosi proyek di media sosial atau GitHub.
-
-**Desain Iklan (Konsep)**  
-> Latar belakang: nuansa galaksi futuristik  
-> Font: modern sans-serif futuristik  
-> Elemen: hologram logo, efek glow biru & ungu  
-> Tagline: *"Uranus Fazry — Your Digital Universe"*
+## 📢 Ads Banner Concept
+> **Tema:** Galaksi Futuristik  
+> **Font:** Modern sans-serif futuristik  
+> **Elemen:** Logo hologram, efek glow biru & ungu  
+> **Tagline:** *"Uranus Fazry — Your Digital Universe"*
 
 ---
 
 ## 🔗 Link Proyek
-🌐 **Live Demo:** [website-by-one.vercel.app](https://website-by-one.vercel.app/)  
-📦 **Repository:** *(Link GitHub jika tersedia)*
+- 🌐 **Live Demo:** [website-by-one.vercel.app](https://website-by-one.vercel.app/)  
+- 📦 **Repository:** *(Tambahkan link GitHub jika sudah tersedia)*
 
 ---
 
 ## 📄 Lisensi
-Proyek ini dilisensikan di bawah **MIT License** — bebas digunakan dan dimodifikasi.
-
----
-
-© 2025 Uranus Fazry — All rights reserved.
+MIT License © 2025 **Uranus Fazry** — Bebas digunakan dan dimodifikasi.
