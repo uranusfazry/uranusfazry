@@ -1,910 +1,764 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Uranusfazry Web & App Developer</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uranusfazry - Neon Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
-  <style>
-    /* --- Pengaturan Tema Dasar --- */
-    :root {
-      --primary: #4f46e5;
-      --secondary: #6366f1;
-      --text: #1e293b;
-      --bg: #f1f5f9;
-      --card-bg: #ffffff;
-      --hover: #3b82f6;
-      --particle-3d-color: '#4f46e5'; 
-      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    [data-theme="dark"] {
-      --primary: #6366f1;
-      --secondary: #818cf8;
-      --text: #e2e8f0;
-      --bg: #0c001a; /* Latar belakang ungu gelap pekat untuk tema gelap */
-      --card-bg: #1e293b;
-      --hover: #93c5fd;
-      --particle-3d-color: '#818cf8';
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      color: var(--text);
-      background-color: var(--bg);
-      transition: var(--transition);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      position: relative;
-    }
-    
-    /* Membuat latar belakang bintang menggunakan pseudo-element (hanya di mode gelap) */
-    [data-theme="dark"] body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: 
-            radial-gradient(1px 1px at 20% 30%, #fff, transparent),
-            radial-gradient(1px 1px at 80% 10%, #fff, transparent),
-            radial-gradient(1px 1px at 50% 70%, #fff, transparent),
-            radial-gradient(2px 2px at 90% 80%, #ddd, transparent),
-            radial-gradient(2px 2px at 10% 90%, #eee, transparent);
-        background-repeat: repeat;
-        background-size: 300px 300px;
-        opacity: 0.6;
-        z-index: -2; /* Di bawah canvas partikel */
-    }
-
-    /* --- Canvas untuk Animasi 3D --- */
-    #particle-canvas-3d {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    /* --- Gaya Elemen Umum --- */
-    header {
-      padding: 2rem;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .profile {
-      margin: 0 auto;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 4px solid var(--primary);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      transition: var(--transition);
-    }
-
-    .profile:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .profile img { width: 100%; height: 100%; object-fit: cover; }
-
-    [data-theme="dark"] .profile {
-      border-color: var(--secondary);
-      box-shadow: 0 0 20px var(--secondary), 0 0 30px var(--primary);
-    }
-    
-    /* --- GAYA JUDUL ANIMASI --- */
-    .title-container {
-        text-align: center;
-        perspective: 1000px;
-        margin-top: 1.5rem;
-    }
-
-    .animated-title {
-        font-family: 'Exo 2', sans-serif;
-        font-size: clamp(2.5rem, 10vw, 6rem);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        background-size: 400% 400%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        transition: all 0.5s ease-in-out;
-    }
-
-    /* Gaya Default (Mode Gelap) */
-    [data-theme="dark"] .animated-title {
-        background-image: linear-gradient(125deg, 
-            #ff25b2, #b832ff, #324fff, #25ffde, #ff25b2
-        );
-        animation: 
-            gradient-flow 8s ease-in-out infinite,
-            float-effect 6s ease-in-out infinite,
-            glow-effect 2.5s linear infinite;
-    }
-
-    /* Gaya Override (Mode Terang) */
-    [data-theme="light"] .animated-title {
-        background-image: linear-gradient(125deg, 
-            #007BFF, #4682B4, #3b82f6, #6366f1, #007BFF
-        );
-        animation: 
-            gradient-flow 10s ease-in-out infinite, /* Sedikit lebih lambat untuk kesan tenang */
-            float-effect 6s ease-in-out infinite,
-            day-shadow-effect 3s ease-in-out infinite;
-    }
-
-    /* Animasi Aliran Gradasi */
-    @keyframes gradient-flow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Animasi Efek Mengambang */
-    @keyframes float-effect {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-        100% { transform: translateY(0px); }
-    }
-
-    /* Animasi Efek Cahaya (Mode Gelap) */
-    @keyframes glow-effect {
-        0%, 100% {
-            text-shadow: 0 0 10px #ff25b2, 0 0 20px #b832ff, 0 0 30px #324fff;
+        /* --- Variabel Warna & Tema Neon --- */
+        :root {
+            --neon-blue: #05d9e8;
+            --neon-pink: #ff2a6d;
+            --neon-purple: #d300c5;
+            --dark-bg: #05010e;
+            --darker-bg: #0d0221;
+            --nav-dark: #12092a;
         }
-        50% {
-            text-shadow: 0 0 20px #25ffde, 0 0 30px #324fff, 0 0 40px #b832ff;
+
+        body {
+            font-family: 'Roboto Mono', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            background-image: var(--bg-image, none);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            overflow-x: hidden;
         }
-    }
-
-    /* Animasi Efek Bayangan (Mode Terang) */
-    @keyframes day-shadow-effect {
-        0%, 100% {
-            text-shadow: 2px 2px 4px rgba(40, 50, 60, 0.2);
+        
+        h1, h2, h3, .nav-item, .portal-card h3 {
+             font-family: 'Orbitron', sans-serif;
         }
-        50% {
-            text-shadow: 3px 4px 7px rgba(40, 50, 60, 0.3);
+
+        /* --- Efek Latar Belakang & Grid --- */
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(5, 217, 232, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(5, 217, 232, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            pointer-events: none;
         }
-    }
-    
-    .bio {
-      margin: 1rem auto;
-      max-width: 500px;
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--text);
-    }
 
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: var(--card-bg);
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: var(--transition);
-      z-index: 100;
-    }
+        /* --- Efek Glitch & Neon --- */
+        .glitch-effect {
+            position: relative;
+            color: white;
+        }
 
-    .theme-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
+        .glitch-effect::before, .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
 
-    .container {
-      max-width: 600px;
-      width: 90%;
-      margin: 0 auto;
-      padding: 0 1rem 3rem;
-      position: relative;
-      z-index: 1;
-    }
+        .glitch-effect::before {
+            color: var(--neon-blue);
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
 
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
+        .glitch-effect::after {
+            color: var(--neon-pink);
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
 
-    .link-item {
-      background-color: var(--card-bg);
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: var(--transition);
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.5s forwards;
-      position: relative;
-      overflow: hidden;
-      /* --- DIUBAH --- Menghitung delay animasi secara otomatis */
-      animation-delay: calc(var(--animation-order, 1) * 0.2s);
-    }
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
 
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .neon-text-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+        }
 
-    /* --- DIHAPUS --- Blok kode ini tidak diperlukan lagi */
-    /*
-    .link-item:nth-child(1) { animation-delay: 0.2s; }
-    .link-item:nth-child(2) { animation-delay: 0.4s; }
-    .link-item:nth-child(3) { animation-delay: 0.6s; }
-    .link-item:nth-child(4) { animation-delay: 0.8s; }
-    .link-item:nth-child(5) { animation-delay: 1s; }
-    */
+        .neon-text-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        }
 
-    .link-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      background-color: var(--hover);
-      color: white;
-    }
-    
-    [data-theme="dark"] .link-item:hover {
-      box-shadow: 0 0 25px var(--hover);
-    }
+        .neon-text-purple {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+        }
 
-    .link-item:hover .link-icon, .link-item:hover .link-text {
-      color: white;
-    }
+        .neon-border-blue {
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue), 0 0 20px var(--neon-blue);
+        }
 
-    .link-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 1rem;
-      color: var(--primary);
-      transition: var(--transition);
-      flex-shrink: 0;
-    }
+        .neon-border-pink {
+            border: 1px solid var(--neon-pink);
+            box-shadow: 0 0 5px var(--neon-pink), inset 0 0 5px var(--neon-pink), 0 0 20px var(--neon-pink);
+        }
+        
+        .neon-underline {
+            position: relative;
+            display: inline-block;
+        }
 
-    .link-content { flex: 1; }
-    .link-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.2rem; }
-    .link-text { font-size: 0.9rem; opacity: 0.8; }
+        .neon-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.5s ease-out;
+        }
 
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin: 2rem 0;
-      flex-wrap: wrap;
-    }
+        .neon-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
 
-    .social-link {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: var(--card-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      font-size: 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: var(--transition);
-      opacity: 0;
-      transform: scale(0.5);
-      animation: popIn 0.5s forwards;
-    }
+        /* --- Komponen UI --- */
+        .dropdown {
+            display: none;
+            background: var(--nav-dark);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
 
-    @keyframes popIn {
-      to { opacity: 1; transform: scale(1); }
-    }
+        .group:hover .dropdown {
+            display: block;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease;
+        }
 
-    .social-link:nth-child(1) { animation-delay: 1.2s; }
-    .social-link:nth-child(2) { animation-delay: 1.4s; }
-    .social-link:nth-child(3) { animation-delay: 1.6s; }
-    .social-link:nth-child(4) { animation-delay: 1.8s; }
+        .portal-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
 
-    .social-link:hover {
-      transform: translateY(-5px) scale(1.1);
-      color: white;
-      background-color: var(--primary);
-    }
-    
-    [data-theme="dark"] .social-link:hover {
-      box-shadow: 0 0 20px var(--primary);
-    }
+        .portal-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 20px currentColor;
+        }
 
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      font-size: 0.8rem;
-      color: var(--text);
-      opacity: 0.7;
-      position: relative;
-      z-index: 1;
-    }
+        .portal-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
 
-    @media (max-width: 768px) {
-      .profile { width: 100px; height: 100px; }
-      .bio { font-size: 0.9rem; }
-      .link-icon { width: 35px; height: 35px; font-size: 0.9rem; }
-      .link-title { font-size: 1rem; }
-      .link-text { font-size: 0.8rem; }
-      .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
-    }
-    
-    /* --- GAYA WATERMARK FUTURISTIK --- */
-    #futuristic-watermark {
-        --glow-color: hsl(186, 100%, 50%);
-        --background-color: rgba(10, 25, 40, 0.85);
-        --border-color: rgba(127, 255, 212, 0.3);
-        --text-color: rgba(230, 255, 255, 0.95);
-        --particle-base-hue: 186;
-        --particle-base-lightness: 60;
-    }
-    
-    @keyframes slideUpFadeIn {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes logo3DFlip {
-        0% { transform: rotateY(0deg); filter: brightness(1); }
-        50% { transform: rotateY(180deg); filter: brightness(2) drop-shadow(0 0 8px var(--glow-color)); }
-        100% { transform: rotateY(360deg); filter: brightness(1); }
-    }
-    
-    #futuristic-watermark {
-        position: fixed;
-        bottom: 25px;
-        left: 25px;
-        padding: 8px 15px;
-        min-width: 212px;
-        background: var(--background-color);
-        color: var(--text-color);
-        font-family: 'Roboto Mono', monospace;
-        font-weight: 500;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border: 1px solid var(--border-color);
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(var(--glow-color), 0.15), 0 0 30px rgba(var(--glow-color), 0.1), inset 0 0 10px rgba(var(--glow-color), 0.1);
-        z-index: 9999;
-        cursor: pointer;
-        user-select: none;
-        overflow: hidden;
-        opacity: 0;
-        animation: slideUpFadeIn 1s ease-out 0.5s forwards;
-        transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-    
-    #futuristic-watermark:hover {
-        transform: translateY(-5px) scale(1.03);
-        border-color: rgba(127, 255, 212, 0.8);
-        box-shadow: 0 0 25px rgba(var(--glow-color), 0.4), 0 0 50px rgba(var(--glow-color), 0.25), inset 0 0 12px rgba(var(--glow-color), 0.2);
-    }
-    
-    #futuristic-watermark.light-mode {
-        --glow-color: hsl(220, 90%, 60%);
-        --background-color: rgba(245, 248, 252, 0.85);
-        --border-color: rgba(60, 100, 150, 0.3);
-        --text-color: rgba(10, 25, 40, 0.95);
-        --particle-base-hue: 220;
-        --particle-base-lightness: 40;
-    }
-    
-    #futuristic-watermark #particle-canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        pointer-events: none;
-    }
-    
-    .f-content-wrapper {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 18px;
-    }
-    
-    .f-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    
-    .f-content.hidden {
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        transform: scale(0.9);
-    }
-    
-    .f-logo-container {
-        width: 18px;
-        height: 18px;
-        transition: transform 0.4s ease;
-        flex-shrink: 0;
-    }
-    
-    .f-logo-container.reacting {
-        animation: logo3DFlip 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    
-    .f-logo-container svg {
-        width: 100%;
-        height: 100%;
-        stroke: var(--glow-color);
-        stroke-width: 8;
-        transition: stroke 0.5s ease;
-    }
-    
-    #f-watermark-text, #f-follow-message {
-        transition: color 0.5s ease;
-    }
-    
-    #f-watermark-text {
-        font-size: 12px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-    
-    #f-follow-message {
-        font-size: 11px;
-        letter-spacing: 0.2px;
-        font-weight: 700;
-        text-align: center;
-        white-space: nowrap;
-    }
-  </style>
+        .portal-card:hover .portal-card-inner {
+            transform: rotateY(15deg) rotateX(10deg);
+        }
+        
+        .profile {
+            margin: 0 auto 1.5rem;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--neon-pink);
+            box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-purple);
+            transition: transform 0.3s ease;
+        }
+        .profile:hover {
+            transform: scale(1.05);
+        }
+        .profile img { width: 100%; height: 100%; object-fit: cover; }
+
+        .modal-overlay {
+            background: rgba(5, 1, 14, 0.9);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            animation: slideIn 0.3s ease;
+            background: var(--darker-bg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .custom-color-input {
+            width: 100%;
+            height: 30px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .bg-preview, .icon-preview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .holographic-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .holographic-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 45%,
+                rgba(5, 217, 232, 0.2) 50%,
+                rgba(255, 255, 255, 0) 55%
+            );
+            transform: rotate(30deg);
+            animation: holographic 6s linear infinite;
+        }
+
+        @keyframes holographic {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
-<body>
-  
-  <canvas id="particle-canvas-3d"></canvas>
+<body class="min-h-screen relative">
+    <!-- Grid lines effect -->
+    <div class="grid-lines"></div>
 
-  <button class="theme-toggle" id="themeToggle">
-    <i class="fas fa-sun"></i>
-  </button>
-
-  <header>
-    <div class="profile">
-      <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/4f46e5/ffffff?text=User';">
-    </div>
-    <div class="title-container">
-        <h1 class="animated-title">Uranus Fazry</h1>
-    </div>
-    <p class="bio">
-      Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya mulai dari arena permainan hingga eksplorasi kreatif dan inisiatif personal.
-    </p>
-  </header>
-
-  <div class="container">
-    <div class="links">
-      <a href="https://website-induk.vercel.app/" class="link-item" style="--animation-order: 1;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-trophy"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">BY ONE SEKARANG</div>
-          <div class="link-text">Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah</div>
-        </div>
-      </a>
-
-      <a href="https://testimoni-dun.vercel.app" class="link-item" style="--animation-order: 2;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">TESTIMONI BY ONE</div>
-          <div class="link-text">Semua kekalahan dan penderitaan kalian saat by one lawan Master ada di sini</div>
-        </div>
-      </a>
-
-      <a href="https://musicfazry.vercel.app" class="link-item" style="--animation-order: 3;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-store"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus Studio</div>
-          <div class="link-text">Solusi digital untuk mengubah kreativitas menjadi penghasilan</div>
-        </div>
-      </a>
-
-      <a href="https://uranustify-desktop.vercel.app/" class="link-item" style="--animation-order: 4;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-music"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranustify Desktop</div>
-          <div class="link-text">Simpan & dengarkan musik favoritmu tanpa batas dimanapun dan kapanpun tanpa iklan</div>
-        </div>
-      </a>
-      
-      <a href="https://uranustify.vercel.app" class="link-item" style="--animation-order: 5;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-music"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranustify Mobile</div>
-          <div class="link-text">Rasakan kebebasan penuh dalam mendengarkan musik. Simpan dan putar koleksi pribadi Anda kapan saja, tanpa iklan, tanpa batasan</div>
-        </div>
-      </a>
-      
-      <a href="https://uranus-crypto-three.vercel.app/" class="link-item" style="--animation-order: 6;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-chart-line"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus Crypto</div>
-          <div class="link-text">Strategi trading kripto cerdas dengan fokus pada profit konsisten dan risiko terukur</div>
-        </div>
-      </a>
-      
-      <a href="https://trakteer.id/uranusfazry/shop" class="link-item" style="--animation-order: 7;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-globe"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus Space</div>
-          <div class="link-text">Kumpulan karya premium Uranus siap pakai dengan inovasi dan kualitas terbaik</div>
-        </div>
-      </a>
-      
-      <a href="https://uranusfazry-wifi-wireless.vercel.app" class="link-item" style="--animation-order: 8;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-wifi"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus WIFI</div>
-          <div class="link-text">Internet wireless cepat & stabil untuk kebutuhan online Anda setiap hari</div>
-        </div>
-      </a>
-      
-      <a href="https://uranus-play.vercel.app" class="link-item" style="--animation-order: 9;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-gamepad"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus Play</div>
-          <div class="link-text">MLBB bikin stres? Saatnya coba Game Multiplayer terbaik No. 1 yang bisa langsung dimainkan tanpa install</div>
-        </div>
-      </a>
-      
-      <a href="https://uranusfazry.blogspot.com" class="link-item" style="--animation-order: 10;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-newspaper"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus Blogger</div>
-          <div class="link-text">Artikel yang menyajikan informasi singkat, padat, dan bermanfaat untuk pembaca dari berbagai topik</div>
-        </div>
-      </a>
-
-      <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" class="link-item" style="--animation-order: 11;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-laptop-code"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Uranus Web & App</div>
-          <div class="link-text">Ingin punya website atau aplikasi seperti Uranus Fazry? Dapatkan dengan harga terjangkau langsung dariku. Cepat, mudah, dan siap pakai</div>
-        </div>
-      </a>
-
-      <a href="https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com&su=Judul%20Email&body=Halo%20saya%20ingin%20kolaborasi" class="link-item" style="--animation-order: 12;" target="_blank">
-        <div class="link-icon">
-          <i class="fas fa-envelope"></i>
-        </div>
-        <div class="link-content">
-          <div class="link-title">Contact Me</div>
-          <div class="link-text">Get in touch for collaborations</div>
-        </div>
-      </a>
-    </div>
-
-    <div class="social-links">
-      <a href="https://www.tiktok.com/@uranusfazry?_t=ZS-8y1ncR7XOi1&_r=1" class="social-link" target="_blank">
-        <i class="fab fa-tiktok"></i>
-      </a>
-      <a href="https://youtube.com/@uranusfazry?si=pbliTKOKTkiCcxvu" class="social-link" target="_blank">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="https://www.instagram.com/kingbewan?igsh=NHlyNnRzZ21wZjBi" class="social-link" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://www.facebook.com/share/1AfJHVfSY6/" class="social-link" target="_blank">
-        <i class="fab fa-facebook"></i>
-      </a>
-    </div>
-  </div>
-
-  <footer>
-    © 2025 Created by Uranus Fazry | All Rights Reserved
-  </footer>
-
-  <script>
-    // --- Skrip Animasi Partikel 3D dengan Three.js ---
-    let scene, camera, renderer, particles3D;
-    let mouseX = 0, mouseY = 0;
-    const windowHalfX = window.innerWidth / 2;
-    const windowHalfY = window.innerHeight / 2;
-
-    function getParticleColor() {
-      const colorString = getComputedStyle(document.documentElement).getPropertyValue('--particle-3d-color').trim();
-      return colorString.replace(/'/g, '');
-    }
-
-    function init3D() {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-      camera.position.z = 1000;
-
-      const particleColor = getParticleColor();
-      const material = new THREE.PointsMaterial({
-        color: new THREE.Color(particleColor),
-        size: 2,
-        blending: THREE.AdditiveBlending,
-        transparent: true,
-        sizeAttenuation: true
-      });
-
-      const geometry = new THREE.BufferGeometry();
-      const vertices = [];
-      const particleCount = 5000;
-      for (let i = 0; i < particleCount; i++) {
-        const x = Math.random() * 2000 - 1000;
-        const y = Math.random() * 2000 - 1000;
-        const z = Math.random() * 2000 - 1000;
-        vertices.push(x, y, z);
-      }
-      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-      
-      particles3D = new THREE.Points(geometry, material);
-      scene.add(particles3D);
-
-      const canvas = document.getElementById('particle-canvas-3d');
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      document.addEventListener('mousemove', onDocumentMouseMove, false);
-      window.addEventListener('resize', onWindowResize, false);
-    }
-
-    function onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    function onDocumentMouseMove(event) {
-      mouseX = event.clientX - windowHalfX;
-      mouseY = event.clientY - windowHalfY;
-    }
-
-    function animate3D() {
-      requestAnimationFrame(animate3D);
-      const time = Date.now() * 0.00005;
-      camera.position.x += (mouseX - camera.position.x) * 0.05;
-      camera.position.y += (-mouseY - camera.position.y) * 0.05;
-      camera.lookAt(scene.position);
-      if (particles3D) {
-        particles3D.rotation.x = time * 0.2;
-        particles3D.rotation.y = time * 0.4;
-      }
-      renderer.render(scene, camera);
-    }
-    
-    function updateParticleColor() {
-        if (particles3D) {
-            const newColor = getParticleColor();
-            particles3D.material.color.set(newColor);
-        }
-    }
-
-    // --- Skrip Tombol Tema ---
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    
-    themeToggle.addEventListener('click', () => {
-      const html = document.documentElement;
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      
-      if (isDark) {
-        html.setAttribute('data-theme', 'light');
-        themeIcon.classList.replace('fa-sun', 'fa-moon');
-      } else {
-        html.setAttribute('data-theme', 'dark');
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-      }
-      updateParticleColor();
-    });
-    
-    // Inisialisasi dan jalankan animasi
-    try {
-        init3D();
-        animate3D();
-    } catch(e) {
-        console.error("Three.js initialization failed: ", e);
-    }
-  </script>
-
-  <script>
-  (function() {
-    function initializeWatermark() {
-        const watermarkHTML = `
-          <div id="futuristic-watermark" title="Design by ©URANUSFAZRY">
-            <canvas id="particle-canvas"></canvas>
-            <div class="f-content-wrapper">
-              <div id="f-main-content" class="f-content">
-                <div class="f-logo-container">
-                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 20 L80 20 L80 80 L20 80 Z" stroke-opacity="0.5"/>
-                      <path d="M50 5 L95 50 L50 95 L5 50 Z"/>
-                  </svg>
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-[#05010e]/90 backdrop-blur-md border-b border-[#12092a]">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="neon-border-pink rounded-full p-2">
+                        <i class="fas fa-terminal text-xl neon-text-pink"></i>
+                    </div>
+                    <span class="ml-3 font-bold text-xl neon-text-blue">URANUSFAZRY</span>
                 </div>
-                <span id="f-watermark-text">©URANUSFAZRY</span>
-              </div>
-              <div id="f-follow-content" class="f-content hidden">
-                  <span id="f-follow-message"></span>
-              </div>
+
+                <!-- Nav Items -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item relative group">
+                        <button class="flex items-center space-x-1 neon-text-blue neon-underline">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="dropdown absolute right-0 mt-2 w-80 rounded-lg p-4">
+                            <h3 class="text-sm neon-text-pink mb-3 uppercase tracking-wider">Portal Management</h3>
+                            <button onclick="showAddLinkModal()"
+                                class="w-full py-2 neon-border-blue rounded flex items-center justify-center mb-3 hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all">
+                                <i class="fas fa-plus mr-2"></i>Add New Portal
+                            </button>
+
+                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Customization</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="bg-image" class="block mb-2 text-xs uppercase tracking-wider">Background Image URL</label>
+                                    <div class="flex">
+                                        <input type="url" id="bg-image" class="flex-grow p-2 rounded-l-lg bg-[#12092a] border-0 focus:ring-0"
+                                            placeholder="https://example.com/image.jpg">
+                                        <button onclick="setBackgroundImage()"
+                                            class="px-3 py-2 bg-[var(--neon-blue)] text-[var(--darker-bg)] rounded-r-lg hover:bg-[#00c4d2] transition-all">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                    <div class="bg-upload-container">
+                                        <label class="block mt-2 text-xs uppercase tracking-wider">Upload Background</label>
+                                        <input type="file" id="bg-upload" class="w-full mt-1 text-xs" accept="image/*">
+                                        <img id="bg-preview" class="bg-preview" src="#" alt="Background Preview">
+                                        <button onclick="applyUploadedBackground()"
+                                            class="mt-2 px-3 py-1 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all text-xs">
+                                            Apply Uploaded Image
+                                        </button>
+                                    </div>
+                                    <button onclick="resetBackgroundImage()"
+                                        class="mt-2 text-xs px-3 py-1 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all">
+                                        Reset Background
+                                    </button>
+                                </div>
+                            </div>
+
+                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">System Info</h3>
+                            <div class="text-xs space-y-2">
+                                <div class="flex justify-between">
+                                    <span>Version</span>
+                                    <span class="text-[var(--neon-blue)]">v3.0.0</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Portals</span>
+                                    <span id="portal-count" class="text-[#ff2a6d]">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-item relative group">
+                        <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" target="_blank" class="flex items-center space-x-1 neon-text-blue neon-underline">
+                            <i class="fas fa-address-card"></i>
+                            <span>Contact</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="neon-text-pink text-2xl focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
-          </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', watermarkHTML);
+        </div>
 
-        const watermarkEl = document.getElementById('futuristic-watermark');
-        if (!watermarkEl) return; // Hentikan jika elemen tidak ditemukan
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-[#05010e] border-t border-[#ff2a6d]">
+            <div class="px-2 py-3 space-y-1">
+                <button onclick="showAddLinkModal()" class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[var(--neon-blue)]/20">
+                    <i class="fas fa-plus mr-2"></i>Add New Portal
+                </button>
+                <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" target="_blank" class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[var(--neon-blue)]/20">
+                    <i class="fas fa-address-card mr-2"></i>Contact
+                </a>
+                <div class="px-3 py-2">
+                    <label class="block text-xs neon-text-blue mb-1">Background Image</label>
+                    <div class="flex mb-2">
+                        <input type="url" id="bg-image-mobile" class="flex-grow p-2 rounded-l-lg bg-[#12092a]"
+                            placeholder="Image URL">
+                        <button onclick="setBackgroundImage()"
+                            class="px-3 py-2 bg-[var(--neon-blue)] text-[#0d0221] rounded-r-lg hover:bg-[#00c4d2] transition-all">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                    <button onclick="resetBackgroundImage()"
+                        class="w-full px-3 py-1.5 text-xs rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all">
+                        Reset Background
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        const textEl = document.getElementById('f-watermark-text');
-        const logoEl = watermarkEl.querySelector('.f-logo-container');
-        const mainContentEl = document.getElementById('f-main-content');
-        const followContentEl = document.getElementById('f-follow-content');
-        const followMessageEl = document.getElementById('f-follow-message');
+    <!-- Main container -->
+    <main class="container mx-auto px-4 py-8 relative z-10 mt-20">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="profile">
+                <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/0d0221/ffffff?text=UF';">
+            </div>
+            <div class="relative inline-block">
+                <h1 class="glitch-effect text-5xl md:text-7xl font-bold mb-4" data-text="URANUS FAZRY">URANUS FAZRY</h1>
+                <span
+                    class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[var(--neon-blue)] to-transparent"></span>
+                <span
+                    class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[var(--neon-pink)] to-transparent"></span>
+            </div>
+            <p class="text-lg neon-text-purple uppercase tracking-wider mt-8">Your gateway to the digital neonverse</p>
+             <p class="max-w-xl mx-auto mt-4 text-sm opacity-80">
+                Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya.
+            </p>
+        </header>
+
+        <!-- Time and date display -->
+        <div class="flex justify-center mb-12">
+            <div class="neon-border-blue rounded-lg p-4 text-center backdrop-blur-sm bg-[#0d0221]/50 holographic-effect">
+                <div id="time" class="text-3xl font-bold neon-text-blue">00:00:00</div>
+                <div id="date" class="text-lg uppercase tracking-wider mt-1">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Portals grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12" id="portals-grid">
+            <!-- Portals will be added here by JavaScript -->
+        </div>
+    </main>
+    
+    <footer class="text-white">
+        © 2025 Created by Uranus Fazry | All Rights Reserved
+    </footer>
+
+
+    <!-- Add Portal Modal -->
+    <div id="add-portal-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+        <div class="modal-content neon-border-blue rounded-xl p-8 max-w-md w-full mx-4 relative">
+            <button id="close-portal-modal" onclick="document.getElementById('add-portal-modal').classList.add('hidden')"
+                class="absolute top-4 right-4 text-xl hover:text-[#ff2a6d] transition-all">×</button>
+            <h2 class="text-2xl neon-text-pink mb-6 uppercase tracking-wider">Create New Portal</h2>
+
+            <form id="portal-form" class="space-y-6">
+                <div>
+                    <label for="portal-name" class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Portal Name</label>
+                    <input type="text" id="portal-name" class="w-full p-3 rounded-lg bg-[#12092a] border-0 focus:outline-none focus:ring-2 focus:ring-[var(--neon-blue)]" required>
+                </div>
+
+                <div>
+                    <label for="portal-url" class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Destination URL</label>
+                    <input type="url" id="portal-url" class="w-full p-3 rounded-lg bg-[#12092a] border-0 focus:outline-none focus:ring-2 focus:ring-[var(--neon-blue)]" placeholder="https://" required>
+                </div>
+
+                <div>
+                    <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Icon</label>
+                    <select id="portal-icon" class="w-full p-3 rounded-lg bg-[#0d0221] border border-[#05d9e8] focus:outline-none focus:border focus:border-[#ff2a6d]">
+                        <option value="fas fa-trophy">BY ONE</option>
+                        <option value="fas fa-star">Testimoni</option>
+                        <option value="fas fa-store">Uranus Studio</option>
+                        <option value="fas fa-desktop">Uranustify Desktop</option>
+                        <option value="fas fa-mobile-alt">Uranustify Mobile</option>
+                        <option value="fas fa-chart-line">Uranus Crypto</option>
+                        <option value="fas fa-globe">Uranus Space</option>
+                        <option value="fas fa-wifi">Uranus WIFI</option>
+                        <option value="fas fa-gamepad">Uranus Play</option>
+                        <option value="fas fa-newspaper">Uranus Blogger</option>
+                        <option value="fas fa-laptop-code">Uranus Web & App</option>
+                        <option value="fas fa-envelope">Contact Me</option>
+                        <option value="fab fa-tiktok">TikTok</option>
+                        <option value="fab fa-youtube">YouTube</option>
+                        <option value="fab fa-instagram">Instagram</option>
+                        <option value="fab fa-facebook">Facebook</option>
+                        <option value="custom-icon">Custom Icon</option>
+                    </select>
+
+                    <div id="custom-icon-options" class="custom-icon-option mt-3" style="display: none;">
+                        <div class="flex space-x-4">
+                            <div class="flex-1">
+                                <label class="block mb-2 text-xs uppercase tracking-wider">Upload Icon</label>
+                                <input type="file" id="icon-upload" class="w-full text-xs" accept="image/*">
+                            </div>
+                            <div class="flex-1">
+                                <label class="block mb-2 text-xs uppercase tracking-wider">Icon URL</label>
+                                <input type="url" id="icon-url" class="w-full p-2 rounded bg-[#0d0221]" placeholder="https://example.com/icon.png">
+                            </div>
+                        </div>
+                        <img id="icon-preview" class="icon-preview" src="#" alt="Icon Preview">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Color</label>
+                    <div class="color-picker-container text-center neon-border-blue rounded-lg p-2">
+                        <div class="color-option" style="background-color: #ff2a6d;" onclick="selectPortalColor('#ff2a6d', this)"></div>
+                        <div class="color-option selected" style="background-color: #05d9e8;" onclick="selectPortalColor('#05d9e8', this)"></div>
+                        <div class="color-option" style="background-color: #d300c5;" onclick="selectPortalColor('#d300c5', this)"></div>
+                        <div class="color-option" style="background-color: #00ff9d;" onclick="selectPortalColor('#00ff9d', this)"></div>
+                        <div class="color-option" style="background-color: #ffcc00;" onclick="selectPortalColor('#ffcc00', this)"></div>
+                        <div class="color-option" style="background-color: #ffffff;" onclick="selectPortalColor('#ffffff', this)"></div>
+                        <div class="color-option" style="background-color: #1DA1F2;" onclick="selectPortalColor('#1DA1F2', this)"></div>
+                        <div class="color-option" style="background-color: #FF5700;" onclick="selectPortalColor('#FF5700', this)"></div>
+                        <input type="color" id="portal-custom-color" class="custom-color-input w-full h-8 mt-2" onchange="applyCustomPortalColor(this.value)">
+                    </div>
+                    <input type="hidden" id="portal-color" value="#05d9e8">
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('add-portal-modal').classList.add('hidden')"
+                        class="px-4 py-2 rounded-lg border border-[#ff2a6d] hover:bg-[#ff2a6d] hover:text-white transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="px-6 py-2 neon-border-blue rounded-lg hover:bg-[var(--neon-blue)] hover:text-[#0d0221] transition-all font-bold">
+                        Create Portal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Inisialisasi Data Default dari Konten Asli ---
+        const defaultPortals = [
+            { name: 'BY ONE SEKARANG', url: 'https://website-induk.vercel.app/', icon: 'fas fa-trophy', color: '#ffcc00', description: 'Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja.' },
+            { name: 'TESTIMONI BY ONE', url: 'https://testimoni-dun.vercel.app', icon: 'fas fa-star', color: '#ff2a6d', description: 'Semua kekalahan dan penderitaan kalian saat by one lawan Master.' },
+            { name: 'Uranus Studio', url: 'https://musicfazry.vercel.app', icon: 'fas fa-store', color: '#d300c5', description: 'Solusi digital untuk mengubah kreativitas menjadi penghasilan.' },
+            { name: 'Uranustify Desktop', url: 'https://uranustify-desktop.vercel.app/', icon: 'fas fa-desktop', color: '#00ff9d', description: 'Simpan & dengarkan musik favoritmu tanpa batas.' },
+            { name: 'Uranustify Mobile', url: 'https://uranustify.vercel.app', icon: 'fas fa-mobile-alt', color: '#00ff9d', description: 'Rasakan kebebasan penuh dalam mendengarkan musik.' },
+            { name: 'Uranus Crypto', url: 'https://uranus-crypto-three.vercel.app/', icon: 'fas fa-chart-line', color: '#f7931a', description: 'Strategi trading kripto cerdas dengan fokus pada profit.' },
+            { name: 'Uranus Space', url: 'https://trakteer.id/uranusfazry/shop', icon: 'fas fa-globe', color: '#ffffff', description: 'Kumpulan karya premium Uranus siap pakai.' },
+            { name: 'Uranus WIFI', url: 'https://uranusfazry-wifi-wireless.vercel.app', icon: 'fas fa-wifi', color: '#1DA1F2', description: 'Internet wireless cepat & stabil untuk kebutuhan online Anda.' },
+            { name: 'Uranus Play', url: 'https://uranus-play.vercel.app', icon: 'fas fa-gamepad', color: '#9147ff', description: 'Game Multiplayer terbaik No. 1 tanpa install.' },
+            { name: 'Uranus Blogger', url: 'https://uranusfazry.blogspot.com', icon: 'fas fa-newspaper', color: '#FF5700', description: 'Artikel yang menyajikan informasi singkat, padat, dan bermanfaat.' },
+            { name: 'Uranus Web & App', url: 'https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry', icon: 'fas fa-laptop-code', color: '#25D366', description: 'Dapatkan website atau aplikasi dengan harga terjangkau.' },
+            { name: 'Contact Me', url: 'https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com', icon: 'fas fa-envelope', color: '#EA4335', description: 'Get in touch for collaborations.' },
+        ];
+
+        // --- Elemen DOM ---
+        const portalsGrid = document.getElementById('portals-grid');
+        const portalForm = document.getElementById('portal-form');
+        const portalCount = document.getElementById('portal-count');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const timeDisplay = document.getElementById('time');
+        const dateDisplay = document.getElementById('date');
+        const portalIconSelect = document.getElementById('portal-icon');
+        const customIconOptions = document.getElementById('custom-icon-options');
+        const bgUpload = document.getElementById('bg-upload');
+        const bgPreview = document.getElementById('bg-preview');
+        const iconUpload = document.getElementById('icon-upload');
+        const iconPreview = document.getElementById('icon-preview');
         
-        let isAnimating = false;
-        let autoPlayInterval = null;
-        let currentSequence = 0;
-        const sequenceActions = ['scramble', 'logo', 'youtube', 'tiktok', 'reset'];
+        // --- State Aplikasi ---
+        let portals = [];
+        let currentBgImage = '';
+        
+        // --- Inisialisasi Aplikasi ---
+        document.addEventListener('DOMContentLoaded', function() {
+            portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
+            currentBgImage = localStorage.getItem('bgImage') || '';
 
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const resizeCanvas = () => { if (watermarkEl) { canvas.width = watermarkEl.offsetWidth; canvas.height = watermarkEl.offsetHeight; } };
-        class Particle {
-            constructor() { this.reset(); this.baseSpeedX = (Math.random() - 0.5) * 0.5; this.baseSpeedY = (Math.random() - 0.5) * 0.5; this.speedX = this.baseSpeedX; this.speedY = this.baseSpeedY; }
-            update() {
-                this.x += this.speedX; this.y += this.speedY; this.opacity -= this.fadeSpeed;
-                if (this.opacity <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
+            renderPortals();
+            updateTime();
+            setInterval(updateTime, 1000);
+            loadBackgroundImage();
+            
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            portalForm.addEventListener('submit', handlePortalFormSubmit);
+            portalIconSelect.addEventListener('change', () => {
+                customIconOptions.style.display = (portalIconSelect.value === 'custom-icon') ? 'block' : 'none';
+            });
+            
+            bgUpload.addEventListener('change', (e) => handleImageUpload(e, bgPreview));
+            iconUpload.addEventListener('change', (e) => handleImageUpload(e, iconPreview));
+        });
+
+        function handleImageUpload(event, previewElement) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewElement.src = e.target.result;
+                    previewElement.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
             }
-            draw() {
-                const style = getComputedStyle(watermarkEl);
-                const hue = style.getPropertyValue('--particle-base-hue').trim();
-                const lightness = parseFloat(style.getPropertyValue('--particle-base-lightness').trim());
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = `hsl(${hue}, 100%, ${lightness + this.opacity * 40}%)`;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-            reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.opacity = Math.random() * 0.5 + 0.2; this.size = Math.random() * 1.5 + 0.5; this.fadeSpeed = Math.random() * 0.015 + 0.005; }
         }
-        const animateParticles = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); ctx.globalAlpha = 1.0; requestAnimationFrame(animateParticles); };
         
-        const textScramble = (el) => {
-            const originalText = "©URANUSFAZRY";
-            const chars = '!<>*#{}[]'; let frame = 0; isAnimating = true;
-            const interval = setInterval(() => {
-                el.innerText = originalText.split('').map((char, i) => { const p = (frame - i * 2) / 15; if (p < 0) return ' '; if (p > 1) return char; return chars[Math.floor(Math.random() * chars.length)]; }).join('');
-                if (frame >= originalText.length * 2 + 15) { clearInterval(interval); el.innerText = originalText; isAnimating = false; } frame++;
-            }, 30);
-        };
+        // --- Render Semua Portal ---
+        function renderPortals() {
+            portalsGrid.innerHTML = '';
+            
+            portals.forEach((portal, index) => {
+                const portalElement = document.createElement('div');
+                portalElement.className = 'h-full';
+                
+                const portalColor = portal.color || '#ffffff';
+                const textColorStyle = `color: ${portalColor}; text-shadow: 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
+                const borderStyle = `border: 1px solid ${portalColor}; box-shadow: 0 0 5px ${portalColor}, inset 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
+                
+                const iconHtml = portal.icon.startsWith('data:image') || portal.icon.startsWith('http')
+                    ? `<img src="${portal.icon}" class="mx-auto h-12 w-12 mb-4 object-contain" alt="${portal.name} icon">`
+                    : `<i class="${portal.icon} text-4xl mb-4" style="${textColorStyle}"></i>`;
 
-        const typewriter = (el, text) => {
-            let i = 0; el.innerHTML = ""; isAnimating = true;
-            const interval = setInterval(() => {
-                if (i < text.length) { el.innerHTML += text.charAt(i); i++; } 
-                else { clearInterval(interval); isAnimating = false; }
-            }, 50);
-        };
-
-        const runAutoSequence = () => {
-            if (isAnimating) return;
-            const action = sequenceActions[currentSequence];
-            switch (action) {
-                case 'scramble': textScramble(textEl); break;
-                case 'logo':
-                    isAnimating = true;
-                    logoEl.classList.add('reacting');
-                    logoEl.addEventListener('animationend', () => { logoEl.classList.remove('reacting'); isAnimating = false; }, { once: true });
-                    break;
-                case 'youtube':
-                    isAnimating = true;
-                    mainContentEl.classList.add('hidden');
-                    setTimeout(() => {
-                        followContentEl.classList.remove('hidden');
-                        typewriter(followMessageEl, "Follow uranusfazry YouTube");
-                    }, 400);
-                    break;
-                case 'tiktok': 
-                    typewriter(followMessageEl, "Follow uranusfazry TikTok"); 
-                    break;
-                case 'reset':
-                    isAnimating = true;
-                    followContentEl.classList.add('hidden');
-                    setTimeout(() => {
-                        mainContentEl.classList.remove('hidden');
-                        isAnimating = false;
-                    }, 400);
-                    break;
+                portalElement.innerHTML = `
+                    <div class="portal-card h-full" style="color: ${portalColor};">
+                        <a href="${portal.url}" target="_blank" class="block h-full p-6 rounded-lg text-center relative overflow-hidden backdrop-blur-sm bg-[#0d0221]/50 transition-all duration-300 flex flex-col" style="${borderStyle}">
+                            <div class="portal-card-inner flex flex-col justify-center items-center flex-grow">
+                                ${iconHtml}
+                                <h3 class="font-bold uppercase tracking-wider break-words text-base" style="${textColorStyle}">${portal.name}</h3>
+                                <p class="text-xs opacity-70 mt-2 font-sans">${portal.description || ''}</p>
+                            </div>
+                            <button onclick="deletePortal(event, ${index})" 
+                                class="absolute top-2 right-2 text-xs text-red-500 hover:text-red-400 opacity-50 hover:opacity-100 transition-opacity z-10">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </a>
+                    </div>
+                `;
+                
+                portalsGrid.appendChild(portalElement);
+            });
+            
+            portalCount.textContent = portals.length;
+        }
+        
+        // --- Menangani Submit Form Portal ---
+        function handlePortalFormSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('portal-name').value;
+            const url = document.getElementById('portal-url').value;
+            let icon = document.getElementById('portal-icon').value;
+            const color = document.getElementById('portal-color').value;
+            
+            if (icon === 'custom-icon') {
+                const iconUrlInput = document.getElementById('icon-url');
+                const iconFileInput = document.getElementById('icon-upload');
+                
+                if (iconUrlInput.value) {
+                    addPortalToArray(name, url, iconUrlInput.value, color);
+                } else if (iconFileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => addPortalToArray(name, url, event.target.result, color);
+                    reader.readAsDataURL(iconFileInput.files[0]);
+                } else {
+                    addPortalToArray(name, url, 'fas fa-link', color); // Fallback
+                }
+            } else {
+                addPortalToArray(name, url, icon, color);
             }
-            currentSequence = (currentSequence + 1) % sequenceActions.length;
-        };
-
-        const startAutoPlay = () => {
-            if (autoPlayInterval) clearInterval(autoPlayInterval);
-            runAutoSequence();
-            autoPlayInterval = setInterval(runAutoSequence, 3500);
-        };
-
-        watermarkEl.addEventListener('click', () => { watermarkEl.classList.toggle('light-mode'); });
+        }
         
-        const init = () => {
-            resizeCanvas();
-            for (let i = 0; i < 40; i++) particles.push(new Particle());
-            animateParticles();
-            window.addEventListener('resize', resizeCanvas);
-            startAutoPlay();
-        };
-        init();
-    }
+        function addPortalToArray(name, url, icon, color, description = 'Tautan baru ditambahkan.') {
+            portals.push({ name, url, icon, color, description });
+            savePortals();
+            renderPortals();
+            document.getElementById('add-portal-modal').classList.add('hidden');
+            resetPortalForm();
+        }
+        
+        function deletePortal(event, index) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (confirm('Apakah Anda yakin ingin menghapus portal ini?')) {
+                portals.splice(index, 1);
+                savePortals();
+                renderPortals();
+            }
+        }
+        
+        function resetPortalForm() {
+            portalForm.reset();
+            customIconOptions.style.display = 'none';
+            if(iconPreview) {
+                iconPreview.style.display = 'none';
+                iconPreview.src = '#';
+            }
+            document.getElementById('portal-color').value = '#05d9e8';
+            const colorOptions = document.querySelectorAll('#add-portal-modal .color-option');
+            colorOptions.forEach(el => el.classList.remove('selected'));
+            colorOptions[1].classList.add('selected');
+        }
+        
+        function savePortals() {
+            localStorage.setItem('portals', JSON.stringify(portals));
+        }
+        
+        function showAddLinkModal() {
+            document.getElementById('add-portal-modal').classList.remove('hidden');
+            mobileMenu.classList.add('hidden');
+        }
+        
+        function updateTime() {
+            const now = new Date();
+            timeDisplay.textContent = now.toLocaleTimeString('en-GB');
+            dateDisplay.textContent = now.toLocaleDateString('id-ID', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+        }
+        
+        function selectPortalColor(color, element) {
+            const container = element.closest('.color-picker-container');
+            container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('portal-color').value = color;
+        }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeWatermark);
-    } else {
-        initializeWatermark();
-    }
-  })();
-  </script>
+        function applyCustomPortalColor(color) {
+            document.getElementById('portal-color').value = color;
+            const container = document.getElementById('add-portal-modal');
+            container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+        }
+        
+        function setBackgroundImage() {
+            const bgUrlInput = document.getElementById('bg-image-mobile').value ? document.getElementById('bg-image-mobile') : document.getElementById('bg-image');
+            if (bgUrlInput && bgUrlInput.value) {
+                updateBackground(bgUrlInput.value);
+            }
+        }
+
+        function applyUploadedBackground() {
+            if (bgPreview.src && bgPreview.src !== window.location.href + '#') {
+                updateBackground(bgPreview.src);
+            }
+        }
+
+        function updateBackground(imageUrl) {
+            currentBgImage = imageUrl;
+            localStorage.setItem('bgImage', currentBgImage);
+            loadBackgroundImage();
+        }
+        
+        function loadBackgroundImage() {
+            document.body.style.setProperty('--bg-image', currentBgImage ? `url('${currentBgImage}')` : 'none');
+        }
+        
+        function resetBackgroundImage() {
+            currentBgImage = '';
+            localStorage.removeItem('bgImage');
+            loadBackgroundImage();
+            document.querySelectorAll('[id^=bg-image]').forEach(input => input.value = '');
+            if (bgPreview) {
+                bgPreview.style.display = 'none';
+                bgPreview.src = '#';
+            }
+        }
+    </script>
 </body>
 </html>
