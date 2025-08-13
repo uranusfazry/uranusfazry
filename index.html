@@ -781,7 +781,7 @@
                             <div class="text-xs space-y-2 font-tech">
                                 <div class="flex justify-between">
                                     <span>Version</span>
-                                    <span class="text-[var(--neon-blue)]">v5.7.0-photo</span>
+                                    <span class="text-[var(--neon-blue)]">v5.8.0-persistent</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span>Portals</span>
@@ -1177,7 +1177,7 @@
 
     <script>
         // --- SCRIPT UTAMA PORTAL ---
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             // --- NEON PORTAL SCRIPT (File 1) ---
             const portalsGrid = document.getElementById('portals-grid');
             const portalForm = document.getElementById('portal-form');
@@ -1196,7 +1196,7 @@
             const logoContainer = document.getElementById('logo-container');
             const bgUploadMedia = document.getElementById('bg-upload-media');
             const bgUploadMediaMobile = document.getElementById('bg-upload-media-mobile');
-            const audioPlayer = document.getElementById('audio-player'); // [NEW] Get audio player
+            const audioPlayer = document.getElementById('audio-player');
 
             let portals = [];
             let currentBgImage = '';
@@ -1204,7 +1204,68 @@
             let selectedMediaFile = null;
             let touchStartX = 0; // For swipe gesture
             
-            // [NEW] Music list
+            // --- [NEW] IndexedDB Helper Functions ---
+            const DB_NAME = 'uranusfazryDB';
+            const STORE_NAME = 'mediaFiles';
+            const FILE_KEY = 'userBackgroundMedia';
+            let db;
+
+            // Function to open/create the database
+            async function openDB() {
+                return new Promise((resolve, reject) => {
+                    if (db) return resolve(db);
+                    const request = indexedDB.open(DB_NAME, 1);
+                    request.onerror = (event) => reject("Error opening IndexedDB.");
+                    request.onsuccess = (event) => {
+                        db = event.target.result;
+                        resolve(db);
+                    };
+                    request.onupgradeneeded = (event) => {
+                        const dbInstance = event.target.result;
+                        if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                            dbInstance.createObjectStore(STORE_NAME);
+                        }
+                    };
+                });
+            }
+
+            // Function to save a file to the database
+            async function saveFileToDB(file) {
+                const db = await openDB();
+                return new Promise((resolve, reject) => {
+                    const transaction = db.transaction([STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.put(file, FILE_KEY);
+                    request.onsuccess = () => resolve();
+                    request.onerror = (event) => reject("Failed to save file: " + event.target.error);
+                });
+            }
+
+            // Function to retrieve a file from the database
+            async function getFileFromDB() {
+                const db = await openDB();
+                return new Promise((resolve, reject) => {
+                    const transaction = db.transaction([STORE_NAME], 'readonly');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.get(FILE_KEY);
+                    request.onsuccess = (event) => resolve(event.target.result);
+                    request.onerror = (event) => reject("Failed to get file: " + event.target.error);
+                });
+            }
+
+            // Function to delete a file from the database
+            async function deleteFileFromDB() {
+                const db = await openDB();
+                return new Promise((resolve, reject) => {
+                    const transaction = db.transaction([STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.delete(FILE_KEY);
+                    request.onsuccess = () => resolve();
+                    request.onerror = (event) => reject("Failed to delete file: " + event.target.error);
+                });
+            }
+            // --- End of IndexedDB Helpers ---
+
             const musicList = [
                 { name: 'Chammak Challo', url: 'https://c.top4top.io/m_3457ukcau0.mp3' },
                 { name: 'Chammak Challo 2', url: 'https://i.top4top.io/m_3510lx6lu0.m4a' },
@@ -1215,7 +1276,6 @@
                 { name: 'DJ CAMPURAN VIRAL 5', url: 'https://e.top4top.io/m_3504ymzax0.m4a' }
             ];
 
-            // [UPDATED] Default portals with generic names
             const defaultPortals = [
                 { name: 'BY ONE SEKARANG', url: 'https://website-induk.vercel.app/', icon: 'fas fa-trophy', color: '#ffcc00', description: 'Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah.' },
                 { name: 'TESTIMONI BY ONE', url: 'https://testimoni-dun.vercel.app', icon: 'fas fa-star', color: '#ff2a6d', description: 'Semua kekalahan dan penderitaan kalian saat by one lawan Master ada di sini.' },
@@ -1231,10 +1291,26 @@
                 { name: 'Contact Me', url: 'https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com', icon: 'fas fa-envelope', color: '#EA4335', description: 'Get in touch for collaborations or inquiries.' },
             ];
 
-            function initPortalApp() {
+            async function initPortalApp() {
                 portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
                 currentBgImage = localStorage.getItem('bgImage') || '';
-                // Video is not stored in localStorage as blob URLs are temporary
+                
+                // [MODIFIED] Load from IndexedDB first, which overrides localStorage image
+                try {
+                    const storedFile = await getFileFromDB();
+                    if (storedFile) {
+                        const fileUrl = URL.createObjectURL(storedFile);
+                        if (storedFile.type.startsWith('image/')) {
+                            currentBgImage = fileUrl;
+                            currentBgVideo = '';
+                        } else if (storedFile.type.startsWith('video/')) {
+                            currentBgVideo = fileUrl;
+                            currentBgImage = '';
+                        }
+                    }
+                } catch (error) {
+                    console.error("Could not load media from DB:", error);
+                }
 
                 renderPortals();
                 updateTime();
@@ -1429,22 +1505,37 @@
                 container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
             }
             
-            window.setBackgroundImage = function() {
+            // [MODIFIED] Set background from URL, clears file from DB
+            window.setBackgroundImage = async function() {
                 const bgUrlInput = document.getElementById('bg-image-mobile').value ? document.getElementById('bg-image-mobile') : document.getElementById('bg-image');
                 if (bgUrlInput && bgUrlInput.value) {
+                    try {
+                        await deleteFileFromDB();
+                    } catch(e) { console.error("Could not clear DB file when setting URL", e); }
                     updateBackgroundMedia(bgUrlInput.value, null);
                 }
             }
 
-            window.applyUploadedMedia = function() {
+            // [MODIFIED] Apply uploaded file, saves to DB
+            window.applyUploadedMedia = async function() {
                 if (!selectedMediaFile) return;
 
-                const fileUrl = URL.createObjectURL(selectedMediaFile);
+                try {
+                    await saveFileToDB(selectedMediaFile);
+                    localStorage.removeItem('bgImage'); // Clear URL from localStorage
 
-                if (selectedMediaFile.type.startsWith('image/')) {
-                    updateBackgroundMedia(fileUrl, null);
-                } else if (selectedMediaFile.type.startsWith('video/')) {
-                    updateBackgroundMedia(null, fileUrl);
+                    const storedFile = await getFileFromDB();
+                    if (storedFile) {
+                        const fileUrl = URL.createObjectURL(storedFile);
+                        if (storedFile.type.startsWith('image/')) {
+                            updateBackgroundMedia(fileUrl, null);
+                        } else if (storedFile.type.startsWith('video/')) {
+                            updateBackgroundMedia(null, fileUrl);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Failed to apply uploaded media:", error);
+                    console.error("Sorry, could not save the media file. It might be too large or your browser has storage restrictions.");
                 }
 
                 bgUploadMedia.value = '';
@@ -1457,20 +1548,25 @@
                 }
             }
 
+            // [MODIFIED] Central function to update media state
             function updateBackgroundMedia(imageUrl, videoUrl) {
+                // Revoke old blob URLs to prevent memory leaks
                 if (currentBgVideo && currentBgVideo.startsWith('blob:')) {
                     URL.revokeObjectURL(currentBgVideo);
+                }
+                if (currentBgImage && currentBgImage.startsWith('blob:')) {
+                    URL.revokeObjectURL(currentBgImage);
                 }
 
                 if (imageUrl) {
                     currentBgImage = imageUrl;
                     currentBgVideo = '';
-                    localStorage.setItem('bgImage', currentBgImage);
-                    localStorage.removeItem('bgVideo');
+                    if (!imageUrl.startsWith('blob:')) {
+                        localStorage.setItem('bgImage', currentBgImage);
+                    }
                 } else if (videoUrl) {
                     currentBgImage = '';
                     currentBgVideo = videoUrl;
-                    localStorage.removeItem('bgImage');
                 }
                 loadBackgroundMedia();
             }
@@ -1486,7 +1582,7 @@
                     bgVideo.src = currentBgVideo;
                     bgVideo.classList.remove('hidden');
                     bgVideo.muted = true; 
-                    bgVideo.play();
+                    bgVideo.play().catch(e => console.error("Video play failed:", e));
                     volumeControl.classList.remove('hidden');
                     updateVolumeIcon();
                 } else if (currentBgImage) {
@@ -1495,12 +1591,18 @@
                 }
                 
                 const terminalContainer = document.querySelector('.terminal-container');
-                terminalContainer.classList.toggle('is-transparent', !!currentBgImage || !!currentBgVideo);
+                if(terminalContainer) {
+                    terminalContainer.classList.toggle('is-transparent', !!currentBgImage || !!currentBgVideo);
+                }
             }
             
-            window.resetBackgroundMedia = function() {
+            // [MODIFIED] Reset now also clears the IndexedDB
+            window.resetBackgroundMedia = async function() {
                 if(currentBgVideo && currentBgVideo.startsWith('blob:')) {
-                    URL.revokeObjectURL(bgVideo.src);
+                    URL.revokeObjectURL(currentBgVideo);
+                }
+                 if(currentBgImage && currentBgImage.startsWith('blob:')) {
+                    URL.revokeObjectURL(currentBgImage);
                 }
                 bgVideo.pause();
                 bgVideo.removeAttribute('src');
@@ -1508,7 +1610,12 @@
                 currentBgImage = '';
                 currentBgVideo = '';
                 localStorage.removeItem('bgImage');
-                localStorage.removeItem('bgVideo');
+                
+                try {
+                    await deleteFileFromDB();
+                } catch (error) {
+                    console.error("Failed to delete media from DB:", error);
+                }
                 
                 loadBackgroundMedia();
                 
@@ -1521,15 +1628,18 @@
                 }
             }
 
-            // [NEW] Function to reset all settings
-            window.resetAllSettings = function() {
+            // [MODIFIED] Reset All now also clears the IndexedDB
+            window.resetAllSettings = async function() {
                 if (confirm('Apakah Anda yakin ingin mereset semuanya? Ini akan menghapus semua portal kustom dan pengaturan latar belakang Anda. Tindakan ini tidak dapat dibatalkan.')) {
-                    // Remove all custom settings from localStorage
                     localStorage.removeItem('portals');
                     localStorage.removeItem('bgImage');
-                    localStorage.removeItem('bgVideo');
 
-                    // Reload the page to apply the default settings
+                    try {
+                        await deleteFileFromDB();
+                    } catch (error) {
+                        console.error("Failed to delete media from DB during full reset:", error);
+                    }
+
                     location.reload();
                 }
             }
@@ -1662,7 +1772,6 @@
             const commandLine = document.getElementById('command-line');
             const commandInput = document.getElementById('command-input');
             
-            // --- [NEW] Function to display the profile photo ---
             function displayProfilePhoto() {
                 const imgContainer = document.createElement('div');
                 const img = document.createElement('img');
@@ -1680,7 +1789,6 @@
                 terminalBody.scrollTop = terminalBody.scrollHeight;
             }
 
-            // --- [MODIFIED] Messages array to include the photo action ---
             const messages = [
                 { text: "Initializing system...", delay: 50 },
                 { text: "Loading profile data...", delay: 50 },
@@ -1690,7 +1798,7 @@
                 { text: "\n\n", delay: 100 },
                 { text: ">> SYSTEM USER PROFILE <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
                 { text: "\n", delay: 100 },
-                { action: 'addPhoto', delay: 200 }, // <-- This is the new action
+                { action: 'addPhoto', delay: 200 },
                 { text: "> NAME: ", delay: 20 },
                 { text: "URANUS FAZRY", delay: 50, style: "color: var(--terminal-cyan); font-weight: bold" },
                 { text: "\n", delay: 50 },
@@ -1728,7 +1836,6 @@
             let currentMessageIndex = 0;
             let currentCharIndex = 0;
             
-            // --- [MODIFIED] typeNextCharacter function to handle actions ---
             function typeNextCharacter() {
                 if (currentMessageIndex >= messages.length) {
                     commandLine.classList.remove('hidden');
@@ -1738,14 +1845,13 @@
                 
                 const currentMessage = messages[currentMessageIndex];
 
-                // Check for a special action
                 if (currentMessage.action) {
                     if (currentMessage.action === 'addPhoto') {
                         displayProfilePhoto();
                     }
                     currentMessageIndex++;
                     setTimeout(typeNextCharacter, currentMessage.delay);
-                    return; // Skip the rest of the function for this iteration
+                    return;
                 }
                 
                 const textToType = currentMessage.text;
@@ -1771,30 +1877,26 @@
                 }
             }
             
-            // --- [NEW] Typewriter animation function ---
             function typewriter(element, htmlString, onComplete) {
                 let i = 0;
-                const speed = 10; // Typing speed in ms
-                element.innerHTML = ''; // Clear the element first
+                const speed = 10;
+                element.innerHTML = '';
 
                 function type() {
                     if (i < htmlString.length) {
-                        // Check for an HTML tag
                         if (htmlString.charAt(i) === '<') {
                             const closingBracketIndex = htmlString.indexOf('>', i);
                             if (closingBracketIndex !== -1) {
-                                // It's a tag, append the whole thing at once
                                 const tag = htmlString.substring(i, closingBracketIndex + 1);
                                 element.innerHTML += tag;
                                 i = closingBracketIndex; 
                             }
                         } else {
-                            // It's a regular character, append it
                             element.innerHTML += htmlString.charAt(i);
                         }
                         
                         i++;
-                        terminalBody.scrollTop = terminalBody.scrollHeight; // Keep scrolling to the bottom
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
                         setTimeout(type, speed);
                     } else {
                         if (onComplete) {
@@ -1827,7 +1929,6 @@
                 
                 let isAnimated = false;
                 
-                // [NEW] Check if command is a number for music playback
                 const trackNumber = parseInt(command, 10);
 
                 if (command === 'help') {
@@ -1869,7 +1970,6 @@
                     terminalText.innerHTML = '';
                     commandInput.value = '';
                     return;
-                // --- [NEW] Music Commands ---
                 } else if (command === 'musik') {
                     let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
                     musicList.forEach((song, index) => {
@@ -1886,7 +1986,6 @@
                     audioPlayer.pause();
                     audioPlayer.src = '';
                     response.innerHTML = 'Musik dihentikan.';
-                // --- End of Music Commands ---
                 } else if (command === 'uranusfazry') {
                     isAnimated = true;
                     const profileHtml = `
@@ -1917,10 +2016,9 @@
                     `;
                     
                     terminalText.appendChild(response);
-                    commandInput.disabled = true; // Disable input during animation
+                    commandInput.disabled = true;
                     
                     typewriter(response, profileHtml, () => {
-                        // This function is called when the animation completes
                         commandInput.disabled = false;
                         commandInput.focus();
                         terminalText.appendChild(document.createElement('br'));
@@ -1955,7 +2053,7 @@
             // --- INITIALIZE ALL SCRIPTS ---
             initPortalApp();
             init3DBackground();
-            typeNextCharacter(); // Start terminal typing
+            typeNextCharacter();
         });
     </script>
 
