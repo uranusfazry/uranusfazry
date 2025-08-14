@@ -90,6 +90,7 @@
             background-size: 30px 30px;
             z-index: -1;
             pointer-events: none;
+            transition: opacity 0.5s ease-in-out; /* [MODIFIED] Added transition for preview mode */
         }
 
         /* --- [NEW] Text Stroke for Readability on Background Image --- */
@@ -393,6 +394,11 @@
             opacity: 0;
             transform: translateY(-30px);
             pointer-events: none; /* Disable interactions on hidden elements */
+        }
+        
+        /* [NEW] Hide the grid lines in preview mode */
+        body.preview-mode-active::after {
+            opacity: 0;
         }
 
 
@@ -2193,4 +2199,3 @@
     </script>
 </body>
 </html>
-
