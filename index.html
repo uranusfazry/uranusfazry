@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Import Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- [NEW] Import PDF and Canvas rendering libraries -->
+    <!-- Import PDF and Canvas rendering libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -386,20 +386,43 @@
 
         /* --- [MODIFIED] Preview Mode --- */
         /* Add smooth transitions to the elements that will be hidden */
-        .navbar, main, footer, #volume-control {
+        main, footer, #volume-control, #futuristic-watermark {
             transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
+        .navbar {
+             transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        }
+
         /* Animate elements out instead of just hiding them */
-        body.preview-mode-active .navbar,
-        body.preview-mode-active main,
-        body.preview-mode-active footer,
-        body.preview-mode-active #volume-control {
+        body.preview-mode-active .navbar {
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-100%);
             pointer-events: none; /* Disable interactions on hidden elements */
         }
         
+        body.preview-mode-active main,
+        body.preview-mode-active footer,
+        body.preview-mode-active #volume-control,
+        body.preview-mode-active #futuristic-watermark {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none; /* Disable interactions on hidden elements */
+        }
+        
+        /* [NEW] Make only the logo visible in preview mode */
+        body.preview-mode-active .navbar #logo-container {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        body.preview-mode-active .navbar {
+            background-color: transparent !important;
+            backdrop-filter: none !important;
+            border-bottom-color: transparent !important;
+        }
+
         /* [NEW] Hide the grid lines in preview mode */
         body.preview-mode-active::after {
             opacity: 0;
@@ -811,7 +834,7 @@
                     <div class="nav-item relative group">
                         <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" target="_blank" class="flex items-center space-x-1 neon-text-blue neon-underline font-tech">
                             <i class="fas fa-address-card"></i>
-                            <span>Contact</span>
+                            <span>WhatsApp</span>
                         </a>
                     </div>
                 </div>
@@ -894,8 +917,6 @@
                 Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya.
             </p>
         </header>
-</body>
-</html>
         <!-- Time and date display -->
         <div class="flex justify-center mb-12">
             <div class="neon-border-blue rounded-lg p-4 text-center backdrop-blur-sm bg-[#0d0221]/50 holographic-effect">
@@ -1256,8 +1277,12 @@
             let currentBgImage = '';
             let currentBgVideo = '';
             let selectedMediaFile = null;
-            let touchStartX = 0; // For swipe gesture
             let onConfirmCallback = null; // To store the action for the confirmation modal
+            
+            // --- [NEW] Variables for swipe/drag gestures ---
+            let touchStartX = 0; 
+            let dragStartX = 0;
+            let isDragging = false;
             
             // --- [NEW] IndexedDB Helper Functions ---
             const DB_NAME = 'uranusfazryDB';
@@ -1394,8 +1419,12 @@
                 bgUploadMedia.addEventListener('change', handleMediaSelect);
                 bgUploadMediaMobile.addEventListener('change', handleMediaSelect);
 
+                // --- [MODIFIED] Add all gesture event listeners ---
                 document.body.addEventListener('touchstart', handleTouchStart, false);
                 document.body.addEventListener('touchend', handleTouchEnd, false);
+                document.body.addEventListener('mousedown', handleDragStart);
+                document.body.addEventListener('mouseup', handleDragEnd);
+                document.body.addEventListener('mouseleave', handleDragLeave);
                 
                 // [NEW] Add event listener for the import file input
                 importFileInput.addEventListener('change', handleFileImport);
@@ -1418,6 +1447,8 @@
                 confirmationModal.classList.remove('hidden');
             }
 
+            // --- [NEW] GESTURE HANDLER FUNCTIONS ---
+
             function handleTouchStart(event) {
                 if (document.body.classList.contains('preview-mode-active')) {
                     touchStartX = event.touches[0].clientX;
@@ -1427,11 +1458,37 @@
             function handleTouchEnd(event) {
                 if (document.body.classList.contains('preview-mode-active')) {
                     const touchEndX = event.changedTouches[0].clientX;
-                    if (touchStartX - touchEndX > 75) { 
+                    if (touchStartX - touchEndX > 75) { // Swipe left
                         togglePreviewMode();
                     }
                 }
             }
+
+            function handleDragStart(event) {
+                if (document.body.classList.contains('preview-mode-active')) {
+                    isDragging = true;
+                    dragStartX = event.clientX;
+                    event.preventDefault(); // Prevent text selection
+                }
+            }
+
+            function handleDragEnd(event) {
+                if (isDragging && document.body.classList.contains('preview-mode-active')) {
+                    const dragEndX = event.clientX;
+                    if (dragStartX - dragEndX > 100) { // Swipe left with mouse
+                        togglePreviewMode();
+                    }
+                }
+                isDragging = false;
+            }
+            
+            function handleDragLeave() {
+                if (isDragging) {
+                    isDragging = false;
+                }
+            }
+            // --- END OF GESTURE HANDLERS ---
+
 
             function handleMediaSelect(event) {
                 const file = event.target.files[0];
@@ -1735,9 +1792,11 @@
             }
 
             function togglePreviewMode() {
-                if (currentBgImage || currentBgVideo) {
-                    document.body.classList.toggle('preview-mode-active');
+                // Only allow entering preview mode if there is a background
+                if (!document.body.classList.contains('preview-mode-active') && !currentBgImage && !currentBgVideo) {
+                    return; 
                 }
+                document.body.classList.toggle('preview-mode-active');
             }
             
             // --- [NEW] DATA MANAGEMENT FUNCTIONS ---
@@ -2112,39 +2171,39 @@
 
                 if (command === 'help') {
                     response.innerHTML = `Available commands:<br>
-                    - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
-                    - <span class="highlight">about</span>: Show detailed profile<br>
-                    - <span class="highlight">skills</span>: List technical skills<br>
-                    - <span class="highlight">projects</span>: Show project history<br>
-                    - <span class="highlight">contact</span>: Show contact information<br>
-                    - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
-                    - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
-                    - <span class="highlight">stop</span>: Menghentikan musik.<br>
-                    - <span class="highlight">clear</span>: Clear the terminal<br>
-                    - <span class="highlight">exit</span>: Close terminal (just kidding)`;
+                        - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
+                        - <span class="highlight">about</span>: Show detailed profile<br>
+                        - <span class="highlight">skills</span>: List technical skills<br>
+                        - <span class="highlight">projects</span>: Show project history<br>
+                        - <span class="highlight">contact</span>: Show contact information<br>
+                        - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
+                        - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
+                        - <span class="highlight">stop</span>: Menghentikan musik.<br>
+                        - <span class="highlight">clear</span>: Clear the terminal<br>
+                        - <span class="highlight">exit</span>: Close terminal (just kidding)`;
                 } else if (command === 'about') {
                      response.innerHTML = `
-                         <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
-                         "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
-                         </p>
+                          <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
+                          "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
+                          </p>
                         `;
                 } else if (command === 'skills') {
                     response.innerHTML = `>> SKILL MATRIX <<<br><br>
-                    <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
-                    <span style="color: var(--terminal-cyan)">> JAVASCRIPT:          ██████████ 97%</span><br>
-                    <span style="color: var(--terminal-cyan)">> CYBERSECURITY:       ████████▉  88%</span><br>
-                    <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:  ████████▊  86%</span><br>
-                    <span style="color: var(--terminal-cyan)">> AI/ML:               ███████▍   75%</span><br>
-                    <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:          ██████▎    70%</span><br>`;
+                        <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
+                        <span style="color: var(--terminal-cyan)">> JAVASCRIPT:          ██████████ 97%</span><br>
+                        <span style="color: var(--terminal-cyan)">> CYBERSECURITY:       ████████▉  88%</span><br>
+                        <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:  ████████▊  86%</span><br>
+                        <span style="color: var(--terminal-cyan)">> AI/ML:               ███████▍   75%</span><br>
+                        <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:          ██████▎    70%</span><br>`;
                 } else if (command === 'projects') {
                     response.innerHTML = `>> PROJECT HISTORY <<<br><br>
-                    > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
-                    > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
-                    > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
+                        > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
+                        > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
+                        > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
                 } else if (command === 'contact') {
                     response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br>
-                    - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
-                    - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
+                        - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                        - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
                 } else if (command === 'clear') {
                     terminalText.innerHTML = '';
                     commandInput.value = '';
