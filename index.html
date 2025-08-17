@@ -94,7 +94,7 @@
             background-size: 30px 30px;
             z-index: -1;
             pointer-events: none;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out; /* [MODIFIED] Added transition for preview mode */
         }
 
         /* --- [NEW] Text Stroke for Readability on Background Image --- */
@@ -204,9 +204,6 @@
         }
 
         /* --- Komponen UI (File 1) --- */
-        #logo-container { /* [MODIFIED] Add transition for preview mode */
-            transition: transform 0.5s ease-in-out;
-        }
         .dropdown {
             display: none;
             background: var(--nav-dark);
@@ -387,55 +384,46 @@
             color: var(--darker-bg);
         }
 
-        /* --- [REPLACED] Preview Mode --- */
-        /* Smooth transitions for elements that will be hidden */
+        /* --- [MODIFIED] Preview Mode --- */
+        /* Add smooth transitions to the elements that will be hidden */
         main, footer, #volume-control, #futuristic-watermark {
             transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
         .navbar {
-            transition: background-color 0.5s ease-in-out;
+             transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
         }
 
-        /* Hide main content when preview is active */
+        /* Animate elements out instead of just hiding them */
+        body.preview-mode-active .navbar {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none; /* Disable interactions on hidden elements */
+        }
+        
         body.preview-mode-active main,
         body.preview-mode-active footer,
         body.preview-mode-active #volume-control,
         body.preview-mode-active #futuristic-watermark {
             opacity: 0;
             transform: translateY(30px);
-            pointer-events: none;
+            pointer-events: none; /* Disable interactions on hidden elements */
         }
-
-        /* Make navbar transparent but keep it in place */
+        
+        /* [NEW] Make only the logo visible in preview mode */
+        body.preview-mode-active .navbar #logo-container {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
         body.preview-mode-active .navbar {
             background-color: transparent !important;
             backdrop-filter: none !important;
             border-bottom-color: transparent !important;
         }
 
-        /* Hide other navbar items (nav links and mobile button) */
-        body.preview-mode-active .navbar .hidden.md\:flex,
-        body.preview-mode-active .navbar .md\:hidden {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        /* Center and scale the logo container */
-        body.preview-mode-active #logo-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(3);
-        }
-
-        /* Hide the text part of the logo in preview mode */
-        body.preview-mode-active #logo-container span {
-            display: none;
-        }
-
-        /* Hide the grid lines in preview mode */
+        /* [NEW] Hide the grid lines in preview mode */
         body.preview-mode-active::after {
             opacity: 0;
         }
@@ -814,7 +802,7 @@
                                     </button>
                                 </div>
                             </div>
-                        
+                           
                             <!-- [MODIFIED] Data Management Section (PDF Removed) -->
                             <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Data Management</h3>
                             <div class="grid grid-cols-2 gap-2">
