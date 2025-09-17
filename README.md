@@ -1,7 +1,7 @@
 # 🌌 Uranus Fazry — Web & App Digital Creator
 
 <p align="center">
-  <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Banner" style="max-width:100%; border-radius:12px;"/>
+  <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Banner" width="800" style="border-radius:12px;"/>
 </p>
 
 ---
@@ -11,6 +11,7 @@
 | 💻 Desktop | 📱 Mobile |
 |-----------|-----------|
 | <img src="https://i.imghippo.com/files/bjmG6770RYQ.png" alt="Desktop Preview" width="600" style="border-radius:10px;"/> | <img src="https://i.imghippo.com/files/DBb5057GZc.png" alt="Mobile Preview" width="300" style="border-radius:10px;"/> |
+
 
 
 > 🚀 **Personal Portfolio & Portal App**  
