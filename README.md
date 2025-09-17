@@ -1,6 +1,6 @@
 # 🌌 Uranus Fazry — Web & App Digital Creator
 
-![Banner](https://i.imghippo.com/files/hkw7793vi.jpg)
+![Banner](<img src="https://i.imghippo.com/files/hkw7793vi.jpg")
 
 > 🚀 **Personal Portfolio & Portal App**  
 > Showcase of projects, tools, and interactive features built with modern web technologies.
