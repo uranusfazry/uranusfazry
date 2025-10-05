@@ -902,11 +902,28 @@
     <main class="container mx-auto px-4 py-8 relative z-10 mt-20">
         
         <!-- Penjelasan: Slot Iklan Header/Footer (Responsif) -->
-        <!-- 728x90 untuk Desktop, 468x60 untuk Tablet, 320x50 untuk Mobile -->
         <div class="mb-8 text-center mx-auto">
-            <div id="ad-slot-728x90" class="hidden lg:inline-block"></div>
-            <div id="ad-slot-468x60" class="hidden md:inline-block lg:hidden"></div>
-            <div id="ad-slot-320x50" class="md:hidden"></div>
+            <!-- 728x90 untuk Desktop -->
+            <div class="hidden lg:inline-block">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '67f52a8e6f5a7f97909d1ab521d9f77e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//librarysituation.com/67f52a8e6f5a7f97909d1ab521d9f77e/invoke.js"></script>
+            </div>
+            <!-- 468x60 untuk Tablet -->
+            <div class="hidden md:inline-block lg:hidden">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '074326eea4380e8cdf3e8ee380d2d5ed', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//librarysituation.com/074326eea4380e8cdf3e8ee380d2d5ed/invoke.js"></script>
+            </div>
+            <!-- 320x50 untuk Mobile -->
+            <div class="md:hidden">
+                <script type="text/javascript">
+                    atOptions = { 'key' : 'a32216f9f7b9366853d9698f57d92a55', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//librarysituation.com/a32216f9f7b9366853d9698f57d92a55/invoke.js"></script>
+            </div>
         </div>
 
         <div class="lg:grid lg:grid-cols-12 lg:gap-8">
@@ -939,7 +956,10 @@
 
                 <!-- Penjelasan: Slot Iklan 300x250 di dalam konten -->
                 <div class="my-8 flex justify-center">
-                    <div id="ad-slot-300x250"></div>
+                    <script type="text/javascript">
+                        atOptions = { 'key' : 'e1690ea948979754ea67242819fbbe80', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                    </script>
+                    <script type="text/javascript" src="//librarysituation.com/e1690ea948979754ea67242819fbbe80/invoke.js"></script>
                 </div>
 
                 <!-- CYBER TERMINAL (from File 1) -->
@@ -966,7 +986,10 @@
                 </div>
                 
                 <!-- Penjelasan: Slot Native Banner sebelum grid portal -->
-                <div id="container-dc918ca138d058b9a562210d0d7c46cd" class="my-8"></div>
+                <div class="my-8">
+                    <script async="async" data-cfasync="false" src="//librarysituation.com/dc918ca138d058b9a562210d0d7c46cd/invoke.js"></script>
+                    <div id="container-dc918ca138d058b9a562210d0d7c46cd"></div>
+                </div>
                 
                 <!-- Portals grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12" id="portals-grid">
@@ -977,9 +1000,19 @@
             <!-- Sidebar -->
             <aside class="hidden lg:block lg:col-span-3">
                 <!-- Penjelasan: Slot Iklan Sidebar 160x600 & 160x300 -->
-                 <div class="sticky top-20 space-y-8">
-                    <div id="ad-slot-160x600" class="mx-auto"></div>
-                    <div id="ad-slot-160x300" class="mx-auto"></div>
+                 <div class="sticky top-20 space-y-8 text-center">
+                    <div>
+                        <script type="text/javascript">
+                            atOptions = { 'key' : 'ff01190b2f4f2f812816ee58b640908c', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
+                        </script>
+                        <script type="text/javascript" src="//librarysituation.com/ff01190b2f4f2f812816ee58b640908c/invoke.js"></script>
+                    </div>
+                    <div>
+                         <script type="text/javascript">
+                            atOptions = { 'key' : 'bc2c1ab527d40b3295df8b1f2cb70663', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+                        </script>
+                        <script type="text/javascript" src="//librarysituation.com/bc2c1ab527d40b3295df8b1f2cb70663/invoke.js"></script>
+                    </div>
                  </div>
             </aside>
         </div>
@@ -1273,81 +1306,8 @@
     <input type="file" id="import-file-input" class="hidden" accept=".txt,application/json">
 
 <script>
-    // --- ADS INJECTION SCRIPT ---
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Penjelasan: Popunder dimuat sekali per sesi menggunakan sessionStorage ---
-        if (!sessionStorage.getItem('popunderShown')) {
-            const popunderScript = document.createElement('script');
-            popunderScript.type = 'text/javascript';
-            popunderScript.src = '//librarysituation.com/e6/76/1b/e6761b94cda2fd588c88af39c480b18a.js';
-            document.head.appendChild(popunderScript);
-            sessionStorage.setItem('popunderShown', 'true');
-        }
-
-        // --- Penjelasan: Social Bar akan floating di pojok layar ---
-        const socialBarScript = document.createElement('script');
-        socialBarScript.type = 'text/javascript';
-        socialBarScript.src = '//librarysituation.com/93/75/5e/93755e58b4cebd39cb75c37822f25138.js';
-        document.head.appendChild(socialBarScript);
-        
-        // --- Penjelasan: Native Banner dimuat secara asinkron ke dalam container-nya ---
-        const nativeBannerScript = document.createElement('script');
-        nativeBannerScript.async = true;
-        nativeBannerScript.dataset.cfasync = "false";
-        nativeBannerScript.src = "//librarysituation.com/dc918ca138d058b9a562210d0d7c46cd/invoke.js";
-        const nativeContainer = document.getElementById('container-dc918ca138d058b9a562210d0d7c46cd');
-        if(nativeContainer) {
-            nativeContainer.appendChild(nativeBannerScript);
-        }
-
-        // --- Penjelasan: Fungsi ini membuat dan menyisipkan script iklan banner secara dinamis ---
-        function loadBannerAd(containerId, key, width, height) {
-            const container = document.getElementById(containerId);
-            if (container) {
-                // Hapus placeholder jika ada
-                container.innerHTML = ''; 
-                
-                const optionsScript = document.createElement('script');
-                optionsScript.type = 'text/javascript';
-                optionsScript.innerHTML = `
-                    atOptions = {
-                        'key' : '${key}',
-                        'format' : 'iframe',
-                        'height' : ${height},
-                        'width' : ${width},
-                        'params' : {}
-                    };
-                `;
-                
-                const invokeScript = document.createElement('script');
-                invokeScript.type = 'text/javascript';
-                invokeScript.src = `//librarysituation.com/${key}/invoke.js`;
-
-                // Wrapper div untuk memastikan iklan terpusat jika container lebih besar
-                const adWrapper = document.createElement('div');
-                adWrapper.style.display = 'inline-block';
-                adWrapper.style.width = `${width}px`;
-                adWrapper.style.height = `${height}px`;
-
-                adWrapper.appendChild(optionsScript);
-                adWrapper.appendChild(invokeScript);
-                container.appendChild(adWrapper);
-            }
-        }
-
-        // --- Penjelasan: Memuat semua iklan banner ke slotnya masing-masing ---
-        loadBannerAd('ad-slot-160x300', 'bc2c1ab527d40b3295df8b1f2cb70663', 160, 300);
-        loadBannerAd('ad-slot-160x600', 'ff01190b2f4f2f812816ee58b640908c', 160, 600);
-        loadBannerAd('ad-slot-300x250', 'e1690ea948979754ea67242819fbbe80', 300, 250);
-        loadBannerAd('ad-slot-320x50', 'a32216f9f7b9366853d9698f57d92a55', 320, 50);
-        loadBannerAd('ad-slot-468x60', '074326eea4380e8cdf3e8ee380d2d5ed', 468, 60);
-        loadBannerAd('ad-slot-728x90', '67f52a8e6f5a7f97909d1ab521d9f77e', 728, 90);
-    });
-
-
-    // --- SCRIPT UTAMA PORTAL ---
     document.addEventListener('DOMContentLoaded', async function() {
-        // --- NEON PORTAL SCRIPT (File 1) ---
+        // --- SCRIPT UTAMA PORTAL ---
         const portalsGrid = document.getElementById('portals-grid');
         const portalForm = document.getElementById('portal-form');
         const portalCount = document.getElementById('portal-count');
@@ -1689,7 +1649,7 @@
                 addPortalToArray(name, url, icon, color, description);
             }
         }
-        
+
         function addPortalToArray(name, url, icon, color, description) {
             portals.push({ name, url, icon, color, description });
             savePortals();
@@ -2541,6 +2501,21 @@
     }
   })();
 </script>
+
+<!-- Penjelasan: Popunder & Social Bar diletakkan di akhir body -->
+<!-- Popunder (muncul sekali per sesi) -->
+<script type='text/javascript'>
+    if (!sessionStorage.getItem('popunderShown')) {
+        const popunderScript = document.createElement('script');
+        popunderScript.type = 'text/javascript';
+        popunderScript.src = '//librarysituation.com/e6761b94cda2fd588c88af39c480b18a.js';
+        document.body.appendChild(popunderScript);
+        sessionStorage.setItem('popunderShown', 'true');
+    }
+</script>
+<!-- Social Bar -->
+<script type='text/javascript' src='//librarysituation.com/93755e58b4cebd39cb75c37822f25138.js'></script>
+
 </body>
 </html>
 
