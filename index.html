@@ -19,7 +19,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Share+Tech+Mono&display=swap');
 
-        /* --- Variabel Warna & Tema Neon (File 1) --- */
+        /* --- Variabel Warna & Tema Neon --- */
         :root {
             --neon-blue: #05d9e8;
             --neon-pink: #ff2a6d;
@@ -27,18 +27,18 @@
             --dark-bg: #05010e;
             --darker-bg: #0d0221;
             --nav-dark: #12092a;
-            /* --- Variabel Warna Terminal (File 2) --- */
+            /* --- Variabel Warna Terminal --- */
             --terminal-bg: #0a0a12;
             --terminal-green: #0f0;
             --terminal-cyan: #0ff;
-            --terminal-purple-term: #b19cd9; /* Renamed to avoid conflict */
+            --terminal-purple-term: #b19cd9;
             --terminal-red: #f44;
             --terminal-glow: rgba(0, 255, 0, 0.7);
             --text-color: #e0e0e0;
             --text-shadow: 0 0 8px var(--terminal-glow);
         }
 
-        /* --- Styling Dasar (File 1) --- */
+        /* --- Styling Dasar --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
@@ -94,10 +94,10 @@
             background-size: 30px 30px;
             z-index: -1;
             pointer-events: none;
-            transition: opacity 0.5s ease-in-out; /* [MODIFIED] Added transition for preview mode */
+            transition: opacity 0.5s ease-in-out;
         }
 
-        /* --- [NEW] Text Stroke for Readability on Background Image --- */
+        /* --- Text Stroke for Readability --- */
         body.has-bg-media main,
         body.has-bg-media footer {
              text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -108,8 +108,7 @@
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px currentColor;
         }
 
-
-        /* --- Font Spesifik (File 1) --- */
+        /* --- Font Spesifik --- */
         h1, h2, h3, .nav-item, .portal-card h3, #time, #date {
             font-family: 'Orbitron', sans-serif;
         }
@@ -118,633 +117,210 @@
             font-family: 'Roboto Mono', sans-serif;
         }
 
-        /* --- Efek Glitch & Neon (File 1) --- */
-        .glitch-effect {
-            position: relative;
-            color: white;
-        }
-
+        /* --- Efek Glitch & Neon --- */
+        .glitch-effect { position: relative; color: white; }
         .glitch-effect::before, .glitch-effect::after {
             content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
             opacity: 0.8;
         }
-
-        .glitch-effect::before {
-            color: var(--neon-blue);
-            z-index: -1;
-            animation: glitch-effect 3s infinite;
-        }
-
-        .glitch-effect::after {
-            color: var(--neon-pink);
-            z-index: -2;
-            animation: glitch-effect 2s infinite reverse;
-        }
+        .glitch-effect::before { color: var(--neon-blue); z-index: -1; animation: glitch-effect 3s infinite; }
+        .glitch-effect::after { color: var(--neon-pink); z-index: -2; animation: glitch-effect 2s infinite reverse; }
 
         @keyframes glitch-effect {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
+            0% { transform: translate(0); } 20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); } 60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); } 100% { transform: translate(0); }
         }
 
-        .neon-text-blue {
-            color: var(--neon-blue);
-            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue);
-        }
+        .neon-text-blue { color: var(--neon-blue); text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue); }
+        .neon-text-pink { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 15px var(--neon-pink); }
+        .neon-text-purple { color: var(--neon-purple); text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple); }
+        .neon-border-blue { border: 1px solid var(--neon-blue); box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue); }
+        .neon-border-pink { border: 1px solid var(--neon-pink); box-shadow: 0 0 5px var(--neon-pink), inset 0 0 5px var(--neon-pink), 0 0 15px var(--neon-pink); }
 
-        .neon-text-pink {
-            color: var(--neon-pink);
-            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 15px var(--neon-pink);
-        }
-
-        .neon-text-purple {
-            color: var(--neon-purple);
-            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
-        }
-
-        .neon-border-blue {
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue);
-        }
-
-        .neon-border-pink {
-            border: 1px solid var(--neon-pink);
-            box-shadow: 0 0 5px var(--neon-pink), inset 0 0 5px var(--neon-pink), 0 0 15px var(--neon-pink);
-        }
-
-        .neon-underline {
-            position: relative;
-            display: inline-block;
-        }
-
+        .neon-underline { position: relative; display: inline-block; }
         .neon-underline::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 100%; height: 2px;
             background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
-            transform: scaleX(0);
-            transform-origin: bottom right;
+            transform: scaleX(0); transform-origin: bottom right;
             transition: transform 0.5s ease-out;
         }
+        .neon-underline:hover::after { transform: scaleX(1); transform-origin: bottom left; }
 
-        .neon-underline:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
+        /* --- Komponen UI --- */
+        .dropdown { display: none; background: var(--nav-dark); border: 1px solid var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); transition: all 0.3s ease; z-index: 100; }
+        .group:hover .dropdown { display: block; }
+        .nav-item:hover { transform: translateY(-2px); transition: transform 0.3s ease; }
+        .portal-card { transition: all 0.3s ease; backdrop-filter: blur(10px); perspective: 1000px; transform-style: preserve-3d; }
+        .portal-card:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 20px currentColor; }
+        .portal-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .portal-card:hover .portal-card-inner { transform: rotateY(15deg) rotateX(10deg); }
 
-        /* --- Komponen UI (File 1) --- */
-        .dropdown {
-            display: none;
-            background: var(--nav-dark);
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .group:hover .dropdown {
-            display: block;
-        }
-
-        .nav-item:hover {
-            transform: translateY(-2px);
-            transition: transform 0.3s ease;
-        }
-
-        .portal-card {
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            perspective: 1000px;
-            transform-style: preserve-3d;
-        }
-
-        .portal-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 20px currentColor;
-        }
-
-        .portal-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .portal-card:hover .portal-card-inner {
-            transform: rotateY(15deg) rotateX(10deg);
-        }
-
-        .profile {
-            margin: 0 auto 1.5rem;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--neon-pink);
-            box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-purple);
-            transition: transform 0.3s ease;
-        }
-        .profile:hover {
-            transform: scale(1.05);
-        }
+        .profile { margin: 0 auto 1.5rem; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 4px solid var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-purple); transition: transform 0.3s ease; }
+        .profile:hover { transform: scale(1.05); }
         .profile img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-overlay { background: rgba(5, 1, 14, 0.9); backdrop-filter: blur(5px); animation: fadeIn 0.3s ease; }
+        .modal-content { animation: slideIn 0.3s ease; background: var(--darker-bg); max-height: 90vh; overflow-y: auto; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .modal-overlay {
-            background: rgba(5, 1, 14, 0.9);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            animation: slideIn 0.3s ease;
-            background: var(--darker-bg);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .color-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-
-        .color-option.selected::after {
-            content: "✓";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-        }
-
-        .custom-color-input {
-            width: 100%;
-            height: 30px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .bg-preview, .icon-preview {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .holographic-effect {
-            position: relative;
-            overflow: hidden;
-        }
-
+        .color-option { width: 30px; height: 30px; border-radius: 50%; display: inline-block; margin: 5px; cursor: pointer; transition: all 0.3s ease; position: relative; }
+        .color-option:hover { transform: scale(1.1); }
+        .color-option.selected::after { content: "✓"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; }
+        .custom-color-input { width: 100%; height: 30px; border: none; background: transparent; cursor: pointer; margin-top: 10px; }
+        .bg-preview, .icon-preview { max-width: 100%; height: auto; margin-top: 10px; border-radius: 5px; display: none; }
+        .holographic-effect { position: relative; overflow: hidden; }
         .holographic-effect::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0) 45%,
-                rgba(5, 217, 232, 0.2) 50%,
-                rgba(255, 255, 255, 0) 55%
-            );
-            transform: rotate(30deg);
-            animation: holographic 6s linear infinite;
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient( to bottom right, rgba(255, 255, 255, 0) 45%, rgba(5, 217, 232, 0.2) 50%, rgba(255, 255, 255, 0) 55% );
+            transform: rotate(30deg); animation: holographic 6s linear infinite;
         }
+        @keyframes holographic { 0% { transform: translateY(-100%) rotate(30deg); } 100% { transform: translateY(100%) rotate(30deg); } }
 
-        @keyframes holographic {
-            0% { transform: translateY(-100%) rotate(30deg); }
-            100% { transform: translateY(100%) rotate(30deg); }
-        }
+        footer { text-align: center; padding: 2rem 0; font-size: 0.9rem; opacity: 0.8; position: relative; z-index: 1; }
+        #mobile-menu { max-height: calc(100vh - 4rem); overflow-y: auto; }
+        #volume-control { position: fixed; bottom: 1rem; right: 1rem; z-index: 100; width: 40px; height: 40px; background: rgba(13, 2, 33, 0.7); border: 1px solid var(--neon-blue); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        #volume-control:hover { background: var(--neon-blue); color: var(--darker-bg); }
 
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            position: relative;
-            z-index: 1;
-        }
+        /* --- Preview Mode --- */
+        main, footer, #volume-control, #futuristic-watermark { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; }
+        .navbar { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, background-color 0.5s ease-in-out; }
+        body.preview-mode-active .navbar { opacity: 0; transform: translateY(-100%); pointer-events: none; }
+        body.preview-mode-active main, body.preview-mode-active footer, body.preview-mode-active #volume-control, body.preview-mode-active #futuristic-watermark { opacity: 0; transform: translateY(30px); pointer-events: none; }
+        body.preview-mode-active .navbar #logo-container { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        body.preview-mode-active .navbar { background-color: transparent !important; backdrop-filter: none !important; border-bottom-color: transparent !important; }
+        body.preview-mode-active::after { opacity: 0; }
 
-        #mobile-menu {
-            max-height: calc(100vh - 4rem); /* Navbar height is h-16 which is 4rem */
-            overflow-y: auto;
-        }
-        
-        #volume-control {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 100;
-            width: 40px;
-            height: 40px;
-            background: rgba(13, 2, 33, 0.7);
-            border: 1px solid var(--neon-blue);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        #volume-control:hover {
-            background: var(--neon-blue);
-            color: var(--darker-bg);
-        }
-
-        /* --- [MODIFIED] Preview Mode --- */
-        /* Add smooth transitions to the elements that will be hidden */
-        main, footer, #volume-control, #futuristic-watermark {
-            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-        }
-
-        .navbar {
-             transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
-        }
-
-        /* Animate elements out instead of just hiding them */
-        body.preview-mode-active .navbar {
-            opacity: 0;
-            transform: translateY(-100%);
-            pointer-events: none; /* Disable interactions on hidden elements */
-        }
-        
-        body.preview-mode-active main,
-        body.preview-mode-active footer,
-        body.preview-mode-active #volume-control,
-        body.preview-mode-active #futuristic-watermark {
-            opacity: 0;
-            transform: translateY(30px);
-            pointer-events: none; /* Disable interactions on hidden elements */
-        }
-        
-        /* [NEW] Make only the logo visible in preview mode */
-        body.preview-mode-active .navbar #logo-container {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-        
-        body.preview-mode-active .navbar {
-            background-color: transparent !important;
-            backdrop-filter: none !important;
-            border-bottom-color: transparent !important;
-        }
-
-        /* [NEW] Hide the grid lines in preview mode */
-        body.preview-mode-active::after {
-            opacity: 0;
-        }
-
-
-        /* --- STYLING DARI CYBER TERMINAL (File 1) --- */
-        .terminal-container {
-            width: 100%;
-            max-width: 800px;
-            height: 40vh; /* Reduced height */
-            background: var(--terminal-bg);
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5),
-                        inset 0 0 10px rgba(0, 255, 0, 0.2);
-            overflow: hidden;
-            border: 1px solid var(--terminal-green);
-            margin: 0 auto 3rem;
-            transition: background 0.5s ease; /* Smooth transition for transparency */
-        }
-        
-        .terminal-container.is-transparent {
-            background: rgba(10, 10, 18, 0.7); /* Semi-transparent background */
-            backdrop-filter: blur(5px); /* Frosted glass effect */
-        }
-
-        .terminal-header {
-            background: linear-gradient(to right, #0a0a0a, #111);
-            padding: 8px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--terminal-green);
-            font-family: 'Share Tech Mono', monospace;
-            border-bottom: 1px solid var(--terminal-green);
-            box-shadow: 0 2px 15px rgba(0, 255, 0, 0.3);
-        }
-
-        .terminal-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .terminal-button.red { background: #ff5f56; }
-        .terminal-button.yellow { background: #ffbd2e; }
-        .terminal-button.green { background: #27c93f; }
-
-        .terminal-body {
-            padding: 15px;
-            height: calc(100% - 40px);
-            overflow-y: auto;
-            color: var(--text-color);
-            text-shadow: var(--text-shadow);
-            line-height: 1.6;
-            font-family: 'Inconsolata', monospace;
-        }
-
-        .typing-text {
-            white-space: pre-wrap;
-            font-size: 1.1rem;
-        }
-
-        .command-line {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .prompt {
-            color: var(--terminal-green);
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background: var(--terminal-green);
-            animation: blink 1s infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .command-input {
-            flex-grow: 1;
-            background: transparent;
-            border: none;
-            color: var(--terminal-green);
-            font-family: 'Inconsolata', monospace;
-            font-size: 1.1rem;
-            outline: none;
-            caret-color: var(--terminal-green);
-            text-shadow: var(--text-shadow);
-        }
-
-        .glitch { /* Class from terminal */
-            position: relative;
-        }
-
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--terminal-bg);
-        }
-        
-        .terminal-container.is-transparent .glitch::before,
-        .terminal-container.is-transparent .glitch::after {
-            background: transparent;
-        }
-
-
-        .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--terminal-red);
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
-
-        .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 var(--terminal-cyan);
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim-2 2s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim-1 {
-            0% { clip: rect(54px, 800px, 54px, 0); }
-            20% { clip: rect(27px, 800px, 86px, 0); }
-            40% { clip: rect(14px, 800px, 75px, 0); }
-            60% { clip: rect(39px, 800px, 104px, 0); }
-            80% { clip: rect(18px, 800px, 53px, 0); }
-            100% { clip: rect(73px, 800px, 112px, 0); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(35px, 800px, 89px, 0); }
-            20% { clip: rect(56px, 800px, 103px, 0); }
-            40% { clip: rect(22px, 800px, 64px, 0); }
-            60% { clip: rect(88px, 800px, 120px, 0); }
-            80% { clip: rect(13px, 800px, 32px, 0); }
-            100% { clip: rect(42px, 800px, 99px, 0); }
-        }
-
-        .highlight { color: var(--terminal-cyan); }
-        .hidden { display: none; }
-        
-        /* --- [NEW] Text Stroke for Readability on Background Image --- */
-        .terminal-container.is-transparent .terminal-body span,
-        .terminal-container.is-transparent .terminal-body p,
-        .terminal-container.is-transparent .terminal-body li,
-        .terminal-container.is-transparent .terminal-body a,
-        .terminal-container.is-transparent .terminal-body div {
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000 !important;
-        }
-        /* Re-apply glow on top of the stroke for specific colors */
-        .terminal-container.is-transparent .terminal-body span[style*="var(--terminal-cyan)"],
-        .terminal-container.is-transparent .terminal-body .highlight {
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-cyan) !important;
-        }
-        .terminal-container.is-transparent .terminal-body span[style*="var(--terminal-green)"] {
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-green) !important;
-        }
-        .terminal-container.is-transparent .terminal-body span[style*="var(--neon-pink)"] {
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--neon-pink) !important;
-        }
-        .terminal-container.is-transparent .terminal-body div[style*="var(--terminal-purple-term)"] {
-             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-purple-term) !important;
-        }
+        /* --- STYLING CYBER TERMINAL --- */
+        .terminal-container { width: 100%; max-width: 800px; height: 40vh; background: var(--terminal-bg); border-radius: 8px; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 255, 0, 0.2); overflow: hidden; border: 1px solid var(--terminal-green); margin: 0 auto 3rem; transition: background 0.5s ease; }
+        .terminal-container.is-transparent { background: rgba(10, 10, 18, 0.7); backdrop-filter: blur(5px); }
+        .terminal-header { background: linear-gradient(to right, #0a0a0a, #111); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; color: var(--terminal-green); font-family: 'Share Tech Mono', monospace; border-bottom: 1px solid var(--terminal-green); box-shadow: 0 2px 15px rgba(0, 255, 0, 0.3); }
+        .terminal-buttons { display: flex; gap: 8px; }
+        .terminal-button { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .terminal-button.red { background: #ff5f56; } .terminal-button.yellow { background: #ffbd2e; } .terminal-button.green { background: #27c93f; }
+        .terminal-body { padding: 15px; height: calc(100% - 40px); overflow-y: auto; color: var(--text-color); text-shadow: var(--text-shadow); line-height: 1.6; font-family: 'Inconsolata', monospace; }
+        .typing-text { white-space: pre-wrap; font-size: 1.1rem; }
+        .command-line { margin-top: 20px; display: flex; align-items: center; }
+        .prompt { color: var(--terminal-green); margin-right: 10px; font-weight: bold; }
+        .cursor { display: inline-block; width: 10px; height: 20px; background: var(--terminal-green); animation: blink 1s infinite; vertical-align: middle; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .command-input { flex-grow: 1; background: transparent; border: none; color: var(--terminal-green); font-family: 'Inconsolata', monospace; font-size: 1.1rem; outline: none; caret-color: var(--terminal-green); text-shadow: var(--text-shadow); }
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--terminal-bg); }
+        .terminal-container.is-transparent .glitch::before, .terminal-container.is-transparent .glitch::after { background: transparent; }
+        .glitch::before { left: 2px; text-shadow: -2px 0 var(--terminal-red); clip: rect(24px, 550px, 90px, 0); animation: glitch-anim-1 2s infinite linear alternate-reverse; }
+        .glitch::after { left: -2px; text-shadow: -2px 0 var(--terminal-cyan); clip: rect(85px, 550px, 140px, 0); animation: glitch-anim-2 2s infinite linear alternate-reverse; }
+        @keyframes glitch-anim-1 { 0% { clip: rect(54px, 800px, 54px, 0); } 20% { clip: rect(27px, 800px, 86px, 0); } 40% { clip: rect(14px, 800px, 75px, 0); } 60% { clip: rect(39px, 800px, 104px, 0); } 80% { clip: rect(18px, 800px, 53px, 0); } 100% { clip: rect(73px, 800px, 112px, 0); } }
+        @keyframes glitch-anim-2 { 0% { clip: rect(35px, 800px, 89px, 0); } 20% { clip: rect(56px, 800px, 103px, 0); } 40% { clip: rect(22px, 800px, 64px, 0); } 60% { clip: rect(88px, 800px, 120px, 0); } 80% { clip: rect(13px, 800px, 32px, 0); } 100% { clip: rect(42px, 800px, 99px, 0); } }
+        .highlight { color: var(--terminal-cyan); } .hidden { display: none; }
+        .terminal-container.is-transparent .terminal-body span, .terminal-container.is-transparent .terminal-body p, .terminal-container.is-transparent .terminal-body li, .terminal-container.is-transparent .terminal-body a, .terminal-container.is-transparent .terminal-body div { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000 !important; }
+        .terminal-container.is-transparent .terminal-body span[style*="var(--terminal-cyan)"], .terminal-container.is-transparent .terminal-body .highlight { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-cyan) !important; }
+        .terminal-container.is-transparent .terminal-body span[style*="var(--terminal-green)"] { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-green) !important; }
+        .terminal-container.is-transparent .terminal-body span[style*="var(--neon-pink)"] { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--neon-pink) !important; }
+        .terminal-container.is-transparent .terminal-body div[style*="var(--terminal-purple-term)"] { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-purple-term) !important; }
 
         /* --- MERGED: WATERMARK CSS --- */
-        #futuristic-watermark:root {
-            /* Tema Gelap (Default) */
-            --glow-color: hsl(186, 100%, 50%);
-            --background-color: rgba(10, 25, 40, 0.85);
-            --border-color: rgba(127, 255, 212, 0.3);
-            --text-color: rgba(230, 255, 255, 0.95);
-            --particle-base-hue: 186; /* HSL Hue untuk partikel */
-            --particle-base-lightness: 60;
-        }
-
-        @keyframes slideUpFadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes logo3DFlip {
-            0% { transform: rotateY(0deg); filter: brightness(1); }
-            50% { transform: rotateY(180deg); filter: brightness(2) drop-shadow(0 0 8px var(--glow-color)); }
-            100% { transform: rotateY(360deg); filter: brightness(1); }
-        }
+        #futuristic-watermark:root { --glow-color: hsl(186, 100%, 50%); --background-color: rgba(10, 25, 40, 0.85); --border-color: rgba(127, 255, 212, 0.3); --text-color: rgba(230, 255, 255, 0.95); --particle-base-hue: 186; --particle-base-lightness: 60; }
+        @keyframes slideUpFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes logo3DFlip { 0% { transform: rotateY(0deg); filter: brightness(1); } 50% { transform: rotateY(180deg); filter: brightness(2) drop-shadow(0 0 8px var(--glow-color)); } 100% { transform: rotateY(360deg); filter: brightness(1); } }
+        #futuristic-watermark { position: fixed; bottom: 25px; left: 25px; padding: 8px 15px; min-width: 212px; background: var(--background-color, rgba(10, 25, 40, 0.85)); color: var(--text-color, rgba(230, 255, 255, 0.95)); font-family: 'Roboto Mono', monospace; font-weight: 500; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--border-color, rgba(127, 255, 212, 0.3)); border-radius: 10px; box-shadow: 0 0 15px rgba(var(--glow-color, 127, 255, 212), 0.15), 0 0 30px rgba(var(--glow-color, 127, 255, 212), 0.1), inset 0 0 10px rgba(var(--glow-color, 127, 255, 212), 0.1); z-index: 9999; cursor: pointer; user-select: none; overflow: hidden; opacity: 0; animation: slideUpFadeIn 1s ease-out 0.5s forwards; transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        #futuristic-watermark:hover { transform: translateY(-5px) scale(1.03); border-color: rgba(var(--glow-color, 127, 255, 212), 0.8); box-shadow: 0 0 25px rgba(var(--glow-color, 127, 255, 212), 0.4), 0 0 50px rgba(var(--glow-color, 127, 255, 212), 0.25), inset 0 0 12px rgba(var(--glow-color, 127, 255, 212), 0.2); }
+        #futuristic-watermark.light-mode { --glow-color: hsl(220, 90%, 60%); --background-color: rgba(245, 248, 252, 0.85); --border-color: rgba(60, 100, 150, 0.3); --text-color: rgba(10, 25, 40, 0.95); --particle-base-hue: 220; --particle-base-lightness: 40; }
+        #particle-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .f-content-wrapper { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; min-height: 18px; }
+        .f-content { display: flex; align-items: center; gap: 10px; transition: opacity 0.4s ease, transform 0.4s ease; }
+        .f-content.hidden { opacity: 0; pointer-events: none; position: absolute; transform: scale(0.9); }
+        .f-logo-container { width: 18px; height: 18px; transition: transform 0.4s ease; flex-shrink: 0; }
+        .f-logo-container.reacting { animation: logo3DFlip 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+        .f-logo-container svg { width: 100%; height: 100%; stroke: var(--glow-color, hsl(186, 100%, 50%)); stroke-width: 8; transition: stroke 0.5s ease; }
+        #f-watermark-text, #f-follow-message { transition: color 0.5s ease; }
+        #f-watermark-text { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+        #f-follow-message { font-size: 11px; letter-spacing: 0.2px; font-weight: 700; text-align: center; white-space: nowrap; }
         
-        #futuristic-watermark {
+        /* --- [NEW] STYLING IKLAN INTERSTITIAL FULL SCREEN --- */
+        #interstitial-ad {
             position: fixed;
-            bottom: 25px;
-            left: 25px;
-            padding: 8px 15px;
-            min-width: 212px;
-            background: var(--background-color, rgba(10, 25, 40, 0.85));
-            color: var(--text-color, rgba(230, 255, 255, 0.95));
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 500;
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid var(--border-color, rgba(127, 255, 212, 0.3));
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(var(--glow-color, 127, 255, 212), 0.15), 
-                        0 0 30px rgba(var(--glow-color, 127, 255, 212), 0.1),
-                        inset 0 0 10px rgba(var(--glow-color, 127, 255, 212), 0.1);
-            z-index: 9999;
-            cursor: pointer;
-            user-select: none;
-            overflow: hidden;
-            opacity: 0;
-            animation: slideUpFadeIn 1s ease-out 0.5s forwards;
-            transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        
-        #futuristic-watermark:hover {
-            transform: translateY(-5px) scale(1.03);
-            border-color: rgba(var(--glow-color, 127, 255, 212), 0.8);
-            box-shadow: 0 0 25px rgba(var(--glow-color, 127, 255, 212), 0.4), 
-                        0 0 50px rgba(var(--glow-color, 127, 255, 212), 0.25),
-                        inset 0 0 12px rgba(var(--glow-color, 127, 255, 212), 0.2);
-        }
-
-        #futuristic-watermark.light-mode {
-            --glow-color: hsl(220, 90%, 60%);
-            --background-color: rgba(245, 248, 252, 0.85);
-            --border-color: rgba(60, 100, 150, 0.3);
-            --text-color: rgba(10, 25, 40, 0.95);
-            --particle-base-hue: 220;
-            --particle-base-lightness: 40;
-        }
-        
-        #particle-canvas {
-            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .f-content-wrapper {
-            position: relative;
-            z-index: 2;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
             display: flex;
-            align-items: center;
             justify-content: center;
-            min-height: 18px;
-        }
-
-        .f-content {
-            display: flex;
             align-items: center;
-            gap: 10px;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .f-content.hidden {
             opacity: 0;
-            pointer-events: none;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        #interstitial-ad.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #interstitial-ad-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: auto;
+            max-height: 90vh;
+            background-color: var(--dark-bg);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 25px var(--neon-blue);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #interstitial-close-btn {
             position: absolute;
-            transform: scale(0.9);
+            top: -15px;
+            right: -15px;
+            width: 35px;
+            height: 35px;
+            background-color: var(--neon-pink);
+            color: white;
+            border-radius: 50%;
+            border: 2px solid white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 10001;
         }
-
-        .f-logo-container {
-            width: 18px;
-            height: 18px;
-            transition: transform 0.4s ease;
-            flex-shrink: 0;
+        #interstitial-close-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--neon-pink);
         }
-
-        .f-logo-container.reacting {
-            animation: logo3DFlip 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        
-        .f-logo-container svg {
+        #interstitial-content {
             width: 100%;
             height: 100%;
-            stroke: var(--glow-color, hsl(186, 100%, 50%));
-            stroke-width: 8;
-            transition: stroke 0.5s ease;
-        }
-        
-        #f-watermark-text, #f-follow-message {
-            transition: color 0.5s ease;
-        }
-
-        #f-watermark-text {
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        #f-follow-message {
-            font-size: 11px;
-            letter-spacing: 0.2px;
-            font-weight: 700;
-            text-align: center;
-            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body class="min-h-screen">
+
+    <!-- [NEW] Penjelasan: Struktur HTML untuk Iklan Interstitial Full Screen -->
+    <!-- Iklan ini akan muncul sekali per sesi saat pengunjung masuk -->
+    <div id="interstitial-ad" class="hidden">
+        <div id="interstitial-ad-container">
+            <button id="interstitial-close-btn" aria-label="Close Ad">&times;</button>
+            <div id="interstitial-content">
+                <!-- Iklan dari penyedia akan dimuat di sini oleh JavaScript -->
+                <p class="text-gray-400">Memuat Iklan...</p>
+            </div>
+        </div>
+    </div>
+    
     <!-- Canvas untuk Latar Belakang 3D -->
     <canvas id="bg-canvas"></canvas>
     <video autoplay loop muted id="bg-video" class="hidden"></video>
@@ -803,14 +379,14 @@
                                 </div>
                             </div>
                             
-                            <!-- [MODIFIED] Data Management Section (PDF Removed) -->
+                            <!-- Data Management Section -->
                             <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Data Management</h3>
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="importData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-upload mr-1"></i>Import</button>
                                 <button onclick="backupData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-download mr-1"></i>Backup</button>
                             </div>
 
-                            <!-- [MODIFIED] System Reset Button -->
+                            <!-- System Reset Button -->
                             <h3 class="text-sm neon-text-pink mt-4 mb-3 uppercase tracking-wider">System Reset</h3>
                             <button onclick="showConfirmationModal('Are you sure you want to reset everything? This will delete all custom portals and your background settings. This action cannot be undone.', resetAllSettings)"
                                 class="w-full py-2 neon-border-pink rounded flex items-center justify-center mb-3 hover:bg-[var(--neon-pink)] hover:text-[var(--darker-bg)] transition-all font-tech">
@@ -821,7 +397,7 @@
                             <div class="text-xs space-y-2 font-tech">
                                 <div class="flex justify-between">
                                     <span>Version</span>
-                                    <span class="text-[var(--neon-blue)]">v6.0.0-no-pdf</span>
+                                    <span class="text-[var(--neon-blue)]">v7.0.0-interstitial</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span>Portals</span>
@@ -880,7 +456,6 @@
                         Reset Background
                     </button>
                 </div>
-                <!-- [MODIFIED] Data Management for Mobile (PDF Removed) -->
                  <div class="px-3 py-2 border-t border-gray-700 mt-2">
                     <h3 class="text-sm neon-text-blue mb-2 uppercase tracking-wider">Data Management</h3>
                     <div class="grid grid-cols-2 gap-2 mb-2">
@@ -888,7 +463,6 @@
                          <button onclick="backupData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-download mr-1"></i>Backup</button>
                     </div>
                 </div>
-                <!-- [MODIFIED] Reset All Button for Mobile -->
                 <div class="px-3 py-2 border-t border-gray-700 mt-2">
                      <button onclick="showConfirmationModal('Are you sure you want to reset everything? This will delete all custom portals and your background settings. This action cannot be undone.', resetAllSettings)" class="block px-3 py-2 rounded-md text-red-500 w-full text-left hover:bg-red-500/20 font-tech">
                         <i class="fas fa-undo mr-2"></i>Reset All Settings
@@ -902,22 +476,20 @@
     <main class="container mx-auto px-4 py-8 relative z-10 mt-20">
         
         <!-- Penjelasan: Slot Iklan Header/Footer (Responsif) -->
+        <!-- 728x90 (Desktop), 468x60 (Tablet), 320x50 (Mobile) -->
         <div class="mb-8 text-center mx-auto">
-            <!-- 728x90 untuk Desktop -->
             <div class="hidden lg:inline-block">
                 <script type="text/javascript">
                     atOptions = { 'key' : '67f52a8e6f5a7f97909d1ab521d9f77e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
                 </script>
                 <script type="text/javascript" src="//librarysituation.com/67f52a8e6f5a7f97909d1ab521d9f77e/invoke.js"></script>
             </div>
-            <!-- 468x60 untuk Tablet -->
             <div class="hidden md:inline-block lg:hidden">
                 <script type="text/javascript">
                     atOptions = { 'key' : '074326eea4380e8cdf3e8ee380d2d5ed', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
                 </script>
                 <script type="text/javascript" src="//librarysituation.com/074326eea4380e8cdf3e8ee380d2d5ed/invoke.js"></script>
             </div>
-            <!-- 320x50 untuk Mobile -->
             <div class="md:hidden">
                 <script type="text/javascript">
                     atOptions = { 'key' : 'a32216f9f7b9366853d9698f57d92a55', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
@@ -936,10 +508,8 @@
                     </div>
                     <div class="relative inline-block">
                         <h1 class="glitch-effect text-5xl md:text-7xl font-bold mb-4" data-text="URANUS FAZRY">URANUS FAZRY</h1>
-                        <span
-                            class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[var(--neon-blue)] to-transparent"></span>
-                        <span
-                            class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[var(--neon-pink)] to-transparent"></span>
+                        <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[var(--neon-blue)] to-transparent"></span>
+                        <span class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[var(--neon-pink)] to-transparent"></span>
                     </div>
                     <p class="text-lg md:text-xl neon-text-purple uppercase tracking-wider mt-8">Web & App Digital Creator</p>
                      <p class="max-w-2xl mx-auto mt-6 text-base md:text-lg text-gray-300 leading-relaxed">
@@ -962,7 +532,7 @@
                     <script type="text/javascript" src="//librarysituation.com/e1690ea948979754ea67242819fbbe80/invoke.js"></script>
                 </div>
 
-                <!-- CYBER TERMINAL (from File 1) -->
+                <!-- CYBER TERMINAL -->
                 <div class="terminal-container">
                     <div class="terminal-header">
                         <div class="terminal-buttons">
@@ -971,9 +541,7 @@
                             <div class="terminal-button green"></div>
                         </div>
                         <div class="glitch" data-text="uranusfazry@cyberterminal">uranusfazry@cyberterminal</div>
-                        <div class="terminal-buttons">
-                            <div style="width: 20px;"></div>
-                        </div>
+                        <div class="terminal-buttons"><div style="width: 20px;"></div></div>
                     </div>
                     <div class="terminal-body" id="terminal-body">
                         <div id="typing-text" class="typing-text"></div>
@@ -986,11 +554,9 @@
                 </div>
                 
                 <!-- Penjelasan: Slot Native Banner sebelum grid portal -->
-                <div class="my-8">
-                    <script async="async" data-cfasync="false" src="//librarysituation.com/dc918ca138d058b9a562210d0d7c46cd/invoke.js"></script>
-                    <div id="container-dc918ca138d058b9a562210d0d7c46cd"></div>
-                </div>
-                
+                <div id="container-dc918ca138d058b9a562210d0d7c46cd" class="my-8"></div>
+                <script async="async" data-cfasync="false" src="//librarysituation.com/dc918ca138d058b9a562210d0d7c46cd/invoke.js"></script>
+
                 <!-- Portals grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12" id="portals-grid">
                     <!-- Portals will be added here by JavaScript -->
@@ -1008,7 +574,7 @@
                         <script type="text/javascript" src="//librarysituation.com/ff01190b2f4f2f812816ee58b640908c/invoke.js"></script>
                     </div>
                     <div>
-                         <script type="text/javascript">
+                        <script type="text/javascript">
                             atOptions = { 'key' : 'bc2c1ab527d40b3295df8b1f2cb70663', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
                         </script>
                         <script type="text/javascript" src="//librarysituation.com/bc2c1ab527d40b3295df8b1f2cb70663/invoke.js"></script>
@@ -1025,7 +591,6 @@
     <div id="volume-control" class="hidden">
         <i id="volume-icon" class="fas fa-volume-mute"></i>
     </div>
-
 
     <!-- Add Portal Modal -->
     <div id="add-portal-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
@@ -1053,7 +618,6 @@
                 <div>
                     <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Icon</label>
                     <select id="portal-icon" class="w-full p-3 rounded-lg bg-[#0d0221] border border-[#05d9e8] focus:outline-none focus:border focus:border-[#ff2a6d]">
-                        <!-- [UPDATED] More Icons -->
                         <option value="fas fa-link">Default Link</option>
                         <option value="fas fa-trophy">Trophy</option>
                         <option value="fas fa-star">Star</option>
@@ -1283,7 +847,7 @@
         </div>
     </div>
     
-    <!-- [NEW] Confirmation Modal -->
+    <!-- Confirmation Modal -->
     <div id="confirmation-modal" class="fixed inset-0 flex items-center justify-center z-[60] hidden modal-overlay">
         <div class="modal-content neon-border-pink rounded-xl p-8 max-w-sm w-full mx-4 relative text-center">
              <h2 class="text-xl neon-text-pink mb-4">Confirm Action</h2>
@@ -1299,15 +863,69 @@
         </div>
     </div>
 
-    <!-- [NEW] Audio Player Element -->
+    <!-- Audio Player Element -->
     <audio id="audio-player"></audio>
     
-    <!-- [NEW] Hidden file input for import -->
+    <!-- Hidden file input for import -->
     <input type="file" id="import-file-input" class="hidden" accept=".txt,application/json">
 
 <script>
+    // --- [NEW] FUNGSI IKLAN INTERSTITIAL ---
+    // Penjelasan: Iklan ini muncul sekali per sesi.
+    function showInterstitialAd() {
+        if (!sessionStorage.getItem('interstitialShown')) {
+            const interstitialAd = document.getElementById('interstitial-ad');
+            const interstitialContent = document.getElementById('interstitial-content');
+            
+            // Hapus pesan "Memuat Iklan..."
+            interstitialContent.innerHTML = '';
+
+            // Buat script iklan
+            const adScript = document.createElement('script');
+            adScript.type = 'text/javascript';
+            adScript.innerHTML = `
+                atOptions = {
+                    'key' : 'e1690ea948979754ea67242819fbbe80', // Gunakan key 300x250 atau yang sesuai
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            `;
+            
+            const invokeScript = document.createElement('script');
+            invokeScript.type = 'text/javascript';
+            invokeScript.src = '//librarysituation.com/e1690ea948979754ea67242819fbbe80/invoke.js';
+
+            interstitialContent.appendChild(adScript);
+            interstitialContent.appendChild(invokeScript);
+
+            interstitialAd.classList.remove('hidden');
+            setTimeout(() => {
+                interstitialAd.classList.add('visible');
+            }, 10); // Sedikit delay untuk transisi
+
+            sessionStorage.setItem('interstitialShown', 'true');
+        }
+    }
+
+    function closeInterstitialAd() {
+        const interstitialAd = document.getElementById('interstitial-ad');
+        interstitialAd.classList.remove('visible');
+        setTimeout(() => {
+            interstitialAd.classList.add('hidden');
+        }, 300); // Tunggu transisi selesai
+    }
+
+
+    // --- SCRIPT UTAMA PORTAL ---
     document.addEventListener('DOMContentLoaded', async function() {
-        // --- SCRIPT UTAMA PORTAL ---
+        
+        // --- [NEW] Panggil Iklan Interstitial ---
+        showInterstitialAd();
+        document.getElementById('interstitial-close-btn').addEventListener('click', closeInterstitialAd);
+
+        // --- NEON PORTAL SCRIPT ---
         const portalsGrid = document.getElementById('portals-grid');
         const portalForm = document.getElementById('portal-form');
         const portalCount = document.getElementById('portal-count');
@@ -1326,33 +944,28 @@
         const bgUploadMedia = document.getElementById('bg-upload-media');
         const bgUploadMediaMobile = document.getElementById('bg-upload-media-mobile');
         const audioPlayer = document.getElementById('audio-player');
-        // [NEW] Import file input
         const importFileInput = document.getElementById('import-file-input');
-        // [NEW] Confirmation Modal elements
         const confirmationModal = document.getElementById('confirmation-modal');
         const confirmationMessage = document.getElementById('confirmation-message');
         const confirmOkBtn = document.getElementById('confirm-ok-btn');
         const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
 
-
         let portals = [];
         let currentBgImage = '';
         let currentBgVideo = '';
         let selectedMediaFile = null;
-        let onConfirmCallback = null; // To store the action for the confirmation modal
+        let onConfirmCallback = null;
         
-        // --- [NEW] Variables for swipe/drag gestures ---
         let touchStartX = 0; 
         let dragStartX = 0;
         let isDragging = false;
         
-        // --- [NEW] IndexedDB Helper Functions ---
+        // --- IndexedDB Helper Functions ---
         const DB_NAME = 'uranusfazryDB';
         const STORE_NAME = 'mediaFiles';
         const FILE_KEY = 'userBackgroundMedia';
         let db;
 
-        // Function to open/create the database
         async function openDB() {
             return new Promise((resolve, reject) => {
                 if (db) return resolve(db);
@@ -1371,7 +984,6 @@
             });
         }
 
-        // Function to save a file to the database
         async function saveFileToDB(file) {
             const db = await openDB();
             return new Promise((resolve, reject) => {
@@ -1383,7 +995,6 @@
             });
         }
 
-        // Function to retrieve a file from the database
         async function getFileFromDB() {
             const db = await openDB();
             return new Promise((resolve, reject) => {
@@ -1395,7 +1006,6 @@
             });
         }
 
-        // Function to delete a file from the database
         async function deleteFileFromDB() {
             const db = await openDB();
             return new Promise((resolve, reject) => {
@@ -1406,7 +1016,6 @@
                 request.onerror = (event) => reject("Failed to delete file: " + event.target.error);
             });
         }
-        // --- End of IndexedDB Helpers ---
 
         const musicList = [
             { name: 'Chammak Challo', url: 'https://c.top4top.io/m_3457ukcau0.mp3' },
@@ -1447,7 +1056,6 @@
             portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
             currentBgImage = localStorage.getItem('bgImage') || '';
             
-            // [MODIFIED] Load from IndexedDB first, which overrides localStorage image
             try {
                 const storedFile = await getFileFromDB();
                 if (storedFile) {
@@ -1491,17 +1099,14 @@
             bgUploadMedia.addEventListener('change', handleMediaSelect);
             bgUploadMediaMobile.addEventListener('change', handleMediaSelect);
 
-            // --- [MODIFIED] Add all gesture event listeners ---
             document.body.addEventListener('touchstart', handleTouchStart, false);
             document.body.addEventListener('touchend', handleTouchEnd, false);
             document.body.addEventListener('mousedown', handleDragStart);
             document.body.addEventListener('mouseup', handleDragEnd);
             document.body.addEventListener('mouseleave', handleDragLeave);
             
-            // [NEW] Add event listener for the import file input
             importFileInput.addEventListener('change', handleFileImport);
             
-            // [NEW] Add event listeners for confirmation modal
             confirmCancelBtn.addEventListener('click', () => confirmationModal.classList.add('hidden'));
             confirmOkBtn.addEventListener('click', () => {
                 if (typeof onConfirmCallback === 'function') {
@@ -1512,14 +1117,11 @@
             });
         }
         
-        // [NEW] Show Confirmation Modal Function
         window.showConfirmationModal = function(message, callback) {
             confirmationMessage.textContent = message;
             onConfirmCallback = callback;
             confirmationModal.classList.remove('hidden');
         }
-
-        // --- [NEW] GESTURE HANDLER FUNCTIONS ---
 
         function handleTouchStart(event) {
             if (document.body.classList.contains('preview-mode-active')) {
@@ -1540,14 +1142,14 @@
             if (document.body.classList.contains('preview-mode-active')) {
                 isDragging = true;
                 dragStartX = event.clientX;
-                event.preventDefault(); // Prevent text selection
+                event.preventDefault();
             }
         }
 
         function handleDragEnd(event) {
             if (isDragging && document.body.classList.contains('preview-mode-active')) {
                 const dragEndX = event.clientX;
-                if (dragStartX - dragEndX > 100) { // Swipe left with mouse
+                if (dragStartX - dragEndX > 100) {
                     togglePreviewMode();
                 }
             }
@@ -1559,8 +1161,6 @@
                 isDragging = false;
             }
         }
-        // --- END OF GESTURE HANDLERS ---
-
 
         function handleMediaSelect(event) {
             const file = event.target.files[0];
@@ -1611,7 +1211,6 @@
                         </a>
                     </div>
                 `;
-                // Add event listener to prevent the default link behavior when the delete button is clicked
                 portalElement.querySelector('button').addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -1649,7 +1248,7 @@
                 addPortalToArray(name, url, icon, color, description);
             }
         }
-
+        
         function addPortalToArray(name, url, icon, color, description) {
             portals.push({ name, url, icon, color, description });
             savePortals();
@@ -1658,7 +1257,6 @@
             resetPortalForm();
         }
         
-        // [MODIFIED] This is the actual deletion logic, called by the modal
         window.deletePortalAction = function(index) {
             portals.splice(index, 1);
             savePortals();
@@ -1711,7 +1309,6 @@
             container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
         }
         
-        // [MODIFIED] Set background from URL, clears file from DB
         window.setBackgroundImage = async function() {
             const bgUrlInput = document.getElementById('bg-image-mobile').value ? document.getElementById('bg-image-mobile') : document.getElementById('bg-image');
             if (bgUrlInput && bgUrlInput.value) {
@@ -1722,13 +1319,12 @@
             }
         }
 
-        // [MODIFIED] Apply uploaded file, saves to DB
         window.applyUploadedMedia = async function() {
             if (!selectedMediaFile) return;
 
             try {
                 await saveFileToDB(selectedMediaFile);
-                localStorage.removeItem('bgImage'); // Clear URL from localStorage
+                localStorage.removeItem('bgImage');
 
                 const storedFile = await getFileFromDB();
                 if (storedFile) {
@@ -1754,15 +1350,9 @@
             }
         }
 
-        // [MODIFIED] Central function to update media state
         function updateBackgroundMedia(imageUrl, videoUrl) {
-            // Revoke old blob URLs to prevent memory leaks
-            if (currentBgVideo && currentBgVideo.startsWith('blob:')) {
-                URL.revokeObjectURL(currentBgVideo);
-            }
-            if (currentBgImage && currentBgImage.startsWith('blob:')) {
-                URL.revokeObjectURL(currentBgImage);
-            }
+            if (currentBgVideo && currentBgVideo.startsWith('blob:')) { URL.revokeObjectURL(currentBgVideo); }
+            if (currentBgImage && currentBgImage.startsWith('blob:')) { URL.revokeObjectURL(currentBgImage); }
 
             if (imageUrl) {
                 currentBgImage = imageUrl;
@@ -1802,14 +1392,9 @@
             }
         }
         
-        // [MODIFIED] Reset now also clears the IndexedDB
         window.resetBackgroundMedia = async function() {
-            if(currentBgVideo && currentBgVideo.startsWith('blob:')) {
-                URL.revokeObjectURL(currentBgVideo);
-            }
-             if(currentBgImage && currentBgImage.startsWith('blob:')) {
-                URL.revokeObjectURL(currentBgImage);
-            }
+            if(currentBgVideo && currentBgVideo.startsWith('blob:')) { URL.revokeObjectURL(currentBgVideo); }
+            if(currentBgImage && currentBgImage.startsWith('blob:')) { URL.revokeObjectURL(currentBgImage); }
             bgVideo.pause();
             bgVideo.removeAttribute('src');
 
@@ -1834,7 +1419,6 @@
             }
         }
 
-        // [MODIFIED] Reset All now also clears the IndexedDB
         window.resetAllSettings = async function() {
             localStorage.removeItem('portals');
             localStorage.removeItem('bgImage');
@@ -1864,16 +1448,13 @@
         }
 
         function togglePreviewMode() {
-            // Only allow entering preview mode if there is a background
             if (!document.body.classList.contains('preview-mode-active') && !currentBgImage && !currentBgVideo) {
                 return; 
             }
             document.body.classList.toggle('preview-mode-active');
         }
         
-        // --- [NEW] DATA MANAGEMENT FUNCTIONS ---
-
-        // Helper function to convert a file/blob to a base64 string
+        // --- DATA MANAGEMENT FUNCTIONS ---
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1883,7 +1464,6 @@
             });
         }
 
-        // Helper function to convert a base64 data URL back to a Blob
         function base64ToBlob(base64, mimeType) {
             const byteCharacters = atob(base64.split(',')[1]);
             const byteNumbers = new Array(byteCharacters.length);
@@ -1894,23 +1474,19 @@
             return new Blob([byteArray], { type: mimeType });
         }
         
-        // Backup to JSON (.txt file) with base64 media
         window.backupData = async () => {
             const dataToBackup = {
                 portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals,
                 bgImage: localStorage.getItem('bgImage') || null,
-                bgMedia: null // New field for the media file
+                bgMedia: null
             };
 
             try {
                 const storedFile = await getFileFromDB();
                 if (storedFile) {
                     const base64Data = await fileToBase64(storedFile);
-                    dataToBackup.bgMedia = {
-                        type: storedFile.type,
-                        data: base64Data
-                    };
-                    dataToBackup.bgImage = null; // Prioritize media file over URL
+                    dataToBackup.bgMedia = { type: storedFile.type, data: base64Data };
+                    dataToBackup.bgImage = null;
                 }
             } catch (error) {
                 console.error("Could not read media file for backup:", error);
@@ -1929,7 +1505,6 @@
             URL.revokeObjectURL(url);
         };
 
-        // Import from JSON (.txt file) with base64 media
         window.importData = () => {
             importFileInput.click();
         };
@@ -1943,18 +1518,15 @@
                 try {
                     const importedData = JSON.parse(e.target.result);
                     if (importedData && Array.isArray(importedData.portals)) {
-                        // Clear old media first
                         await deleteFileFromDB();
                         localStorage.removeItem('bgImage');
 
                         localStorage.setItem('portals', JSON.stringify(importedData.portals));
 
                         if (importedData.bgMedia && importedData.bgMedia.data) {
-                            // Handle imported media file
                             const mediaBlob = base64ToBlob(importedData.bgMedia.data, importedData.bgMedia.type);
                             await saveFileToDB(mediaBlob);
                         } else if (typeof importedData.bgImage === 'string') {
-                            // Handle imported URL
                             localStorage.setItem('bgImage', importedData.bgImage);
                         }
 
@@ -1970,12 +1542,10 @@
                 }
             };
             reader.readAsText(file);
-            // Reset file input to allow importing the same file again
             event.target.value = '';
         }
 
-
-        // --- 3D BACKGROUND SCRIPT (File 1) ---
+        // --- 3D BACKGROUND SCRIPT ---
         function init3DBackground() {
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -1994,7 +1564,7 @@
             const velocities = [];
 
             for (let i = 0; i < particleCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 200; // Increased range
+                posArray[i] = (Math.random() - 0.5) * 200;
                 velocities.push((Math.random() - 0.5) * 0.1);
             }
 
@@ -2040,7 +1610,6 @@
                     positions[i * 3 + 1] += velocities[i * 3 + 1] * 0.1;
                     positions[i * 3 + 2] += velocities[i * 3 + 2] * 0.1;
                     
-                    // Make particles wrap around the screen
                     if (positions[i*3+1] < -100) positions[i*3+1] = 100;
                     if (positions[i*3] > 100) positions[i*3] = -100;
                     else if (positions[i*3] < -100) positions[i*3] = 100;
@@ -2054,7 +1623,7 @@
                         const p2 = new THREE.Vector3(positions[j*3], positions[j*3+1], positions[j*3+2]);
                         const distance = p1.distanceTo(p2);
 
-                        if (distance < 15) { // Increased connection distance
+                        if (distance < 15) {
                             linePositions.push(p1.x, p1.y, p1.z);
                             linePositions.push(p2.x, p2.y, p2.z);
                         }
@@ -2076,7 +1645,7 @@
             animate();
         }
 
-        // --- CYBER TERMINAL SCRIPT (File 1) ---
+        // --- CYBER TERMINAL SCRIPT ---
         const terminalBody = document.getElementById('terminal-body');
         const terminalText = document.getElementById('typing-text');
         const commandLine = document.getElementById('command-line');
@@ -2087,13 +1656,7 @@
             const img = document.createElement('img');
             img.src = 'https://i.imghippo.com/files/fBt9701PM.jpg';
             img.alt = 'Foto Uranus Fazry';
-            img.style.maxWidth = '250px';
-            img.style.maxHeight = '250px';
-            img.style.marginTop = '10px';
-            img.style.marginBottom = '10px'; // Added for spacing
-            img.style.borderRadius = '8px';
-            img.style.border = '2px solid var(--terminal-cyan)';
-            img.style.boxShadow = '0 0 15px var(--terminal-cyan)';
+            img.style.cssText = 'max-width: 250px; max-height: 250px; margin-top: 10px; margin-bottom: 10px; border-radius: 8px; border: 2px solid var(--terminal-cyan); box-shadow: 0 0 15px var(--terminal-cyan);';
             imgContainer.appendChild(img);
             terminalText.appendChild(imgContainer);
             terminalBody.scrollTop = terminalBody.scrollHeight;
@@ -2127,18 +1690,6 @@
             { text: "> AI/ML:               ███████▍   75%\n", delay: 20, style: "color: var(--terminal-cyan)" },
             { text: "> BLOCKCHAIN:          ██████▎    70%\n", delay: 20, style: "color: var(--terminal-cyan)" },
             { text: "\n", delay: 100 },
-            { text: ">> PROJECT HISTORY <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-            { text: "\n", delay: 100 },
-            { text: "> [2025] CROWNED “KING BY ONE” – MLBB COMPETITIVE ACHIEVEMENT\n", delay: 20 },
-            { text: "> [2025] CRYPTO ENTRY STRATEGY – INDEPENDENT TRADER & ANALYST\n", delay: 20 },
-            { text: "> [2025] WIRELESS INTERNET BUSINESS EXPANSION – FOUNDER\n", delay: 20 },
-            { text: "> [2025] WEB & APP DEVELOPMENT PROJECTS – SELF-TAUGHT DEVELOPER\n", delay: 20 },
-            { text: "> [2021] MLBB KOL INDONESIA – COMPETITIVE PLAYER & CONTENT CREATOR\n", delay: 20 },
-            { text: "> [2020] STREAMING & CONTENT PRODUCTION – MULTI-PLATFORM CREATOR\n", delay: 20 },
-            { text: "\n", delay: 100 },
-            { text: ">> STATUS <<\n", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-            { text: "TAHUN 2025 MENJADI MOMENTUM PENTING BAGI URANUS FAZRY DENGAN SEJUMLAH PENCAPAIAN STRATEGIS: MERAIH GELAR “RAJA BY ONE” DI MOBILE LEGENDS, MENGEMBANGKAN STRATEGI ENTRI KRIPTO SEBAGAI TRADER DAN ANALIS INDEPENDEN, MEMPERLUAS BISNIS INTERNET WIRELESS SEBAGAI PENDIRI, SERTA MENGERJAKAN BERBAGAI PROYEK PENGEMBANGAN WEB & APLIKASI SECARA MANDIRI. PADA 2021, IA DIPERCAYA SEBAGAI MLBB KOL INDONESIA, MENGGABUNGKAN PERAN SEBAGAI PEMAIN KOMPETITIF DAN PEMBUAT KONTEN YANG BERPENGARUH DI KOMUNITAS ESPORTS. PERJALANANNYA DIMULAI PADA 2020 SEBAGAI STREAMER DAN CONTENT CREATOR MULTI PLATFORM, MEMBANGUN AUDIENS SERTA FONDASI KARIER DIGITALNYA. DENGAN KOMBINASI PENGALAMAN DI TEKNOLOGI, GAMING, DAN BISNIS, IA MEMBANGUN PROFIL PROFESIONAL YANG MENCERMINKAN INOVASI, KETEKUNAN, DAN KEUNGGULAN KOMPETITIF.", delay: 25, style: "color: var(--terminal-green); font-weight: bold; text-transform: uppercase;" },
-            { text: "\n\n", delay: 100 },
             { text: "> Type 'help' for available commands", delay: 30, style: "color: var(--terminal-green)" },
             { text: "\n", delay: 50 },
         ];
@@ -2156,9 +1707,7 @@
             const currentMessage = messages[currentMessageIndex];
 
             if (currentMessage.action) {
-                if (currentMessage.action === 'addPhoto') {
-                    displayProfilePhoto();
-                }
+                if (currentMessage.action === 'addPhoto') { displayProfilePhoto(); }
                 currentMessageIndex++;
                 setTimeout(typeNextCharacter, currentMessage.delay);
                 return;
@@ -2171,9 +1720,7 @@
                 const span = document.createElement('span');
                 span.textContent = char;
                 
-                if (currentMessage.style) {
-                    span.style.cssText = currentMessage.style;
-                }
+                if (currentMessage.style) { span.style.cssText = currentMessage.style; }
                 
                 terminalText.appendChild(span);
                 terminalBody.scrollTop = terminalBody.scrollHeight;
@@ -2187,36 +1734,6 @@
             }
         }
         
-        function typewriter(element, htmlString, onComplete) {
-            let i = 0;
-            const speed = 10;
-            element.innerHTML = '';
-
-            function type() {
-                if (i < htmlString.length) {
-                    if (htmlString.charAt(i) === '<') {
-                        const closingBracketIndex = htmlString.indexOf('>', i);
-                        if (closingBracketIndex !== -1) {
-                            const tag = htmlString.substring(i, closingBracketIndex + 1);
-                            element.innerHTML += tag;
-                            i = closingBracketIndex; 
-                        }
-                    } else {
-                        element.innerHTML += htmlString.charAt(i);
-                    }
-                    
-                    i++;
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                    setTimeout(type, speed);
-                } else {
-                    if (onComplete) {
-                        onComplete();
-                    }
-                }
-            }
-            type();
-        }
-
         function processCommand(command) {
             terminalText.appendChild(document.createElement('br'));
             
@@ -2236,127 +1753,44 @@
             response.style.marginTop = '10px';
             
             command = command.toLowerCase().trim();
-            
-            let isAnimated = false;
-            
             const trackNumber = parseInt(command, 10);
 
             if (command === 'help') {
-                response.innerHTML = `Available commands:<br>
-                    - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
-                    - <span class="highlight">about</span>: Show detailed profile<br>
-                    - <span class="highlight">skills</span>: List technical skills<br>
-                    - <span class="highlight">projects</span>: Show project history<br>
-                    - <span class="highlight">contact</span>: Show contact information<br>
-                    - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
-                    - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
-                    - <span class="highlight">stop</span>: Menghentikan musik.<br>
-                    - <span class="highlight">clear</span>: Clear the terminal<br>
-                    - <span class="highlight">exit</span>: Close terminal (just kidding)`;
+                response.innerHTML = `Available commands:<br> - <span class="highlight">about</span>: Show detailed profile<br> - <span class="highlight">skills</span>: List technical skills<br> - <span class="highlight">contact</span>: Show contact information<br> - <span class="highlight">musik</span>: Menampilkan daftar musik.<br> - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar.<br> - <span class="highlight">stop</span>: Menghentikan musik.<br> - <span class="highlight">clear</span>: Clear the terminal<br> - <span class="highlight">exit</span>: Close terminal (just kidding)`;
             } else if (command === 'about') {
-                 response.innerHTML = `
-                      <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
-                      "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
-                      </p>
-                    `;
+                response.innerHTML = `<p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">"AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU..."</p>`;
             } else if (command === 'skills') {
-                response.innerHTML = `>> SKILL MATRIX <<<br><br>
-                    <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
-                    <span style="color: var(--terminal-cyan)">> JAVASCRIPT:          ██████████ 97%</span><br>
-                    <span style="color: var(--terminal-cyan)">> CYBERSECURITY:       ████████▉  88%</span><br>
-                    <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:  ████████▊  86%</span><br>
-                    <span style="color: var(--terminal-cyan)">> AI/ML:               ███████▍   75%</span><br>
-                    <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:          ██████▎    70%</span><br>`;
-            } else if (command === 'projects') {
-                response.innerHTML = `>> PROJECT HISTORY <<<br><br>
-                    > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
-                    > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
-                    > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
+                response.innerHTML = `>> SKILL MATRIX <<<br><br><span style="color: var(--terminal-cyan)">> PYTHON: [...] 95%</span><br><span style="color: var(--terminal-cyan)">> JAVASCRIPT: [...] 97%</span><br>...`;
             } else if (command === 'contact') {
-                response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br>
-                    - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
-                    - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
+                response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br> - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br> - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
             } else if (command === 'clear') {
-                terminalText.innerHTML = '';
-                commandInput.value = '';
-                return;
+                terminalText.innerHTML = ''; commandInput.value = ''; return;
             } else if (command === 'musik') {
                 let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
-                musicList.forEach((song, index) => {
-                    musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`;
-                });
+                musicList.forEach((song, index) => { musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`; });
                 musicListHtml += "<br>Ketik nomor untuk memutar musik.";
                 response.innerHTML = musicListHtml;
             } else if (!isNaN(trackNumber) && trackNumber >= 1 && trackNumber <= musicList.length) {
                 const song = musicList[trackNumber - 1];
-                audioPlayer.src = song.url;
-                audioPlayer.play();
+                audioPlayer.src = song.url; audioPlayer.play();
                 response.innerHTML = `Memutar: <span class="highlight">${song.name}</span>`;
             } else if (command === 'stop') {
-                audioPlayer.pause();
-                audioPlayer.src = '';
+                audioPlayer.pause(); audioPlayer.src = '';
                 response.innerHTML = 'Musik dihentikan.';
-            } else if (command === 'uranusfazry') {
-                isAnimated = true;
-                const profileHtml = `
-                    <div style="color: var(--terminal-purple-term); text-decoration: underline;">// URANUSFAZRY - DATA PROFILE //</div><br>
-                    <div><span class="highlight">> BIOGRAFI</span></div>
-                    <p style="margin-left: 15px;">
-                        Uranus Fazry adalah seorang pengembang multi-talenta dan kreator digital yang berbasis di Indonesia. Dengan hasrat untuk teknologi dan inovasi, ia telah membangun berbagai proyek mulai dari aplikasi web canggih hingga platform game interaktif. Dikenal dengan kemampuannya memecahkan masalah kompleks dan kepribadiannya yang kuat, ia adalah 'Raja By One' di dunia digital.
-                    </p><br>
-                    <div><span class="highlight">> HOBI</span></div>
-                    <div style="margin-left: 15px;">
-                        - Gaming (terutama MLBB)<br>
-                        - Trading Forex & Crypto<br>
-                        - Produksi Musik<br>
-                        - Coding & Eksperimen Teknologi Baru
-                    </div><br>
-                    <div><span class="highlight">> KEAHLIAN UTAMA</span></div>
-                    <div style="margin-left: 15px;">
-                        - Full-Stack Web Development (JavaScript, Python)<br>
-                        - Cybersecurity & Network Management<br>
-                        - AI/ML Integration<br>
-                        - Blockchain & Smart Contract
-                    </div><br>
-                    <div><span class="highlight">> KONTAK</span></div>
-                    <div style="margin-left: 15px;">
-                        - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
-                        - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>
-                    </div>
-                `;
-                
-                terminalText.appendChild(response);
-                commandInput.disabled = true;
-                
-                typewriter(response, profileHtml, () => {
-                    commandInput.disabled = false;
-                    commandInput.focus();
-                    terminalText.appendChild(document.createElement('br'));
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                });
-
-            } else if (command === 'exit') {
-                response.innerHTML = `<span style="color: var(--terminal-red)">Access Denied: Terminal cannot be closed from this session.</span>`;
             } else {
-                response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span><br>
-                Type <span class="highlight">'help'</span> for available commands.`;
+                response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span>`;
             }
             
-            if (!isAnimated) {
-                terminalText.appendChild(response);
-                terminalText.appendChild(document.createElement('br'));
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-            }
+            terminalText.appendChild(response);
+            terminalText.appendChild(document.createElement('br'));
+            terminalBody.scrollTop = terminalBody.scrollHeight;
         }
         
         commandInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && this.value.trim() !== '') {
                 const command = this.value;
                 this.value = '';
-                
-                if (command.trim() !== '') {
-                    processCommand(command);
-                }
+                processCommand(command);
             }
         });
 
@@ -2371,25 +1805,7 @@
 <script>
   (function() {
     function initializeWatermark() {
-        const watermarkHTML = `
-          <div id="futuristic-watermark" title="Design by ©URANUSFAZRY">
-            <canvas id="particle-canvas"></canvas>
-            <div class="f-content-wrapper">
-              <div id="f-main-content" class="f-content">
-                <div class="f-logo-container">
-                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 20 L80 20 L80 80 L20 80 Z" stroke-opacity="0.5"/>
-                      <path d="M50 5 L95 50 L50 95 L5 50 Z"/>
-                  </svg>
-                </div>
-                <span id="f-watermark-text">©URANUSFAZRY</span>
-              </div>
-              <div id="f-follow-content" class="f-content hidden">
-                  <span id="f-follow-message"></span>
-              </div>
-            </div>
-          </div>
-        `;
+        const watermarkHTML = `<div id="futuristic-watermark" title="Design by ©URANUSFAZRY"><canvas id="particle-canvas"></canvas><div class="f-content-wrapper"><div id="f-main-content" class="f-content"><div class="f-logo-container"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 20 L80 20 L80 80 L20 80 Z" stroke-opacity="0.5"/><path d="M50 5 L95 50 L50 95 L5 50 Z"/></svg></div><span id="f-watermark-text">©URANUSFAZRY</span></div><div id="f-follow-content" class="f-content hidden"><span id="f-follow-message"></span></div></div></div>`;
         document.body.insertAdjacentHTML('beforeend', watermarkHTML);
 
         const watermarkEl = document.getElementById('futuristic-watermark');
@@ -2399,98 +1815,29 @@
         const followContentEl = document.getElementById('f-follow-content');
         const followMessageEl = document.getElementById('f-follow-message');
         
-        let isAnimating = false;
-        let autoPlayInterval = null;
-        let currentSequence = 0;
+        let isAnimating = false, autoPlayInterval = null, currentSequence = 0;
         const sequenceActions = ['scramble', 'logo', 'youtube', 'tiktok', 'reset'];
 
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById('particle-canvas'), ctx = canvas.getContext('2d');
         let particles = [];
         const resizeCanvas = () => { if (watermarkEl) { canvas.width = watermarkEl.offsetWidth; canvas.height = watermarkEl.offsetHeight; } };
         class Particle {
             constructor() { this.reset(); this.baseSpeedX = (Math.random() - 0.5) * 0.5; this.baseSpeedY = (Math.random() - 0.5) * 0.5; this.speedX = this.baseSpeedX; this.speedY = this.baseSpeedY; }
-            update() {
-                this.x += this.speedX; this.y += this.speedY; this.opacity -= this.fadeSpeed;
-                if (this.opacity <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
-            }
-            draw() {
-                const style = getComputedStyle(watermarkEl);
-                const hue = style.getPropertyValue('--particle-base-hue').trim();
-                const lightness = parseFloat(style.getPropertyValue('--particle-base-lightness').trim());
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = `hsl(${hue}, 100%, ${lightness + this.opacity * 40}%)`;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.opacity -= this.fadeSpeed; if (this.opacity <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); } }
+            draw() { const style = getComputedStyle(watermarkEl); const hue = style.getPropertyValue('--particle-base-hue').trim(); const lightness = parseFloat(style.getPropertyValue('--particle-base-lightness').trim()); ctx.globalAlpha = this.opacity; ctx.fillStyle = `hsl(${hue}, 100%, ${lightness + this.opacity * 40}%)`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
             reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.opacity = Math.random() * 0.5 + 0.2; this.size = Math.random() * 1.5 + 0.5; this.fadeSpeed = Math.random() * 0.015 + 0.005; }
         }
         const animateParticles = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); ctx.globalAlpha = 1.0; requestAnimationFrame(animateParticles); };
         
-        const textScramble = (el) => {
-            const originalText = "©URANUSFAZRY";
-            const chars = '!<>*#{}[]'; let frame = 0; isAnimating = true;
-            const interval = setInterval(() => {
-                el.innerText = originalText.split('').map((char, i) => { const p = (frame - i * 2) / 15; if (p < 0) return ' '; if (p > 1) return char; return chars[Math.floor(Math.random() * chars.length)]; }).join('');
-                if (frame >= originalText.length * 2 + 15) { clearInterval(interval); el.innerText = originalText; isAnimating = false; } frame++;
-            }, 30);
-        };
-
-        const typewriter = (el, text) => {
-            let i = 0; el.innerHTML = ""; isAnimating = true;
-            const interval = setInterval(() => {
-                if (i < text.length) { el.innerHTML += text.charAt(i); i++; } 
-                else { clearInterval(interval); isAnimating = false; }
-            }, 50);
-        };
-
-        const runAutoSequence = () => {
-            if (isAnimating) return;
-            const action = sequenceActions[currentSequence];
-            switch (action) {
-                case 'scramble': textScramble(textEl); break;
-                case 'logo':
-                    isAnimating = true;
-                    logoEl.classList.add('reacting');
-                    logoEl.addEventListener('animationend', () => { logoEl.classList.remove('reacting'); isAnimating = false; }, { once: true });
-                    break;
-                case 'youtube':
-                    isAnimating = true;
-                    mainContentEl.classList.add('hidden');
-                    setTimeout(() => {
-                        followContentEl.classList.remove('hidden');
-                        typewriter(followMessageEl, "Follow uranusfazry YouTube");
-                    }, 400);
-                    break;
-                case 'tiktok': 
-                    typewriter(followMessageEl, "Follow uranusfazry TikTok"); 
-                    break;
-                case 'reset':
-                    isAnimating = true;
-                    followContentEl.classList.add('hidden');
-                    setTimeout(() => {
-                        mainContentEl.classList.remove('hidden');
-                        isAnimating = false;
-                    }, 400);
-                    break;
-            }
-            currentSequence = (currentSequence + 1) % sequenceActions.length;
-        };
-
-        const startAutoPlay = () => {
-            if (autoPlayInterval) clearInterval(autoPlayInterval);
-            runAutoSequence();
-            autoPlayInterval = setInterval(runAutoSequence, 3500);
-        };
-
+        const textScramble = (el) => { const originalText = "©URANUSFAZRY", chars = '!<>*#{}[]'; let frame = 0; isAnimating = true; const interval = setInterval(() => { el.innerText = originalText.split('').map((char, i) => { const p = (frame - i * 2) / 15; if (p < 0) return ' '; if (p > 1) return char; return chars[Math.floor(Math.random() * chars.length)]; }).join(''); if (frame >= originalText.length * 2 + 15) { clearInterval(interval); el.innerText = originalText; isAnimating = false; } frame++; }, 30); };
+        const typewriter = (el, text) => { let i = 0; el.innerHTML = ""; isAnimating = true; const interval = setInterval(() => { if (i < text.length) { el.innerHTML += text.charAt(i); i++; } else { clearInterval(interval); isAnimating = false; } }, 50); };
+        
+        const runAutoSequence = () => { if (isAnimating) return; const action = sequenceActions[currentSequence]; switch (action) { case 'scramble': textScramble(textEl); break; case 'logo': isAnimating = true; logoEl.classList.add('reacting'); logoEl.addEventListener('animationend', () => { logoEl.classList.remove('reacting'); isAnimating = false; }, { once: true }); break; case 'youtube': isAnimating = true; mainContentEl.classList.add('hidden'); setTimeout(() => { followContentEl.classList.remove('hidden'); typewriter(followMessageEl, "Follow uranusfazry YouTube"); }, 400); break; case 'tiktok': typewriter(followMessageEl, "Follow uranusfazry TikTok"); break; case 'reset': isAnimating = true; followContentEl.classList.add('hidden'); setTimeout(() => { mainContentEl.classList.remove('hidden'); isAnimating = false; }, 400); break; } currentSequence = (currentSequence + 1) % sequenceActions.length; };
+        const startAutoPlay = () => { if (autoPlayInterval) clearInterval(autoPlayInterval); runAutoSequence(); autoPlayInterval = setInterval(runAutoSequence, 3500); };
+        
         watermarkEl.addEventListener('click', () => { watermarkEl.classList.toggle('light-mode'); });
         
-        const init = () => {
-            resizeCanvas();
-            for (let i = 0; i < 40; i++) particles.push(new Particle());
-            animateParticles();
-            window.addEventListener('resize', resizeCanvas);
-            startAutoPlay();
-        };
+        const init = () => { resizeCanvas(); for (let i = 0; i < 40; i++) particles.push(new Particle()); animateParticles(); window.addEventListener('resize', resizeCanvas); startAutoPlay(); };
         init();
     }
 
@@ -2502,19 +1849,9 @@
   })();
 </script>
 
-<!-- Penjelasan: Popunder & Social Bar diletakkan di akhir body -->
-<!-- Popunder (muncul sekali per sesi) -->
-<script type='text/javascript'>
-    if (!sessionStorage.getItem('popunderShown')) {
-        const popunderScript = document.createElement('script');
-        popunderScript.type = 'text/javascript';
-        popunderScript.src = '//librarysituation.com/e6761b94cda2fd588c88af39c480b18a.js';
-        document.body.appendChild(popunderScript);
-        sessionStorage.setItem('popunderShown', 'true');
-    }
-</script>
-<!-- Social Bar -->
-<script type='text/javascript' src='//librarysituation.com/93755e58b4cebd39cb75c37822f25138.js'></script>
+<!-- Penjelasan: Popunder & Social Bar diletakkan di akhir untuk optimasi -->
+<script type='text/javascript' src='//librarysituation.com/e6/76/1b/e6761b94cda2fd588c88af39c480b18a.js'></script>
+<script type='text/javascript' src='//librarysituation.com/93/75/5e/93755e58b4cebd39cb75c37822f25138.js'></script>
 
 </body>
 </html>
