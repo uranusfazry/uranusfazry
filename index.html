@@ -802,7 +802,7 @@
                                     </button>
                                 </div>
                             </div>
-                           
+                            
                             <!-- [MODIFIED] Data Management Section (PDF Removed) -->
                             <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Data Management</h3>
                             <div class="grid grid-cols-2 gap-2">
@@ -898,61 +898,91 @@
         </div>
     </nav>
 
-    <!-- Main container -->
-    <main class="container mx-auto px-4 py-8 relative z-10 mt-20">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <div class="profile">
-                <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/0d0221/ffffff?text=UF';">
+    <!-- Main container with Sidebar Wrapper -->
+    <div class="w-full max-w-7xl mx-auto lg:flex lg:justify-center lg:gap-6">
+        <main class="flex-grow container mx-auto px-4 py-8 relative z-10 mt-20">
+             <!-- Responsive Header/Footer Ads -->
+            <div class="my-6 flex justify-center items-center">
+                <!-- Mobile Ad 320x50 -->
+                <div class="md:hidden" id="ad-slot-320x50"></div>
+                <!-- Tablet Ad 468x60 -->
+                <div class="hidden md:block lg:hidden" id="ad-slot-468x60"></div>
+                <!-- Desktop Ad 728x90 -->
+                <div class="hidden lg:block" id="ad-slot-728x90"></div>
             </div>
-            <div class="relative inline-block">
-                <h1 class="glitch-effect text-5xl md:text-7xl font-bold mb-4" data-text="URANUS FAZRY">URANUS FAZRY</h1>
-                <span
-                    class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[var(--neon-blue)] to-transparent"></span>
-                <span
-                    class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[var(--neon-pink)] to-transparent"></span>
-            </div>
-            <p class="text-lg md:text-xl neon-text-purple uppercase tracking-wider mt-8">Web & App Digital Creator</p>
-             <p class="max-w-2xl mx-auto mt-6 text-base md:text-lg text-gray-300 leading-relaxed">
-                Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya.
-            </p>
-        </header>
-        <!-- Time and date display -->
-        <div class="flex justify-center mb-12">
-            <div class="neon-border-blue rounded-lg p-4 text-center backdrop-blur-sm bg-[#0d0221]/50 holographic-effect">
-                <div id="time" class="text-3xl md:text-4xl font-bold neon-text-blue">00:00:00</div>
-                <div id="date" class="text-lg md:text-xl uppercase tracking-wider mt-1">Loading...</div>
-            </div>
-        </div>
 
-        <!-- CYBER TERMINAL (from File 1) -->
-        <div class="terminal-container">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <div class="terminal-button red"></div>
-                    <div class="terminal-button yellow"></div>
-                    <div class="terminal-button green"></div>
+            <!-- Header -->
+            <header class="text-center mb-12">
+                <div class="profile">
+                    <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/0d0221/ffffff?text=UF';">
                 </div>
-                <div class="glitch" data-text="uranusfazry@cyberterminal">uranusfazry@cyberterminal</div>
-                <div class="terminal-buttons">
-                    <div style="width: 20px;"></div>
+                <div class="relative inline-block">
+                    <h1 class="glitch-effect text-5xl md:text-7xl font-bold mb-4" data-text="URANUS FAZRY">URANUS FAZRY</h1>
+                    <span
+                        class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[var(--neon-blue)] to-transparent"></span>
+                    <span
+                        class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[var(--neon-pink)] to-transparent"></span>
+                </div>
+                <p class="text-lg md:text-xl neon-text-purple uppercase tracking-wider mt-8">Web & App Digital Creator</p>
+                 <p class="max-w-2xl mx-auto mt-6 text-base md:text-lg text-gray-300 leading-relaxed">
+                    Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya.
+                </p>
+            </header>
+            <!-- Time and date display -->
+            <div class="flex justify-center mb-12">
+                <div class="neon-border-blue rounded-lg p-4 text-center backdrop-blur-sm bg-[#0d0221]/50 holographic-effect">
+                    <div id="time" class="text-3xl md:text-4xl font-bold neon-text-blue">00:00:00</div>
+                    <div id="date" class="text-lg md:text-xl uppercase tracking-wider mt-1">Loading...</div>
                 </div>
             </div>
-            <div class="terminal-body" id="terminal-body">
-                <div id="typing-text" class="typing-text"></div>
-                <div id="command-line" class="command-line hidden">
-                    <span class="prompt">></span>
-                    <input type="text" class="command-input" id="command-input" autocomplete="off">
-                    <span class="cursor"></span>
+
+            <!-- CYBER TERMINAL (from File 1) -->
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <div class="terminal-button red"></div>
+                        <div class="terminal-button yellow"></div>
+                        <div class="terminal-button green"></div>
+                    </div>
+                    <div class="glitch" data-text="uranusfazry@cyberterminal">uranusfazry@cyberterminal</div>
+                    <div class="terminal-buttons">
+                        <div style="width: 20px;"></div>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <div id="typing-text" class="typing-text"></div>
+                    <div id="command-line" class="command-line hidden">
+                        <span class="prompt">></span>
+                        <input type="text" class="command-input" id="command-input" autocomplete="off">
+                        <span class="cursor"></span>
+                    </div>
                 </div>
             </div>
-        </div>
+            
+            <!-- In-Content Ads -->
+            <div class="my-8 space-y-8 flex flex-col items-center">
+                <!-- Ad Slot 300x250 -->
+                <div id="ad-slot-300x250"></div>
+                <!-- Native Ad container -->
+                <div id="dc918ca138d058b9a562210d0d7c46cd"></div>
+            </div>
+
+            <!-- Portals grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12" id="portals-grid">
+                <!-- Portals will be added here by JavaScript -->
+            </div>
+        </main>
         
-        <!-- Portals grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12" id="portals-grid">
-            <!-- Portals will be added here by JavaScript -->
-        </div>
-    </main>
+        <!-- AD Sidebar -->
+        <aside class="hidden lg:block w-[160px] flex-shrink-0 mt-20 pt-8">
+            <div class="sticky top-20 space-y-4">
+                <!-- Ad Slot 160x600 -->
+                <div class="mx-auto" id="ad-slot-160x600"></div>
+                <!-- Ad Slot 160x300 -->
+                <div class="mx-auto" id="ad-slot-160x300"></div>
+            </div>
+        </aside>
+    </div>
     
     <footer class="text-white">
         © 2025 Created by Uranus Fazry | All Rights Reserved
@@ -1241,1069 +1271,1186 @@
     <!-- [NEW] Hidden file input for import -->
     <input type="file" id="import-file-input" class="hidden" accept=".txt,application/json">
 
-
-    <script>
-        // --- SCRIPT UTAMA PORTAL ---
-        document.addEventListener('DOMContentLoaded', async function() {
-            // --- NEON PORTAL SCRIPT (File 1) ---
-            const portalsGrid = document.getElementById('portals-grid');
-            const portalForm = document.getElementById('portal-form');
-            const portalCount = document.getElementById('portal-count');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const timeDisplay = document.getElementById('time');
-            const dateDisplay = document.getElementById('date');
-            const portalIconSelect = document.getElementById('portal-icon');
-            const customIconOptions = document.getElementById('custom-icon-options');
-            const iconUpload = document.getElementById('icon-upload');
-            const iconPreview = document.getElementById('icon-preview');
-            const bgVideo = document.getElementById('bg-video');
-            const volumeControl = document.getElementById('volume-control');
-            const volumeIcon = document.getElementById('volume-icon');
-            const logoContainer = document.getElementById('logo-container');
-            const bgUploadMedia = document.getElementById('bg-upload-media');
-            const bgUploadMediaMobile = document.getElementById('bg-upload-media-mobile');
-            const audioPlayer = document.getElementById('audio-player');
-            // [NEW] Import file input
-            const importFileInput = document.getElementById('import-file-input');
-            // [NEW] Confirmation Modal elements
-            const confirmationModal = document.getElementById('confirmation-modal');
-            const confirmationMessage = document.getElementById('confirmation-message');
-            const confirmOkBtn = document.getElementById('confirm-ok-btn');
-            const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
-
-
-            let portals = [];
-            let currentBgImage = '';
-            let currentBgVideo = '';
-            let selectedMediaFile = null;
-            let onConfirmCallback = null; // To store the action for the confirmation modal
-            
-            // --- [NEW] Variables for swipe/drag gestures ---
-            let touchStartX = 0; 
-            let dragStartX = 0;
-            let isDragging = false;
-            
-            // --- [NEW] IndexedDB Helper Functions ---
-            const DB_NAME = 'uranusfazryDB';
-            const STORE_NAME = 'mediaFiles';
-            const FILE_KEY = 'userBackgroundMedia';
-            let db;
-
-            // Function to open/create the database
-            async function openDB() {
-                return new Promise((resolve, reject) => {
-                    if (db) return resolve(db);
-                    const request = indexedDB.open(DB_NAME, 1);
-                    request.onerror = (event) => reject("Error opening IndexedDB.");
-                    request.onsuccess = (event) => {
-                        db = event.target.result;
-                        resolve(db);
-                    };
-                    request.onupgradeneeded = (event) => {
-                        const dbInstance = event.target.result;
-                        if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
-                            dbInstance.createObjectStore(STORE_NAME);
-                        }
-                    };
-                });
+<script>
+    // --- SCRIPT IKLAN ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Konfigurasi Iklan ---
+        const adConfigs = {
+            banner160x300: {
+                key: 'bc2c1ab527d40b3295df8b1f2cb70663',
+                format: 'iframe',
+                height: 300,
+                width: 160,
+                params: {}
+            },
+            banner160x600: {
+                key: 'ff01190b2f4f2f812816ee58b640908c',
+                format: 'iframe',
+                height: 600,
+                width: 160,
+                params: {}
+            },
+            banner300x250: {
+                key: 'e1690ea948979754ea67242819fbbe80',
+                format: 'iframe',
+                height: 250,
+                width: 300,
+                params: {}
+            },
+            banner320x50: {
+                key: 'a32216f9f7b9366853d9698f57d92a55',
+                format: 'iframe',
+                height: 50,
+                width: 320,
+                params: {}
+            },
+            banner468x60: {
+                key: '074326eea4380e8cdf3e8ee380d2d5ed',
+                format: 'iframe',
+                height: 60,
+                width: 468,
+                params: {}
+            },
+            banner728x90: {
+                key: '67f52a8e6f5a7f97909d1ab521d9f77e',
+                format: 'iframe',
+                height: 90,
+                width: 728,
+                params: {}
+            },
+            nativeBanner: {
+                containerId: 'dc918ca138d058b9a562210d0d7c46cd'
+            },
+            popunder: {
+                src: '//pl23338871.highcpmgate.com/e6761b94cda2fd588c88af39c480b18a.js'
+            },
+            socialBar: {
+                src: '//pl23338869.highcpmgate.com/93755e58b4cebd39cb75c37822f25138.js'
             }
+        };
 
-            // Function to save a file to the database
-            async function saveFileToDB(file) {
-                const db = await openDB();
-                return new Promise((resolve, reject) => {
-                    const transaction = db.transaction([STORE_NAME], 'readwrite');
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.put(file, FILE_KEY);
-                    request.onsuccess = () => resolve();
-                    request.onerror = (event) => reject("Failed to save file: " + event.target.error);
-                });
+        // --- Fungsi Pemuat Iklan ---
+
+        // 1. Memuat Iklan Banner (Iframe)
+        function loadBannerAd(containerId, adOptions) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`Ad container with id "${containerId}" not found.`);
+                return;
             }
+            window.atOptions = adOptions;
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = `//www.profitabledisplaynetwork.com/${adOptions.key}/invoke.js`;
+            container.appendChild(script);
+        }
 
-            // Function to retrieve a file from the database
-            async function getFileFromDB() {
-                const db = await openDB();
-                return new Promise((resolve, reject) => {
-                    const transaction = db.transaction([STORE_NAME], 'readonly');
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.get(FILE_KEY);
-                    request.onsuccess = (event) => resolve(event.target.result);
-                    request.onerror = (event) => reject("Failed to get file: " + event.target.error);
-                });
+        // 2. Memuat Native Banner (Async)
+        function loadNativeAd() {
+            const container = document.getElementById(adConfigs.nativeBanner.containerId);
+             if (!container) {
+                console.error(`Native Ad container with id "${adConfigs.nativeBanner.containerId}" not found.`);
+                return;
             }
+            const script = document.createElement('script');
+            script.async = true;
+            script.dataset.cfasync = 'false';
+            script.src = `//pl23338864.highcpmgate.com/${adConfigs.nativeBanner.containerId}/invoke.js`;
+            container.appendChild(script);
+        }
 
-            // Function to delete a file from the database
-            async function deleteFileFromDB() {
-                const db = await openDB();
-                return new Promise((resolve, reject) => {
-                    const transaction = db.transaction([STORE_NAME], 'readwrite');
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.delete(FILE_KEY);
-                    request.onsuccess = () => resolve();
-                    request.onerror = (event) => reject("Failed to delete file: " + event.target.error);
-                });
+        // 3. Memuat Popunder (Sekali per Sesi)
+        function loadPopunderAd() {
+            if (!sessionStorage.getItem('popunderLoaded')) {
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = adConfigs.popunder.src;
+                document.head.appendChild(script);
+                sessionStorage.setItem('popunderLoaded', 'true');
             }
-            // --- End of IndexedDB Helpers ---
+        }
 
-            const musicList = [
-                { name: 'Chammak Challo', url: 'https://c.top4top.io/m_3457ukcau0.mp3' },
-                { name: 'Chammak Challo 2', url: 'https://i.top4top.io/m_3510lx6lu0.m4a' },
-                { name: 'DJ CAMPURAN VIRAL', url: 'https://h.top4top.io/m_345748hje1.mp3' },
-                { name: 'DJ CAMPURAN VIRAL 2', url: 'https://h.top4top.io/m_3483c2rkf1.m4a' },
-                { name: 'DJ CAMPURAN VIRAL 3', url: 'https://h.top4top.io/m_34894tuhu1.m4a' },
-                { name: 'DJ CAMPURAN VIRAL 4', url: 'https://k.top4top.io/m_3458s4twa1.m4a' },
-                { name: 'DJ CAMPURAN VIRAL 5', url: 'https://e.top4top.io/m_3504ymzax0.m4a' }
-            ];
+        // 4. Memuat Social Bar
+        function loadSocialBarAd() {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = adConfigs.socialBar.src;
+            document.head.appendChild(script);
+        }
 
-            const defaultPortals = [
-                { name: 'BY ONE SEKARANG', url: 'https://website-induk.vercel.app/', icon: 'fas fa-trophy', color: '#ffcc00', description: 'Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah.' },
-                { name: 'TESTIMONI BY ONE', url: 'https://testimoni-dun.vercel.app', icon: 'fas fa-star', color: '#ff2a6d', description: 'Semua kekalahan dan penderitaan kalian saat by one lawan Master ada di sini.' },
-                { name: 'Uranus Studio', url: 'https://musicfazry.vercel.app', icon: 'fas fa-store', color: '#d300c5', description: 'Solusi digital untuk mengubah kreativitas menjadi penghasilan.' },
-                { name: 'Uranus Space', url: 'https://uranuspace.vercel.app/', icon: 'fas fa-rocket', color: '#6C63FF', description: 'Manajemen keuangan, waktu, split bill, my diary & HTML akses kapan saja.' },
-                { name: 'Uranustify (Desktop)', url: 'https://uranustify-desktop.vercel.app/', icon: 'fas fa-desktop', color: '#00ff9d', description: 'Simpan & dengarkan musik favoritmu tanpa batas.' },
-                { name: 'Uranustify (Mobile)', url: 'https://uranustify.vercel.app', icon: 'fas fa-mobile-alt', color: '#00ff9d', description: 'Simpan & dengarkan musik tanpa iklan.' },
-                { name: 'Uranus Crypto', url: 'https://uranus-crypto-three.vercel.app/', icon: 'fas fa-chart-line', color: '#f7931a', description: 'Strategi trading kripto cerdas dengan fokus pada profit konsisten dan risiko terukur.' },
-                { name: 'Uranus Super', url: 'https://trakteer.id/uranusfazry/shop/uranus-super-paket-lengkap-uranus-4-alat-digital-MY9SU', icon: 'fas fa-wallet', color: '#FFD700', description: 'Paket premium berisi 4 alat Uranus Studio, Uranustify, Uranus Crypto, dan Uranus Space dengan harga paling murah.' },
-                { name: 'Uranus Shop', url: 'https://trakteer.id/uranusfazry/shop', icon: 'fas fa-gem', color: '#ffffff', description: 'Kumpulan karya premium Uranus siap pakai dengan inovasi dan kualitas terbaik.' },
-                { name: 'Uranus WIFI', url: 'https://uranusfazry-wifi-wireless.vercel.app', icon: 'fas fa-wifi', color: '#1DA1F2', description: 'Internet wireless cepat & stabil untuk kebutuhan online Anda.' },
-                { name: 'Uranus Play', url: 'https://uranusplay.vercel.app', icon: 'fas fa-gamepad', color: '#9147ff', description: 'Game Multiplayer terbaik No. 1 tanpa install.' },
-                { name: 'Uranus Blogger', url: 'https://uranusfazry.blogspot.com', icon: 'fas fa-newspaper', color: '#FF5700', description: 'Artikel yang menyajikan informasi singkat, padat, dan bermanfaat.' },
-                { name: 'Brat Generator', url: 'https://m.maulanaa.my.id/brat', icon: 'fas fa-child', color: '#FF69B4', description: 'Ciptakan gambar gaya brat instan.' },
-                { name: 'Uranus Studio V2', url: 'https://trakteer.id/uranusfazry/shop/uranus-studio-unilD', icon: 'fas fa-wand-sparkles', color: '#8A2BE2', description: 'Tempat kreator bikin desain brat V2, gambar 4K, anime, dan konten keren dalam satu platform.' },
-                { name: 'Logo Generator', url: 'https://logo-generator-selax-x7.vercel.app/', icon: 'fas fa-paint-brush', color: '#FF8C00', description: 'Buat logo instan dengan nama sesuai pilihanmu.' },
-                { name: 'TokTok Generator', url: 'https://ttccberry.edgeone.app/', icon: 'fas fa-quote-right', color: '#1DA1F2', description: 'Ekstrak judul TikTok dari video dan salin dengan sekali klik.' },
-                { name: 'Iphone Generator', url: 'https://iphone-quote-generator.vercel.app', icon: 'fas fa-mobile-screen', color: '#E5E5EA', description: 'Mentahan gambar iPhone WhatsApp yang bisa diedit untuk status.' },
-                { name: 'Iphone Generator V2', url: 'https://iphonequoteberry.edgeone.app', icon: 'fas fa-mobile-screen', color: '#B76E79', description: 'Mentahan gambar iPhone WhatsApp dengan area yang bisa diubah lebih bebas.' },
-                { name: 'Iphone Generator V3', url: 'https://i-phone-quoted-generator-v2-selaxx.vercel.app', icon: 'fas fa-mobile-screen', color: '#8E8E93', description: 'Mentahan gambar iPhone WhatsApp dengan fitur paling lengkap.' },
-                { name: 'Uranus Web & App Development', url: 'https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry', icon: 'fas fa-laptop-code', color: '#25D366', description: 'Dapatkan website atau aplikasi dengan harga terjangkau.' },
-                { name: 'Skyway Community', url: 'https://skyway-chi.vercel.app/', icon: 'fas fa-users', color: '#191970', description: 'Komunitas yang menjelajahi sisi gelap kehidupan.' },
-                { name: 'Contact Me', url: 'https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com', icon: 'fas fa-envelope', color: '#EA4335', description: 'Get in touch for collaborations or inquiries.' },
-            ];
-
-            async function initPortalApp() {
-                portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
-                currentBgImage = localStorage.getItem('bgImage') || '';
-                
-                // [MODIFIED] Load from IndexedDB first, which overrides localStorage image
-                try {
-                    const storedFile = await getFileFromDB();
-                    if (storedFile) {
-                        const fileUrl = URL.createObjectURL(storedFile);
-                        if (storedFile.type.startsWith('image/')) {
-                            currentBgImage = fileUrl;
-                            currentBgVideo = '';
-                        } else if (storedFile.type.startsWith('video/')) {
-                            currentBgVideo = fileUrl;
-                            currentBgImage = '';
-                        }
-                    }
-                } catch (error) {
-                    console.error("Could not load media from DB:", error);
-                }
-
-                renderPortals();
-                updateTime();
-                setInterval(updateTime, 1000);
-                loadBackgroundMedia();
-                
-                mobileMenuButton.addEventListener('click', () => {
-                    const isOpening = mobileMenu.classList.contains('hidden');
-                    mobileMenu.classList.toggle('hidden');
-                    document.body.classList.toggle('overflow-hidden', !mobileMenu.classList.contains('hidden'));
-                    if (isOpening) {
-                        bgUploadMediaMobile.value = '';
-                        selectedMediaFile = null;
-                    }
-                });
-
-                portalForm.addEventListener('submit', handlePortalFormSubmit);
-                portalIconSelect.addEventListener('change', () => {
-                    customIconOptions.style.display = (portalIconSelect.value === 'custom-icon') ? 'block' : 'none';
-                });
-                
-                iconUpload.addEventListener('change', (e) => handleImageUpload(e, iconPreview));
-                volumeControl.addEventListener('click', toggleMute);
-                logoContainer.addEventListener('click', togglePreviewMode);
-                
-                bgUploadMedia.addEventListener('change', handleMediaSelect);
-                bgUploadMediaMobile.addEventListener('change', handleMediaSelect);
-
-                // --- [MODIFIED] Add all gesture event listeners ---
-                document.body.addEventListener('touchstart', handleTouchStart, false);
-                document.body.addEventListener('touchend', handleTouchEnd, false);
-                document.body.addEventListener('mousedown', handleDragStart);
-                document.body.addEventListener('mouseup', handleDragEnd);
-                document.body.addEventListener('mouseleave', handleDragLeave);
-                
-                // [NEW] Add event listener for the import file input
-                importFileInput.addEventListener('change', handleFileImport);
-                
-                // [NEW] Add event listeners for confirmation modal
-                confirmCancelBtn.addEventListener('click', () => confirmationModal.classList.add('hidden'));
-                confirmOkBtn.addEventListener('click', () => {
-                    if (typeof onConfirmCallback === 'function') {
-                        onConfirmCallback();
-                    }
-                    confirmationModal.classList.add('hidden');
-                    onConfirmCallback = null;
-                });
-            }
-            
-            // [NEW] Show Confirmation Modal Function
-            window.showConfirmationModal = function(message, callback) {
-                confirmationMessage.textContent = message;
-                onConfirmCallback = callback;
-                confirmationModal.classList.remove('hidden');
-            }
-
-            // --- [NEW] GESTURE HANDLER FUNCTIONS ---
-
-            function handleTouchStart(event) {
-                if (document.body.classList.contains('preview-mode-active')) {
-                    touchStartX = event.touches[0].clientX;
-                }
-            }
-
-            function handleTouchEnd(event) {
-                if (document.body.classList.contains('preview-mode-active')) {
-                    const touchEndX = event.changedTouches[0].clientX;
-                    if (touchStartX - touchEndX > 75) { // Swipe left
-                        togglePreviewMode();
-                    }
-                }
-            }
-
-            function handleDragStart(event) {
-                if (document.body.classList.contains('preview-mode-active')) {
-                    isDragging = true;
-                    dragStartX = event.clientX;
-                    event.preventDefault(); // Prevent text selection
-                }
-            }
-
-            function handleDragEnd(event) {
-                if (isDragging && document.body.classList.contains('preview-mode-active')) {
-                    const dragEndX = event.clientX;
-                    if (dragStartX - dragEndX > 100) { // Swipe left with mouse
-                        togglePreviewMode();
-                    }
-                }
-                isDragging = false;
-            }
-            
-            function handleDragLeave() {
-                if (isDragging) {
-                    isDragging = false;
-                }
-            }
-            // --- END OF GESTURE HANDLERS ---
+        // --- Panggil semua fungsi pemuat iklan ---
+        loadBannerAd('ad-slot-160x300', adConfigs.banner160x300);
+        loadBannerAd('ad-slot-160x600', adConfigs.banner160x600);
+        loadBannerAd('ad-slot-300x250', adConfigs.banner300x250);
+        loadBannerAd('ad-slot-320x50', adConfigs.banner320x50);
+        loadBannerAd('ad-slot-468x60', adConfigs.banner468x60);
+        loadBannerAd('ad-slot-728x90', adConfigs.banner728x90);
+        loadNativeAd();
+        loadPopunderAd();
+        loadSocialBarAd();
+    });
+    
+    // --- SCRIPT UTAMA PORTAL ---
+    document.addEventListener('DOMContentLoaded', async function() {
+        // --- NEON PORTAL SCRIPT (File 1) ---
+        const portalsGrid = document.getElementById('portals-grid');
+        const portalForm = document.getElementById('portal-form');
+        const portalCount = document.getElementById('portal-count');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const timeDisplay = document.getElementById('time');
+        const dateDisplay = document.getElementById('date');
+        const portalIconSelect = document.getElementById('portal-icon');
+        const customIconOptions = document.getElementById('custom-icon-options');
+        const iconUpload = document.getElementById('icon-upload');
+        const iconPreview = document.getElementById('icon-preview');
+        const bgVideo = document.getElementById('bg-video');
+        const volumeControl = document.getElementById('volume-control');
+        const volumeIcon = document.getElementById('volume-icon');
+        const logoContainer = document.getElementById('logo-container');
+        const bgUploadMedia = document.getElementById('bg-upload-media');
+        const bgUploadMediaMobile = document.getElementById('bg-upload-media-mobile');
+        const audioPlayer = document.getElementById('audio-player');
+        // [NEW] Import file input
+        const importFileInput = document.getElementById('import-file-input');
+        // [NEW] Confirmation Modal elements
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const confirmOkBtn = document.getElementById('confirm-ok-btn');
+        const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
 
 
-            function handleMediaSelect(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    selectedMediaFile = file;
-                }
-            }
+        let portals = [];
+        let currentBgImage = '';
+        let currentBgVideo = '';
+        let selectedMediaFile = null;
+        let onConfirmCallback = null; // To store the action for the confirmation modal
+        
+        // --- [NEW] Variables for swipe/drag gestures ---
+        let touchStartX = 0; 
+        let dragStartX = 0;
+        let isDragging = false;
+        
+        // --- [NEW] IndexedDB Helper Functions ---
+        const DB_NAME = 'uranusfazryDB';
+        const STORE_NAME = 'mediaFiles';
+        const FILE_KEY = 'userBackgroundMedia';
+        let db;
 
-            window.handleImageUpload = function(event, previewElement) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewElement.src = e.target.result;
-                        previewElement.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-            
-            function renderPortals() {
-                portalsGrid.innerHTML = '';
-                
-                portals.forEach((portal, index) => {
-                    const portalElement = document.createElement('div');
-                    portalElement.className = 'h-full';
-                    
-                    const portalColor = portal.color || '#ffffff';
-                    const textColorStyle = `color: ${portalColor}; text-shadow: 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
-                    const borderStyle = `border: 1px solid ${portalColor}; box-shadow: 0 0 5px ${portalColor}, inset 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
-                    
-                    const iconHtml = portal.icon.startsWith('data:image') || portal.icon.startsWith('http')
-                        ? `<img src="${portal.icon}" class="mx-auto h-12 w-12 mb-4 object-contain" alt="${portal.name} icon">`
-                        : `<i class="${portal.icon} text-4xl mb-4" style="${textColorStyle}"></i>`;
-
-                    portalElement.innerHTML = `
-                        <div class="portal-card h-full" style="color: ${portalColor};">
-                            <a href="${portal.url}" target="_blank" class="block h-full p-6 rounded-lg text-center relative overflow-hidden backdrop-blur-sm bg-[#0d0221]/50 transition-all duration-300 flex flex-col" style="${borderStyle}">
-                                <div class="portal-card-inner flex flex-col justify-center items-center flex-grow">
-                                    ${iconHtml}
-                                    <h3 class="font-bold uppercase tracking-wider break-words text-lg" style="${textColorStyle}">${portal.name}</h3>
-                                    <p class="text-sm text-gray-300 mt-2 leading-normal">${portal.description || ''}</p>
-                                </div>
-                                <button onclick="showConfirmationModal('Are you sure you want to delete this portal?', () => deletePortalAction(${index}))" 
-                                    class="absolute top-2 right-2 text-xs text-red-500 hover:text-red-400 opacity-50 hover:opacity-100 transition-opacity z-10">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </a>
-                        </div>
-                    `;
-                    // Add event listener to prevent the default link behavior when the delete button is clicked
-                    portalElement.querySelector('button').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    });
-                    
-                    portalsGrid.appendChild(portalElement);
-                });
-                
-                portalCount.textContent = portals.length;
-            }
-            
-            function handlePortalFormSubmit(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('portal-name').value;
-                const url = document.getElementById('portal-url').value;
-                const description = document.getElementById('portal-description').value;
-                let icon = document.getElementById('portal-icon').value;
-                const color = document.getElementById('portal-color').value;
-                
-                if (icon === 'custom-icon') {
-                    const iconUrlInput = document.getElementById('icon-url');
-                    const iconFileInput = document.getElementById('icon-upload');
-                    
-                    if (iconUrlInput.value) {
-                        addPortalToArray(name, url, iconUrlInput.value, color, description);
-                    } else if (iconFileInput.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => addPortalToArray(name, url, event.target.result, color, description);
-                        reader.readAsDataURL(iconFileInput.files[0]);
-                    } else {
-                        addPortalToArray(name, url, 'fas fa-link', color, description); // Fallback
-                    }
-                } else {
-                    addPortalToArray(name, url, icon, color, description);
-                }
-            }
-            
-            function addPortalToArray(name, url, icon, color, description) {
-                portals.push({ name, url, icon, color, description });
-                savePortals();
-                renderPortals();
-                document.getElementById('add-portal-modal').classList.add('hidden');
-                resetPortalForm();
-            }
-            
-            // [MODIFIED] This is the actual deletion logic, called by the modal
-            window.deletePortalAction = function(index) {
-                portals.splice(index, 1);
-                savePortals();
-                renderPortals();
-            }
-            
-            function resetPortalForm() {
-                portalForm.reset();
-                customIconOptions.style.display = 'none';
-                if(iconPreview) {
-                    iconPreview.style.display = 'none';
-                    iconPreview.src = '#';
-                }
-                document.getElementById('portal-color').value = '#05d9e8';
-                const colorOptions = document.querySelectorAll('#add-portal-modal .color-option');
-                colorOptions.forEach(el => el.classList.remove('selected'));
-                colorOptions[1].classList.add('selected');
-            }
-            
-            function savePortals() {
-                localStorage.setItem('portals', JSON.stringify(portals));
-            }
-            
-            window.showAddLinkModal = function() {
-                document.getElementById('add-portal-modal').classList.remove('hidden');
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    document.body.classList.remove('overflow-hidden');
-                }
-            }
-            
-            function updateTime() {
-                const now = new Date();
-                timeDisplay.textContent = now.toLocaleTimeString('en-GB');
-                dateDisplay.textContent = now.toLocaleDateString('id-ID', { 
-                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-                });
-            }
-            
-            window.selectPortalColor = function(color, element) {
-                const container = element.closest('.color-picker-container');
-                container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                document.getElementById('portal-color').value = color;
-            }
-
-            window.applyCustomPortalColor = function(color) {
-                document.getElementById('portal-color').value = color;
-                const container = document.getElementById('add-portal-modal');
-                container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
-            }
-            
-            // [MODIFIED] Set background from URL, clears file from DB
-            window.setBackgroundImage = async function() {
-                const bgUrlInput = document.getElementById('bg-image-mobile').value ? document.getElementById('bg-image-mobile') : document.getElementById('bg-image');
-                if (bgUrlInput && bgUrlInput.value) {
-                    try {
-                        await deleteFileFromDB();
-                    } catch(e) { console.error("Could not clear DB file when setting URL", e); }
-                    updateBackgroundMedia(bgUrlInput.value, null);
-                }
-            }
-
-            // [MODIFIED] Apply uploaded file, saves to DB
-            window.applyUploadedMedia = async function() {
-                if (!selectedMediaFile) return;
-
-                try {
-                    await saveFileToDB(selectedMediaFile);
-                    localStorage.removeItem('bgImage'); // Clear URL from localStorage
-
-                    const storedFile = await getFileFromDB();
-                    if (storedFile) {
-                        const fileUrl = URL.createObjectURL(storedFile);
-                        if (storedFile.type.startsWith('image/')) {
-                            updateBackgroundMedia(fileUrl, null);
-                        } else if (storedFile.type.startsWith('video/')) {
-                            updateBackgroundMedia(null, fileUrl);
-                        }
-                    }
-                } catch (error) {
-                    console.error("Failed to apply uploaded media:", error);
-                    alert("Sorry, could not save the media file. It might be too large or your browser has storage restrictions.");
-                }
-
-                bgUploadMedia.value = '';
-                bgUploadMediaMobile.value = '';
-                selectedMediaFile = null;
-
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    document.body.classList.remove('overflow-hidden');
-                }
-            }
-
-            // [MODIFIED] Central function to update media state
-            function updateBackgroundMedia(imageUrl, videoUrl) {
-                // Revoke old blob URLs to prevent memory leaks
-                if (currentBgVideo && currentBgVideo.startsWith('blob:')) {
-                    URL.revokeObjectURL(currentBgVideo);
-                }
-                if (currentBgImage && currentBgImage.startsWith('blob:')) {
-                    URL.revokeObjectURL(currentBgImage);
-                }
-
-                if (imageUrl) {
-                    currentBgImage = imageUrl;
-                    currentBgVideo = '';
-                    if (!imageUrl.startsWith('blob:')) {
-                        localStorage.setItem('bgImage', currentBgImage);
-                    }
-                } else if (videoUrl) {
-                    currentBgImage = '';
-                    currentBgVideo = videoUrl;
-                }
-                loadBackgroundMedia();
-            }
-            
-            function loadBackgroundMedia() {
-                document.body.classList.remove('has-bg-media');
-                bgVideo.classList.add('hidden');
-                document.body.style.setProperty('--bg-image', 'none');
-                volumeControl.classList.add('hidden');
-
-                if (currentBgVideo) {
-                    document.body.classList.add('has-bg-media');
-                    bgVideo.src = currentBgVideo;
-                    bgVideo.classList.remove('hidden');
-                    bgVideo.muted = true; 
-                    bgVideo.play().catch(e => console.error("Video play failed:", e));
-                    volumeControl.classList.remove('hidden');
-                    updateVolumeIcon();
-                } else if (currentBgImage) {
-                    document.body.classList.add('has-bg-media');
-                    document.body.style.setProperty('--bg-image', `url('${currentBgImage}')`);
-                }
-                
-                const terminalContainer = document.querySelector('.terminal-container');
-                if(terminalContainer) {
-                    terminalContainer.classList.toggle('is-transparent', !!currentBgImage || !!currentBgVideo);
-                }
-            }
-            
-            // [MODIFIED] Reset now also clears the IndexedDB
-            window.resetBackgroundMedia = async function() {
-                if(currentBgVideo && currentBgVideo.startsWith('blob:')) {
-                    URL.revokeObjectURL(currentBgVideo);
-                }
-                 if(currentBgImage && currentBgImage.startsWith('blob:')) {
-                    URL.revokeObjectURL(currentBgImage);
-                }
-                bgVideo.pause();
-                bgVideo.removeAttribute('src');
-
-                currentBgImage = '';
-                currentBgVideo = '';
-                localStorage.removeItem('bgImage');
-                
-                try {
-                    await deleteFileFromDB();
-                } catch (error) {
-                    console.error("Failed to delete media from DB:", error);
-                }
-                
-                loadBackgroundMedia();
-                
-                document.querySelectorAll('input[type="url"]').forEach(input => input.value = '');
-                document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
-
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    document.body.classList.remove('overflow-hidden');
-                }
-            }
-
-            // [MODIFIED] Reset All now also clears the IndexedDB
-            window.resetAllSettings = async function() {
-                localStorage.removeItem('portals');
-                localStorage.removeItem('bgImage');
-
-                try {
-                    await deleteFileFromDB();
-                } catch (error) {
-                    console.error("Failed to delete media from DB during full reset:", error);
-                }
-
-                location.reload();
-            }
-
-            function toggleMute() {
-                bgVideo.muted = !bgVideo.muted;
-                updateVolumeIcon();
-            }
-
-            function updateVolumeIcon() {
-                if (bgVideo.muted) {
-                    volumeIcon.classList.remove('fa-volume-up');
-                    volumeIcon.classList.add('fa-volume-mute');
-                } else {
-                    volumeIcon.classList.remove('fa-volume-mute');
-                    volumeIcon.classList.add('fa-volume-up');
-                }
-            }
-
-            function togglePreviewMode() {
-                // Only allow entering preview mode if there is a background
-                if (!document.body.classList.contains('preview-mode-active') && !currentBgImage && !currentBgVideo) {
-                    return; 
-                }
-                document.body.classList.toggle('preview-mode-active');
-            }
-            
-            // --- [NEW] DATA MANAGEMENT FUNCTIONS ---
-
-            // Helper function to convert a file/blob to a base64 string
-            function fileToBase64(file) {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = error => reject(error);
-                });
-            }
-
-            // Helper function to convert a base64 data URL back to a Blob
-            function base64ToBlob(base64, mimeType) {
-                const byteCharacters = atob(base64.split(',')[1]);
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                    byteNumbers[i] = byteCharacters.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                return new Blob([byteArray], { type: mimeType });
-            }
-            
-            // Backup to JSON (.txt file) with base64 media
-            window.backupData = async () => {
-                const dataToBackup = {
-                    portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals,
-                    bgImage: localStorage.getItem('bgImage') || null,
-                    bgMedia: null // New field for the media file
+        // Function to open/create the database
+        async function openDB() {
+            return new Promise((resolve, reject) => {
+                if (db) return resolve(db);
+                const request = indexedDB.open(DB_NAME, 1);
+                request.onerror = (event) => reject("Error opening IndexedDB.");
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    resolve(db);
                 };
-
-                try {
-                    const storedFile = await getFileFromDB();
-                    if (storedFile) {
-                        const base64Data = await fileToBase64(storedFile);
-                        dataToBackup.bgMedia = {
-                            type: storedFile.type,
-                            data: base64Data
-                        };
-                        dataToBackup.bgImage = null; // Prioritize media file over URL
-                    }
-                } catch (error) {
-                    console.error("Could not read media file for backup:", error);
-                }
-                
-                const dataStr = JSON.stringify(dataToBackup, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'text/plain' });
-                const url = URL.createObjectURL(dataBlob);
-                
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'uranusfazry_backup.txt';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            };
-
-            // Import from JSON (.txt file) with base64 media
-            window.importData = () => {
-                importFileInput.click();
-            };
-
-            async function handleFileImport(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = async (e) => {
-                    try {
-                        const importedData = JSON.parse(e.target.result);
-                        if (importedData && Array.isArray(importedData.portals)) {
-                            // Clear old media first
-                            await deleteFileFromDB();
-                            localStorage.removeItem('bgImage');
-
-                            localStorage.setItem('portals', JSON.stringify(importedData.portals));
-
-                            if (importedData.bgMedia && importedData.bgMedia.data) {
-                                // Handle imported media file
-                                const mediaBlob = base64ToBlob(importedData.bgMedia.data, importedData.bgMedia.type);
-                                await saveFileToDB(mediaBlob);
-                            } else if (typeof importedData.bgImage === 'string') {
-                                // Handle imported URL
-                                localStorage.setItem('bgImage', importedData.bgImage);
-                            }
-
-                            showConfirmationModal('Data imported successfully. The page will now reload to apply changes.', () => {
-                                location.reload();
-                            });
-                        } else {
-                            alert('Invalid backup file format.');
-                        }
-                    } catch (error) {
-                        console.error('Error parsing backup file:', error);
-                        alert('Could not read the backup file. It may be corrupted or in the wrong format.');
+                request.onupgradeneeded = (event) => {
+                    const dbInstance = event.target.result;
+                    if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                        dbInstance.createObjectStore(STORE_NAME);
                     }
                 };
-                reader.readAsText(file);
-                // Reset file input to allow importing the same file again
-                event.target.value = '';
-            }
+            });
+        }
 
+        // Function to save a file to the database
+        async function saveFileToDB(file) {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.put(file, FILE_KEY);
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject("Failed to save file: " + event.target.error);
+            });
+        }
 
-            // --- 3D BACKGROUND SCRIPT (File 1) ---
-            function init3DBackground() {
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({
-                    canvas: document.querySelector('#bg-canvas'),
-                    alpha: true
-                });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                
-                camera.position.z = 50;
+        // Function to retrieve a file from the database
+        async function getFileFromDB() {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(FILE_KEY);
+                request.onsuccess = (event) => resolve(event.target.result);
+                request.onerror = (event) => reject("Failed to get file: " + event.target.error);
+            });
+        }
 
-                const particleCount = 200;
-                const particles = new THREE.BufferGeometry();
-                const posArray = new Float32Array(particleCount * 3);
-                const velocities = [];
+        // Function to delete a file from the database
+        async function deleteFileFromDB() {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(FILE_KEY);
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject("Failed to delete file: " + event.target.error);
+            });
+        }
+        // --- End of IndexedDB Helpers ---
 
-                for (let i = 0; i < particleCount * 3; i++) {
-                    posArray[i] = (Math.random() - 0.5) * 200; // Increased range
-                    velocities.push((Math.random() - 0.5) * 0.1);
-                }
+        const musicList = [
+            { name: 'Chammak Challo', url: 'https://c.top4top.io/m_3457ukcau0.mp3' },
+            { name: 'Chammak Challo 2', url: 'https://i.top4top.io/m_3510lx6lu0.m4a' },
+            { name: 'DJ CAMPURAN VIRAL', url: 'https://h.top4top.io/m_345748hje1.mp3' },
+            { name: 'DJ CAMPURAN VIRAL 2', url: 'https://h.top4top.io/m_3483c2rkf1.m4a' },
+            { name: 'DJ CAMPURAN VIRAL 3', url: 'https://h.top4top.io/m_34894tuhu1.m4a' },
+            { name: 'DJ CAMPURAN VIRAL 4', url: 'https://k.top4top.io/m_3458s4twa1.m4a' },
+            { name: 'DJ CAMPURAN VIRAL 5', url: 'https://e.top4top.io/m_3504ymzax0.m4a' }
+        ];
 
-                particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const defaultPortals = [
+            { name: 'BY ONE SEKARANG', url: 'https://website-induk.vercel.app/', icon: 'fas fa-trophy', color: '#ffcc00', description: 'Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah.' },
+            { name: 'TESTIMONI BY ONE', url: 'https://testimoni-dun.vercel.app', icon: 'fas fa-star', color: '#ff2a6d', description: 'Semua kekalahan dan penderitaan kalian saat by one lawan Master ada di sini.' },
+            { name: 'Uranus Studio', url: 'https://musicfazry.vercel.app', icon: 'fas fa-store', color: '#d300c5', description: 'Solusi digital untuk mengubah kreativitas menjadi penghasilan.' },
+            { name: 'Uranus Space', url: 'https://uranuspace.vercel.app/', icon: 'fas fa-rocket', color: '#6C63FF', description: 'Manajemen keuangan, waktu, split bill, my diary & HTML akses kapan saja.' },
+            { name: 'Uranustify (Desktop)', url: 'https://uranustify-desktop.vercel.app/', icon: 'fas fa-desktop', color: '#00ff9d', description: 'Simpan & dengarkan musik favoritmu tanpa batas.' },
+            { name: 'Uranustify (Mobile)', url: 'https://uranustify.vercel.app', icon: 'fas fa-mobile-alt', color: '#00ff9d', description: 'Simpan & dengarkan musik tanpa iklan.' },
+            { name: 'Uranus Crypto', url: 'https://uranus-crypto-three.vercel.app/', icon: 'fas fa-chart-line', color: '#f7931a', description: 'Strategi trading kripto cerdas dengan fokus pada profit konsisten dan risiko terukur.' },
+            { name: 'Uranus Super', url: 'https://trakteer.id/uranusfazry/shop/uranus-super-paket-lengkap-uranus-4-alat-digital-MY9SU', icon: 'fas fa-wallet', color: '#FFD700', description: 'Paket premium berisi 4 alat Uranus Studio, Uranustify, Uranus Crypto, dan Uranus Space dengan harga paling murah.' },
+            { name: 'Uranus Shop', url: 'https://trakteer.id/uranusfazry/shop', icon: 'fas fa-gem', color: '#ffffff', description: 'Kumpulan karya premium Uranus siap pakai dengan inovasi dan kualitas terbaik.' },
+            { name: 'Uranus WIFI', url: 'https://uranusfazry-wifi-wireless.vercel.app', icon: 'fas fa-wifi', color: '#1DA1F2', description: 'Internet wireless cepat & stabil untuk kebutuhan online Anda.' },
+            { name: 'Uranus Play', url: 'https://uranusplay.vercel.app', icon: 'fas fa-gamepad', color: '#9147ff', description: 'Game Multiplayer terbaik No. 1 tanpa install.' },
+            { name: 'Uranus Blogger', url: 'https://uranusfazry.blogspot.com', icon: 'fas fa-newspaper', color: '#FF5700', description: 'Artikel yang menyajikan informasi singkat, padat, dan bermanfaat.' },
+            { name: 'Brat Generator', url: 'https://m.maulanaa.my.id/brat', icon: 'fas fa-child', color: '#FF69B4', description: 'Ciptakan gambar gaya brat instan.' },
+            { name: 'Uranus Studio V2', url: 'https://trakteer.id/uranusfazry/shop/uranus-studio-unilD', icon: 'fas fa-wand-sparkles', color: '#8A2BE2', description: 'Tempat kreator bikin desain brat V2, gambar 4K, anime, dan konten keren dalam satu platform.' },
+            { name: 'Logo Generator', url: 'https://logo-generator-selax-x7.vercel.app/', icon: 'fas fa-paint-brush', color: '#FF8C00', description: 'Buat logo instan dengan nama sesuai pilihanmu.' },
+            { name: 'TokTok Generator', url: 'https://ttccberry.edgeone.app/', icon: 'fas fa-quote-right', color: '#1DA1F2', description: 'Ekstrak judul TikTok dari video dan salin dengan sekali klik.' },
+            { name: 'Iphone Generator', url: 'https://iphone-quote-generator.vercel.app', icon: 'fas fa-mobile-screen', color: '#E5E5EA', description: 'Mentahan gambar iPhone WhatsApp yang bisa diedit untuk status.' },
+            { name: 'Iphone Generator V2', url: 'https://iphonequoteberry.edgeone.app', icon: 'fas fa-mobile-screen', color: '#B76E79', description: 'Mentahan gambar iPhone WhatsApp dengan area yang bisa diubah lebih bebas.' },
+            { name: 'Iphone Generator V3', url: 'https://i-phone-quoted-generator-v2-selaxx.vercel.app', icon: 'fas fa-mobile-screen', color: '#8E8E93', description: 'Mentahan gambar iPhone WhatsApp dengan fitur paling lengkap.' },
+            { name: 'Uranus Web & App Development', url: 'https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry', icon: 'fas fa-laptop-code', color: '#25D366', description: 'Dapatkan website atau aplikasi dengan harga terjangkau.' },
+            { name: 'Skyway Community', url: 'https://skyway-chi.vercel.app/', icon: 'fas fa-users', color: '#191970', description: 'Komunitas yang menjelajahi sisi gelap kehidupan.' },
+            { name: 'Contact Me', url: 'https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com', icon: 'fas fa-envelope', color: '#EA4335', description: 'Get in touch for collaborations or inquiries.' },
+        ];
 
-                const particleMaterial = new THREE.PointsMaterial({
-                    size: 0.2,
-                    color: 0x05d9e8,
-                    transparent: true,
-                    blending: THREE.AdditiveBlending
-                });
-                const particleMesh = new THREE.Points(particles, particleMaterial);
-                scene.add(particleMesh);
-
-                const lineGeometry = new THREE.BufferGeometry();
-                const lineMaterial = new THREE.LineBasicMaterial({
-                    color: 0xff2a6d,
-                    transparent: true,
-                    opacity: 0.1
-                });
-                const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-                scene.add(lineMesh);
-                
-                const mouse = new THREE.Vector2();
-                window.addEventListener('mousemove', (event) => {
-                    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-                    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-                });
-                
-                window.addEventListener('resize', () => {
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                });
-
-                const clock = new THREE.Clock();
-                const animate = () => {
-                    const elapsedTime = clock.getElapsedTime();
-                    
-                    const positions = particles.attributes.position.array;
-                    for(let i = 0; i < particleCount; i++) {
-                        positions[i * 3] += velocities[i * 3] * 0.1;
-                        positions[i * 3 + 1] += velocities[i * 3 + 1] * 0.1;
-                        positions[i * 3 + 2] += velocities[i * 3 + 2] * 0.1;
-                        
-                        // Make particles wrap around the screen
-                        if (positions[i*3+1] < -100) positions[i*3+1] = 100;
-                        if (positions[i*3] > 100) positions[i*3] = -100;
-                        else if (positions[i*3] < -100) positions[i*3] = 100;
-                    }
-                    particles.attributes.position.needsUpdate = true;
-                    
-                    const linePositions = [];
-                    for (let i = 0; i < particleCount; i++) {
-                        for (let j = i + 1; j < particleCount; j++) {
-                            const p1 = new THREE.Vector3(positions[i*3], positions[i*3+1], positions[i*3+2]);
-                            const p2 = new THREE.Vector3(positions[j*3], positions[j*3+1], positions[j*3+2]);
-                            const distance = p1.distanceTo(p2);
-
-                            if (distance < 15) { // Increased connection distance
-                                linePositions.push(p1.x, p1.y, p1.z);
-                                linePositions.push(p2.x, p2.y, p2.z);
-                            }
-                        }
-                    }
-                    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-                    lineGeometry.attributes.position.needsUpdate = true;
-
-                    camera.position.x += (mouse.x * 5 - camera.position.x) * 0.02;
-                    camera.position.y += (mouse.y * 5 - camera.position.y) * 0.02;
-                    camera.lookAt(scene.position);
-                    
-                    particleMesh.rotation.y = elapsedTime * 0.05;
-
-                    renderer.render(scene, camera);
-                    window.requestAnimationFrame(animate);
-                };
-
-                animate();
-            }
-
-            // --- CYBER TERMINAL SCRIPT (File 1) ---
-            const terminalBody = document.getElementById('terminal-body');
-            const terminalText = document.getElementById('typing-text');
-            const commandLine = document.getElementById('command-line');
-            const commandInput = document.getElementById('command-input');
+        async function initPortalApp() {
+            portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
+            currentBgImage = localStorage.getItem('bgImage') || '';
             
-            function displayProfilePhoto() {
-                const imgContainer = document.createElement('div');
-                const img = document.createElement('img');
-                img.src = 'https://i.imghippo.com/files/fBt9701PM.jpg';
-                img.alt = 'Foto Uranus Fazry';
-                img.style.maxWidth = '250px';
-                img.style.maxHeight = '250px';
-                img.style.marginTop = '10px';
-                img.style.marginBottom = '10px'; // Added for spacing
-                img.style.borderRadius = '8px';
-                img.style.border = '2px solid var(--terminal-cyan)';
-                img.style.boxShadow = '0 0 15px var(--terminal-cyan)';
-                imgContainer.appendChild(img);
-                terminalText.appendChild(imgContainer);
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-            }
-
-            const messages = [
-                { text: "Initializing system...", delay: 50 },
-                { text: "Loading profile data...", delay: 50 },
-                { text: "██████████████ 100%", delay: 30, style: "color: var(--terminal-cyan)" },
-                { text: "\n", delay: 200 },
-                { text: "> Welcome to CYBER TERMINAL // ACCESS GRANTED", delay: 10, style: "color: var(--terminal-green); font-weight: bold" },
-                { text: "\n\n", delay: 100 },
-                { text: ">> SYSTEM USER PROFILE <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-                { text: "\n", delay: 100 },
-                { action: 'addPhoto', delay: 200 },
-                { text: "> NAME: ", delay: 20 },
-                { text: "URANUS FAZRY", delay: 50, style: "color: var(--terminal-cyan); font-weight: bold" },
-                { text: "\n", delay: 50 },
-                { text: "> TITLE: ", delay: 20 },
-                { text: "FULL-STACK CYBER DEVELOPER", delay: 50, style: "color: var(--terminal-cyan)" },
-                { text: "\n", delay: 50 },
-                { text: "> LOCATION: ", delay: 20 },
-                { text: "[DATA ENCRYPTED]", delay: 70, style: "color: var(--terminal-red)" },
-                { text: "\n\n", delay: 100 },
-                { text: ">> SKILL MATRIX <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-                { text: "\n", delay: 100 },
-                { text: "> PYTHON:              █████████▉ 95%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-                { text: "> JAVASCRIPT:          ██████████ 97%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-                { text: "> CYBERSECURITY:       ████████▉  88%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-                { text: "> CLOUD ARCHITECTURE:  ████████▊  86%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-                { text: "> AI/ML:               ███████▍   75%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-                { text: "> BLOCKCHAIN:          ██████▎    70%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-                { text: "\n", delay: 100 },
-                { text: ">> PROJECT HISTORY <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-                { text: "\n", delay: 100 },
-                { text: "> [2025] CROWNED “KING BY ONE” – MLBB COMPETITIVE ACHIEVEMENT\n", delay: 20 },
-                { text: "> [2025] CRYPTO ENTRY STRATEGY – INDEPENDENT TRADER & ANALYST\n", delay: 20 },
-                { text: "> [2025] WIRELESS INTERNET BUSINESS EXPANSION – FOUNDER\n", delay: 20 },
-                { text: "> [2025] WEB & APP DEVELOPMENT PROJECTS – SELF-TAUGHT DEVELOPER\n", delay: 20 },
-                { text: "> [2021] MLBB KOL INDONESIA – COMPETITIVE PLAYER & CONTENT CREATOR\n", delay: 20 },
-                { text: "> [2020] STREAMING & CONTENT PRODUCTION – MULTI-PLATFORM CREATOR\n", delay: 20 },
-                { text: "\n", delay: 100 },
-                { text: ">> STATUS <<\n", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-                { text: "TAHUN 2025 MENJADI MOMENTUM PENTING BAGI URANUS FAZRY DENGAN SEJUMLAH PENCAPAIAN STRATEGIS: MERAIH GELAR “RAJA BY ONE” DI MOBILE LEGENDS, MENGEMBANGKAN STRATEGI ENTRI KRIPTO SEBAGAI TRADER DAN ANALIS INDEPENDEN, MEMPERLUAS BISNIS INTERNET WIRELESS SEBAGAI PENDIRI, SERTA MENGERJAKAN BERBAGAI PROYEK PENGEMBANGAN WEB & APLIKASI SECARA MANDIRI. PADA 2021, IA DIPERCAYA SEBAGAI MLBB KOL INDONESIA, MENGGABUNGKAN PERAN SEBAGAI PEMAIN KOMPETITIF DAN PEMBUAT KONTEN YANG BERPENGARUH DI KOMUNITAS ESPORTS. PERJALANANNYA DIMULAI PADA 2020 SEBAGAI STREAMER DAN CONTENT CREATOR MULTI PLATFORM, MEMBANGUN AUDIENS SERTA FONDASI KARIER DIGITALNYA. DENGAN KOMBINASI PENGALAMAN DI TEKNOLOGI, GAMING, DAN BISNIS, IA MEMBANGUN PROFIL PROFESIONAL YANG MENCERMINKAN INOVASI, KETEKUNAN, DAN KEUNGGULAN KOMPETITIF.", delay: 25, style: "color: var(--terminal-green); font-weight: bold; text-transform: uppercase;" },
-                { text: "\n\n", delay: 100 },
-                { text: "> Type 'help' for available commands", delay: 30, style: "color: var(--terminal-green)" },
-                { text: "\n", delay: 50 },
-            ];
-            
-            let currentMessageIndex = 0;
-            let currentCharIndex = 0;
-            
-            function typeNextCharacter() {
-                if (currentMessageIndex >= messages.length) {
-                    commandLine.classList.remove('hidden');
-                    commandInput.focus();
-                    return;
-                }
-                
-                const currentMessage = messages[currentMessageIndex];
-
-                if (currentMessage.action) {
-                    if (currentMessage.action === 'addPhoto') {
-                        displayProfilePhoto();
-                    }
-                    currentMessageIndex++;
-                    setTimeout(typeNextCharacter, currentMessage.delay);
-                    return;
-                }
-                
-                const textToType = currentMessage.text;
-                
-                if (currentCharIndex < textToType.length) {
-                    const char = textToType.charAt(currentCharIndex);
-                    const span = document.createElement('span');
-                    span.textContent = char;
-                    
-                    if (currentMessage.style) {
-                        span.style.cssText = currentMessage.style;
-                    }
-                    
-                    terminalText.appendChild(span);
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                    currentCharIndex++;
-                    
-                    setTimeout(typeNextCharacter, currentMessage.delay);
-                } else {
-                    currentMessageIndex++;
-                    currentCharIndex = 0;
-                    setTimeout(typeNextCharacter, 100);
-                }
-            }
-            
-            function typewriter(element, htmlString, onComplete) {
-                let i = 0;
-                const speed = 10;
-                element.innerHTML = '';
-
-                function type() {
-                    if (i < htmlString.length) {
-                        if (htmlString.charAt(i) === '<') {
-                            const closingBracketIndex = htmlString.indexOf('>', i);
-                            if (closingBracketIndex !== -1) {
-                                const tag = htmlString.substring(i, closingBracketIndex + 1);
-                                element.innerHTML += tag;
-                                i = closingBracketIndex; 
-                            }
-                        } else {
-                            element.innerHTML += htmlString.charAt(i);
-                        }
-                        
-                        i++;
-                        terminalBody.scrollTop = terminalBody.scrollHeight;
-                        setTimeout(type, speed);
-                    } else {
-                        if (onComplete) {
-                            onComplete();
-                        }
+            // [MODIFIED] Load from IndexedDB first, which overrides localStorage image
+            try {
+                const storedFile = await getFileFromDB();
+                if (storedFile) {
+                    const fileUrl = URL.createObjectURL(storedFile);
+                    if (storedFile.type.startsWith('image/')) {
+                        currentBgImage = fileUrl;
+                        currentBgVideo = '';
+                    } else if (storedFile.type.startsWith('video/')) {
+                        currentBgVideo = fileUrl;
+                        currentBgImage = '';
                     }
                 }
-                type();
+            } catch (error) {
+                console.error("Could not load media from DB:", error);
             }
 
-            function processCommand(command) {
-                terminalText.appendChild(document.createElement('br'));
-                
-                const prompt = document.createElement('span');
-                prompt.textContent = '> ';
-                prompt.style.color = 'var(--terminal-green)';
-                terminalText.appendChild(prompt);
-                
-                const cmdText = document.createElement('span');
-                cmdText.textContent = command;
-                cmdText.style.color = 'var(--text-color)';
-                terminalText.appendChild(cmdText);
-                
-                terminalText.appendChild(document.createElement('br'));
-                
-                const response = document.createElement('div');
-                response.style.marginTop = '10px';
-                
-                command = command.toLowerCase().trim();
-                
-                let isAnimated = false;
-                
-                const trackNumber = parseInt(command, 10);
-
-                if (command === 'help') {
-                    response.innerHTML = `Available commands:<br>
-                        - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
-                        - <span class="highlight">about</span>: Show detailed profile<br>
-                        - <span class="highlight">skills</span>: List technical skills<br>
-                        - <span class="highlight">projects</span>: Show project history<br>
-                        - <span class="highlight">contact</span>: Show contact information<br>
-                        - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
-                        - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
-                        - <span class="highlight">stop</span>: Menghentikan musik.<br>
-                        - <span class="highlight">clear</span>: Clear the terminal<br>
-                        - <span class="highlight">exit</span>: Close terminal (just kidding)`;
-                } else if (command === 'about') {
-                     response.innerHTML = `
-                          <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
-                          "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
-                          </p>
-                        `;
-                } else if (command === 'skills') {
-                    response.innerHTML = `>> SKILL MATRIX <<<br><br>
-                        <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
-                        <span style="color: var(--terminal-cyan)">> JAVASCRIPT:          ██████████ 97%</span><br>
-                        <span style="color: var(--terminal-cyan)">> CYBERSECURITY:       ████████▉  88%</span><br>
-                        <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:  ████████▊  86%</span><br>
-                        <span style="color: var(--terminal-cyan)">> AI/ML:               ███████▍   75%</span><br>
-                        <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:          ██████▎    70%</span><br>`;
-                } else if (command === 'projects') {
-                    response.innerHTML = `>> PROJECT HISTORY <<<br><br>
-                        > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
-                        > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
-                        > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
-                } else if (command === 'contact') {
-                    response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br>
-                        - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
-                        - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
-                } else if (command === 'clear') {
-                    terminalText.innerHTML = '';
-                    commandInput.value = '';
-                    return;
-                } else if (command === 'musik') {
-                    let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
-                    musicList.forEach((song, index) => {
-                        musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`;
-                    });
-                    musicListHtml += "<br>Ketik nomor untuk memutar musik.";
-                    response.innerHTML = musicListHtml;
-                } else if (!isNaN(trackNumber) && trackNumber >= 1 && trackNumber <= musicList.length) {
-                    const song = musicList[trackNumber - 1];
-                    audioPlayer.src = song.url;
-                    audioPlayer.play();
-                    response.innerHTML = `Memutar: <span class="highlight">${song.name}</span>`;
-                } else if (command === 'stop') {
-                    audioPlayer.pause();
-                    audioPlayer.src = '';
-                    response.innerHTML = 'Musik dihentikan.';
-                } else if (command === 'uranusfazry') {
-                    isAnimated = true;
-                    const profileHtml = `
-                        <div style="color: var(--terminal-purple-term); text-decoration: underline;">// URANUSFAZRY - DATA PROFILE //</div><br>
-                        <div><span class="highlight">> BIOGRAFI</span></div>
-                        <p style="margin-left: 15px;">
-                            Uranus Fazry adalah seorang pengembang multi-talenta dan kreator digital yang berbasis di Indonesia. Dengan hasrat untuk teknologi dan inovasi, ia telah membangun berbagai proyek mulai dari aplikasi web canggih hingga platform game interaktif. Dikenal dengan kemampuannya memecahkan masalah kompleks dan kepribadiannya yang kuat, ia adalah 'Raja By One' di dunia digital.
-                        </p><br>
-                        <div><span class="highlight">> HOBI</span></div>
-                        <div style="margin-left: 15px;">
-                            - Gaming (terutama MLBB)<br>
-                            - Trading Forex & Crypto<br>
-                            - Produksi Musik<br>
-                            - Coding & Eksperimen Teknologi Baru
-                        </div><br>
-                        <div><span class="highlight">> KEAHLIAN UTAMA</span></div>
-                        <div style="margin-left: 15px;">
-                            - Full-Stack Web Development (JavaScript, Python)<br>
-                            - Cybersecurity & Network Management<br>
-                            - AI/ML Integration<br>
-                            - Blockchain & Smart Contract
-                        </div><br>
-                        <div><span class="highlight">> KONTAK</span></div>
-                        <div style="margin-left: 15px;">
-                            - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
-                            - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>
-                        </div>
-                    `;
-                    
-                    terminalText.appendChild(response);
-                    commandInput.disabled = true;
-                    
-                    typewriter(response, profileHtml, () => {
-                        commandInput.disabled = false;
-                        commandInput.focus();
-                        terminalText.appendChild(document.createElement('br'));
-                        terminalBody.scrollTop = terminalBody.scrollHeight;
-                    });
-
-                } else if (command === 'exit') {
-                    response.innerHTML = `<span style="color: var(--terminal-red)">Access Denied: Terminal cannot be closed from this session.</span>`;
-                } else {
-                    response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span><br>
-                    Type <span class="highlight">'help'</span> for available commands.`;
-                }
-                
-                if (!isAnimated) {
-                    terminalText.appendChild(response);
-                    terminalText.appendChild(document.createElement('br'));
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                }
-            }
+            renderPortals();
+            updateTime();
+            setInterval(updateTime, 1000);
+            loadBackgroundMedia();
             
-            commandInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const command = this.value;
-                    this.value = '';
-                    
-                    if (command.trim() !== '') {
-                        processCommand(command);
-                    }
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpening = mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden', !mobileMenu.classList.contains('hidden'));
+                if (isOpening) {
+                    bgUploadMediaMobile.value = '';
+                    selectedMediaFile = null;
                 }
             });
 
-            // --- INITIALIZE ALL SCRIPTS ---
-            initPortalApp();
-            init3DBackground();
-            typeNextCharacter();
+            portalForm.addEventListener('submit', handlePortalFormSubmit);
+            portalIconSelect.addEventListener('change', () => {
+                customIconOptions.style.display = (portalIconSelect.value === 'custom-icon') ? 'block' : 'none';
+            });
+            
+            iconUpload.addEventListener('change', (e) => handleImageUpload(e, iconPreview));
+            volumeControl.addEventListener('click', toggleMute);
+            logoContainer.addEventListener('click', togglePreviewMode);
+            
+            bgUploadMedia.addEventListener('change', handleMediaSelect);
+            bgUploadMediaMobile.addEventListener('change', handleMediaSelect);
+
+            // --- [MODIFIED] Add all gesture event listeners ---
+            document.body.addEventListener('touchstart', handleTouchStart, false);
+            document.body.addEventListener('touchend', handleTouchEnd, false);
+            document.body.addEventListener('mousedown', handleDragStart);
+            document.body.addEventListener('mouseup', handleDragEnd);
+            document.body.addEventListener('mouseleave', handleDragLeave);
+            
+            // [NEW] Add event listener for the import file input
+            importFileInput.addEventListener('change', handleFileImport);
+            
+            // [NEW] Add event listeners for confirmation modal
+            confirmCancelBtn.addEventListener('click', () => confirmationModal.classList.add('hidden'));
+            confirmOkBtn.addEventListener('click', () => {
+                if (typeof onConfirmCallback === 'function') {
+                    onConfirmCallback();
+                }
+                confirmationModal.classList.add('hidden');
+                onConfirmCallback = null;
+            });
+        }
+        
+        // [NEW] Show Confirmation Modal Function
+        window.showConfirmationModal = function(message, callback) {
+            confirmationMessage.textContent = message;
+            onConfirmCallback = callback;
+            confirmationModal.classList.remove('hidden');
+        }
+
+        // --- [NEW] GESTURE HANDLER FUNCTIONS ---
+
+        function handleTouchStart(event) {
+            if (document.body.classList.contains('preview-mode-active')) {
+                touchStartX = event.touches[0].clientX;
+            }
+        }
+
+        function handleTouchEnd(event) {
+            if (document.body.classList.contains('preview-mode-active')) {
+                const touchEndX = event.changedTouches[0].clientX;
+                if (touchStartX - touchEndX > 75) { // Swipe left
+                    togglePreviewMode();
+                }
+            }
+        }
+
+        function handleDragStart(event) {
+            if (document.body.classList.contains('preview-mode-active')) {
+                isDragging = true;
+                dragStartX = event.clientX;
+                event.preventDefault(); // Prevent text selection
+            }
+        }
+
+        function handleDragEnd(event) {
+            if (isDragging && document.body.classList.contains('preview-mode-active')) {
+                const dragEndX = event.clientX;
+                if (dragStartX - dragEndX > 100) { // Swipe left with mouse
+                    togglePreviewMode();
+                }
+            }
+            isDragging = false;
+        }
+        
+        function handleDragLeave() {
+            if (isDragging) {
+                isDragging = false;
+            }
+        }
+        // --- END OF GESTURE HANDLERS ---
+
+
+        function handleMediaSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedMediaFile = file;
+            }
+        }
+
+        window.handleImageUpload = function(event, previewElement) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewElement.src = e.target.result;
+                    previewElement.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function renderPortals() {
+            portalsGrid.innerHTML = '';
+            
+            portals.forEach((portal, index) => {
+                const portalElement = document.createElement('div');
+                portalElement.className = 'h-full';
+                
+                const portalColor = portal.color || '#ffffff';
+                const textColorStyle = `color: ${portalColor}; text-shadow: 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
+                const borderStyle = `border: 1px solid ${portalColor}; box-shadow: 0 0 5px ${portalColor}, inset 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
+                
+                const iconHtml = portal.icon.startsWith('data:image') || portal.icon.startsWith('http')
+                    ? `<img src="${portal.icon}" class="mx-auto h-12 w-12 mb-4 object-contain" alt="${portal.name} icon">`
+                    : `<i class="${portal.icon} text-4xl mb-4" style="${textColorStyle}"></i>`;
+
+                portalElement.innerHTML = `
+                    <div class="portal-card h-full" style="color: ${portalColor};">
+                        <a href="${portal.url}" target="_blank" class="block h-full p-6 rounded-lg text-center relative overflow-hidden backdrop-blur-sm bg-[#0d0221]/50 transition-all duration-300 flex flex-col" style="${borderStyle}">
+                            <div class="portal-card-inner flex flex-col justify-center items-center flex-grow">
+                                ${iconHtml}
+                                <h3 class="font-bold uppercase tracking-wider break-words text-lg" style="${textColorStyle}">${portal.name}</h3>
+                                <p class="text-sm text-gray-300 mt-2 leading-normal">${portal.description || ''}</p>
+                            </div>
+                            <button onclick="showConfirmationModal('Are you sure you want to delete this portal?', () => deletePortalAction(${index}))" 
+                                class="absolute top-2 right-2 text-xs text-red-500 hover:text-red-400 opacity-50 hover:opacity-100 transition-opacity z-10">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </a>
+                    </div>
+                `;
+                // Add event listener to prevent the default link behavior when the delete button is clicked
+                portalElement.querySelector('button').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+                
+                portalsGrid.appendChild(portalElement);
+            });
+            
+            portalCount.textContent = portals.length;
+        }
+        
+        function handlePortalFormSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('portal-name').value;
+            const url = document.getElementById('portal-url').value;
+            const description = document.getElementById('portal-description').value;
+            let icon = document.getElementById('portal-icon').value;
+            const color = document.getElementById('portal-color').value;
+            
+            if (icon === 'custom-icon') {
+                const iconUrlInput = document.getElementById('icon-url');
+                const iconFileInput = document.getElementById('icon-upload');
+                
+                if (iconUrlInput.value) {
+                    addPortalToArray(name, url, iconUrlInput.value, color, description);
+                } else if (iconFileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => addPortalToArray(name, url, event.target.result, color, description);
+                    reader.readAsDataURL(iconFileInput.files[0]);
+                } else {
+                    addPortalToArray(name, url, 'fas fa-link', color, description); // Fallback
+                }
+            } else {
+                addPortalToArray(name, url, icon, color, description);
+            }
+        }
+        
+        function addPortalToArray(name, url, icon, color, description) {
+            portals.push({ name, url, icon, color, description });
+            savePortals();
+            renderPortals();
+            document.getElementById('add-portal-modal').classList.add('hidden');
+            resetPortalForm();
+        }
+        
+        // [MODIFIED] This is the actual deletion logic, called by the modal
+        window.deletePortalAction = function(index) {
+            portals.splice(index, 1);
+            savePortals();
+            renderPortals();
+        }
+        
+        function resetPortalForm() {
+            portalForm.reset();
+            customIconOptions.style.display = 'none';
+            if(iconPreview) {
+                iconPreview.style.display = 'none';
+                iconPreview.src = '#';
+            }
+            document.getElementById('portal-color').value = '#05d9e8';
+            const colorOptions = document.querySelectorAll('#add-portal-modal .color-option');
+            colorOptions.forEach(el => el.classList.remove('selected'));
+            colorOptions[1].classList.add('selected');
+        }
+        
+        function savePortals() {
+            localStorage.setItem('portals', JSON.stringify(portals));
+        }
+        
+        window.showAddLinkModal = function() {
+            document.getElementById('add-portal-modal').classList.remove('hidden');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+        
+        function updateTime() {
+            const now = new Date();
+            timeDisplay.textContent = now.toLocaleTimeString('en-GB');
+            dateDisplay.textContent = now.toLocaleDateString('id-ID', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+        }
+        
+        window.selectPortalColor = function(color, element) {
+            const container = element.closest('.color-picker-container');
+            container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('portal-color').value = color;
+        }
+
+        window.applyCustomPortalColor = function(color) {
+            document.getElementById('portal-color').value = color;
+            const container = document.getElementById('add-portal-modal');
+            container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+        }
+        
+        // [MODIFIED] Set background from URL, clears file from DB
+        window.setBackgroundImage = async function() {
+            const bgUrlInput = document.getElementById('bg-image-mobile').value ? document.getElementById('bg-image-mobile') : document.getElementById('bg-image');
+            if (bgUrlInput && bgUrlInput.value) {
+                try {
+                    await deleteFileFromDB();
+                } catch(e) { console.error("Could not clear DB file when setting URL", e); }
+                updateBackgroundMedia(bgUrlInput.value, null);
+            }
+        }
+
+        // [MODIFIED] Apply uploaded file, saves to DB
+        window.applyUploadedMedia = async function() {
+            if (!selectedMediaFile) return;
+
+            try {
+                await saveFileToDB(selectedMediaFile);
+                localStorage.removeItem('bgImage'); // Clear URL from localStorage
+
+                const storedFile = await getFileFromDB();
+                if (storedFile) {
+                    const fileUrl = URL.createObjectURL(storedFile);
+                    if (storedFile.type.startsWith('image/')) {
+                        updateBackgroundMedia(fileUrl, null);
+                    } else if (storedFile.type.startsWith('video/')) {
+                        updateBackgroundMedia(null, fileUrl);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to apply uploaded media:", error);
+                alert("Sorry, could not save the media file. It might be too large or your browser has storage restrictions.");
+            }
+
+            bgUploadMedia.value = '';
+            bgUploadMediaMobile.value = '';
+            selectedMediaFile = null;
+
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        // [MODIFIED] Central function to update media state
+        function updateBackgroundMedia(imageUrl, videoUrl) {
+            // Revoke old blob URLs to prevent memory leaks
+            if (currentBgVideo && currentBgVideo.startsWith('blob:')) {
+                URL.revokeObjectURL(currentBgVideo);
+            }
+            if (currentBgImage && currentBgImage.startsWith('blob:')) {
+                URL.revokeObjectURL(currentBgImage);
+            }
+
+            if (imageUrl) {
+                currentBgImage = imageUrl;
+                currentBgVideo = '';
+                if (!imageUrl.startsWith('blob:')) {
+                    localStorage.setItem('bgImage', currentBgImage);
+                }
+            } else if (videoUrl) {
+                currentBgImage = '';
+                currentBgVideo = videoUrl;
+            }
+            loadBackgroundMedia();
+        }
+        
+        function loadBackgroundMedia() {
+            document.body.classList.remove('has-bg-media');
+            bgVideo.classList.add('hidden');
+            document.body.style.setProperty('--bg-image', 'none');
+            volumeControl.classList.add('hidden');
+
+            if (currentBgVideo) {
+                document.body.classList.add('has-bg-media');
+                bgVideo.src = currentBgVideo;
+                bgVideo.classList.remove('hidden');
+                bgVideo.muted = true; 
+                bgVideo.play().catch(e => console.error("Video play failed:", e));
+                volumeControl.classList.remove('hidden');
+                updateVolumeIcon();
+            } else if (currentBgImage) {
+                document.body.classList.add('has-bg-media');
+                document.body.style.setProperty('--bg-image', `url('${currentBgImage}')`);
+            }
+            
+            const terminalContainer = document.querySelector('.terminal-container');
+            if(terminalContainer) {
+                terminalContainer.classList.toggle('is-transparent', !!currentBgImage || !!currentBgVideo);
+            }
+        }
+        
+        // [MODIFIED] Reset now also clears the IndexedDB
+        window.resetBackgroundMedia = async function() {
+            if(currentBgVideo && currentBgVideo.startsWith('blob:')) {
+                URL.revokeObjectURL(currentBgVideo);
+            }
+             if(currentBgImage && currentBgImage.startsWith('blob:')) {
+                URL.revokeObjectURL(currentBgImage);
+            }
+            bgVideo.pause();
+            bgVideo.removeAttribute('src');
+
+            currentBgImage = '';
+            currentBgVideo = '';
+            localStorage.removeItem('bgImage');
+            
+            try {
+                await deleteFileFromDB();
+            } catch (error) {
+                console.error("Failed to delete media from DB:", error);
+            }
+            
+            loadBackgroundMedia();
+            
+            document.querySelectorAll('input[type="url"]').forEach(input => input.value = '');
+            document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
+
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        // [MODIFIED] Reset All now also clears the IndexedDB
+        window.resetAllSettings = async function() {
+            localStorage.removeItem('portals');
+            localStorage.removeItem('bgImage');
+
+            try {
+                await deleteFileFromDB();
+            } catch (error) {
+                console.error("Failed to delete media from DB during full reset:", error);
+            }
+
+            location.reload();
+        }
+
+        function toggleMute() {
+            bgVideo.muted = !bgVideo.muted;
+            updateVolumeIcon();
+        }
+
+        function updateVolumeIcon() {
+            if (bgVideo.muted) {
+                volumeIcon.classList.remove('fa-volume-up');
+                volumeIcon.classList.add('fa-volume-mute');
+            } else {
+                volumeIcon.classList.remove('fa-volume-mute');
+                volumeIcon.classList.add('fa-volume-up');
+            }
+        }
+
+        function togglePreviewMode() {
+            // Only allow entering preview mode if there is a background
+            if (!document.body.classList.contains('preview-mode-active') && !currentBgImage && !currentBgVideo) {
+                return; 
+            }
+            document.body.classList.toggle('preview-mode-active');
+        }
+        
+        // --- [NEW] DATA MANAGEMENT FUNCTIONS ---
+
+        // Helper function to convert a file/blob to a base64 string
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Helper function to convert a base64 data URL back to a Blob
+        function base64ToBlob(base64, mimeType) {
+            const byteCharacters = atob(base64.split(',')[1]);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            return new Blob([byteArray], { type: mimeType });
+        }
+        
+        // Backup to JSON (.txt file) with base64 media
+        window.backupData = async () => {
+            const dataToBackup = {
+                portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals,
+                bgImage: localStorage.getItem('bgImage') || null,
+                bgMedia: null // New field for the media file
+            };
+
+            try {
+                const storedFile = await getFileFromDB();
+                if (storedFile) {
+                    const base64Data = await fileToBase64(storedFile);
+                    dataToBackup.bgMedia = {
+                        type: storedFile.type,
+                        data: base64Data
+                    };
+                    dataToBackup.bgImage = null; // Prioritize media file over URL
+                }
+            } catch (error) {
+                console.error("Could not read media file for backup:", error);
+            }
+            
+            const dataStr = JSON.stringify(dataToBackup, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'text/plain' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'uranusfazry_backup.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+        // Import from JSON (.txt file) with base64 media
+        window.importData = () => {
+            importFileInput.click();
+        };
+
+        async function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (importedData && Array.isArray(importedData.portals)) {
+                        // Clear old media first
+                        await deleteFileFromDB();
+                        localStorage.removeItem('bgImage');
+
+                        localStorage.setItem('portals', JSON.stringify(importedData.portals));
+
+                        if (importedData.bgMedia && importedData.bgMedia.data) {
+                            // Handle imported media file
+                            const mediaBlob = base64ToBlob(importedData.bgMedia.data, importedData.bgMedia.type);
+                            await saveFileToDB(mediaBlob);
+                        } else if (typeof importedData.bgImage === 'string') {
+                            // Handle imported URL
+                            localStorage.setItem('bgImage', importedData.bgImage);
+                        }
+
+                        showConfirmationModal('Data imported successfully. The page will now reload to apply changes.', () => {
+                            location.reload();
+                        });
+                    } else {
+                        alert('Invalid backup file format.');
+                    }
+                } catch (error) {
+                    console.error('Error parsing backup file:', error);
+                    alert('Could not read the backup file. It may be corrupted or in the wrong format.');
+                }
+            };
+            reader.readAsText(file);
+            // Reset file input to allow importing the same file again
+            event.target.value = '';
+        }
+
+
+        // --- 3D BACKGROUND SCRIPT (File 1) ---
+        function init3DBackground() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({
+                canvas: document.querySelector('#bg-canvas'),
+                alpha: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            camera.position.z = 50;
+
+            const particleCount = 200;
+            const particles = new THREE.BufferGeometry();
+            const posArray = new Float32Array(particleCount * 3);
+            const velocities = [];
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 200; // Increased range
+                velocities.push((Math.random() - 0.5) * 0.1);
+            }
+
+            particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.2,
+                color: 0x05d9e8,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+            const particleMesh = new THREE.Points(particles, particleMaterial);
+            scene.add(particleMesh);
+
+            const lineGeometry = new THREE.BufferGeometry();
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: 0xff2a6d,
+                transparent: true,
+                opacity: 0.1
+            });
+            const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lineMesh);
+            
+            const mouse = new THREE.Vector2();
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            });
+            
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            });
+
+            const clock = new THREE.Clock();
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+                
+                const positions = particles.attributes.position.array;
+                for(let i = 0; i < particleCount; i++) {
+                    positions[i * 3] += velocities[i * 3] * 0.1;
+                    positions[i * 3 + 1] += velocities[i * 3 + 1] * 0.1;
+                    positions[i * 3 + 2] += velocities[i * 3 + 2] * 0.1;
+                    
+                    // Make particles wrap around the screen
+                    if (positions[i*3+1] < -100) positions[i*3+1] = 100;
+                    if (positions[i*3] > 100) positions[i*3] = -100;
+                    else if (positions[i*3] < -100) positions[i*3] = 100;
+                }
+                particles.attributes.position.needsUpdate = true;
+                
+                const linePositions = [];
+                for (let i = 0; i < particleCount; i++) {
+                    for (let j = i + 1; j < particleCount; j++) {
+                        const p1 = new THREE.Vector3(positions[i*3], positions[i*3+1], positions[i*3+2]);
+                        const p2 = new THREE.Vector3(positions[j*3], positions[j*3+1], positions[j*3+2]);
+                        const distance = p1.distanceTo(p2);
+
+                        if (distance < 15) { // Increased connection distance
+                            linePositions.push(p1.x, p1.y, p1.z);
+                            linePositions.push(p2.x, p2.y, p2.z);
+                        }
+                    }
+                }
+                lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+                lineGeometry.attributes.position.needsUpdate = true;
+
+                camera.position.x += (mouse.x * 5 - camera.position.x) * 0.02;
+                camera.position.y += (mouse.y * 5 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+                
+                particleMesh.rotation.y = elapsedTime * 0.05;
+
+                renderer.render(scene, camera);
+                window.requestAnimationFrame(animate);
+            };
+
+            animate();
+        }
+
+        // --- CYBER TERMINAL SCRIPT (File 1) ---
+        const terminalBody = document.getElementById('terminal-body');
+        const terminalText = document.getElementById('typing-text');
+        const commandLine = document.getElementById('command-line');
+        const commandInput = document.getElementById('command-input');
+        
+        function displayProfilePhoto() {
+            const imgContainer = document.createElement('div');
+            const img = document.createElement('img');
+            img.src = 'https://i.imghippo.com/files/fBt9701PM.jpg';
+            img.alt = 'Foto Uranus Fazry';
+            img.style.maxWidth = '250px';
+            img.style.maxHeight = '250px';
+            img.style.marginTop = '10px';
+            img.style.marginBottom = '10px'; // Added for spacing
+            img.style.borderRadius = '8px';
+            img.style.border = '2px solid var(--terminal-cyan)';
+            img.style.boxShadow = '0 0 15px var(--terminal-cyan)';
+            imgContainer.appendChild(img);
+            terminalText.appendChild(imgContainer);
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        const messages = [
+            { text: "Initializing system...", delay: 50 },
+            { text: "Loading profile data...", delay: 50 },
+            { text: "██████████████ 100%", delay: 30, style: "color: var(--terminal-cyan)" },
+            { text: "\n", delay: 200 },
+            { text: "> Welcome to CYBER TERMINAL // ACCESS GRANTED", delay: 10, style: "color: var(--terminal-green); font-weight: bold" },
+            { text: "\n\n", delay: 100 },
+            { text: ">> SYSTEM USER PROFILE <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+            { text: "\n", delay: 100 },
+            { action: 'addPhoto', delay: 200 },
+            { text: "> NAME: ", delay: 20 },
+            { text: "URANUS FAZRY", delay: 50, style: "color: var(--terminal-cyan); font-weight: bold" },
+            { text: "\n", delay: 50 },
+            { text: "> TITLE: ", delay: 20 },
+            { text: "FULL-STACK CYBER DEVELOPER", delay: 50, style: "color: var(--terminal-cyan)" },
+            { text: "\n", delay: 50 },
+            { text: "> LOCATION: ", delay: 20 },
+            { text: "[DATA ENCRYPTED]", delay: 70, style: "color: var(--terminal-red)" },
+            { text: "\n\n", delay: 100 },
+            { text: ">> SKILL MATRIX <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+            { text: "\n", delay: 100 },
+            { text: "> PYTHON:              █████████▉ 95%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+            { text: "> JAVASCRIPT:            ██████████ 97%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+            { text: "> CYBERSECURITY:         ████████▉  88%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+            { text: "> CLOUD ARCHITECTURE:    ████████▊  86%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+            { text: "> AI/ML:                 ███████▍   75%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+            { text: "> BLOCKCHAIN:            ██████▎    70%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+            { text: "\n", delay: 100 },
+            { text: ">> PROJECT HISTORY <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+            { text: "\n", delay: 100 },
+            { text: "> [2025] CROWNED “KING BY ONE” – MLBB COMPETITIVE ACHIEVEMENT\n", delay: 20 },
+            { text: "> [2025] CRYPTO ENTRY STRATEGY – INDEPENDENT TRADER & ANALYST\n", delay: 20 },
+            { text: "> [2025] WIRELESS INTERNET BUSINESS EXPANSION – FOUNDER\n", delay: 20 },
+            { text: "> [2025] WEB & APP DEVELOPMENT PROJECTS – SELF-TAUGHT DEVELOPER\n", delay: 20 },
+            { text: "> [2021] MLBB KOL INDONESIA – COMPETITIVE PLAYER & CONTENT CREATOR\n", delay: 20 },
+            { text: "> [2020] STREAMING & CONTENT PRODUCTION – MULTI-PLATFORM CREATOR\n", delay: 20 },
+            { text: "\n", delay: 100 },
+            { text: ">> STATUS <<\n", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+            { text: "TAHUN 2025 MENJADI MOMENTUM PENTING BAGI URANUS FAZRY DENGAN SEJUMLAH PENCAPAIAN STRATEGIS: MERAIH GELAR “RAJA BY ONE” DI MOBILE LEGENDS, MENGEMBANGKAN STRATEGI ENTRI KRIPTO SEBAGAI TRADER DAN ANALIS INDEPENDEN, MEMPERLUAS BISNIS INTERNET WIRELESS SEBAGAI PENDIRI, SERTA MENGERJAKAN BERBAGAI PROYEK PENGEMBANGAN WEB & APLIKASI SECARA MANDIRI. PADA 2021, IA DIPERCAYA SEBAGAI MLBB KOL INDONESIA, MENGGABUNGKAN PERAN SEBAGAI PEMAIN KOMPETITIF DAN PEMBUAT KONTEN YANG BERPENGARUH DI KOMUNITAS ESPORTS. PERJALANANNYA DIMULAI PADA 2020 SEBAGAI STREAMER DAN CONTENT CREATOR MULTI PLATFORM, MEMBANGUN AUDIENS SERTA FONDASI KARIER DIGITALNYA. DENGAN KOMBINASI PENGALAMAN DI TEKNOLOGI, GAMING, DAN BISNIS, IA MEMBANGUN PROFIL PROFESIONAL YANG MENCERMINKAN INOVASI, KETEKUNAN, DAN KEUNGGULAN KOMPETITIF.", delay: 25, style: "color: var(--terminal-green); font-weight: bold; text-transform: uppercase;" },
+            { text: "\n\n", delay: 100 },
+            { text: "> Type 'help' for available commands", delay: 30, style: "color: var(--terminal-green)" },
+            { text: "\n", delay: 50 },
+        ];
+        
+        let currentMessageIndex = 0;
+        let currentCharIndex = 0;
+        
+        function typeNextCharacter() {
+            if (currentMessageIndex >= messages.length) {
+                commandLine.classList.remove('hidden');
+                commandInput.focus();
+                return;
+            }
+            
+            const currentMessage = messages[currentMessageIndex];
+
+            if (currentMessage.action) {
+                if (currentMessage.action === 'addPhoto') {
+                    displayProfilePhoto();
+                }
+                currentMessageIndex++;
+                setTimeout(typeNextCharacter, currentMessage.delay);
+                return;
+            }
+            
+            const textToType = currentMessage.text;
+            
+            if (currentCharIndex < textToType.length) {
+                const char = textToType.charAt(currentCharIndex);
+                const span = document.createElement('span');
+                span.textContent = char;
+                
+                if (currentMessage.style) {
+                    span.style.cssText = currentMessage.style;
+                }
+                
+                terminalText.appendChild(span);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+                currentCharIndex++;
+                
+                setTimeout(typeNextCharacter, currentMessage.delay);
+            } else {
+                currentMessageIndex++;
+                currentCharIndex = 0;
+                setTimeout(typeNextCharacter, 100);
+            }
+        }
+        
+        function typewriter(element, htmlString, onComplete) {
+            let i = 0;
+            const speed = 10;
+            element.innerHTML = '';
+
+            function type() {
+                if (i < htmlString.length) {
+                    if (htmlString.charAt(i) === '<') {
+                        const closingBracketIndex = htmlString.indexOf('>', i);
+                        if (closingBracketIndex !== -1) {
+                            const tag = htmlString.substring(i, closingBracketIndex + 1);
+                            element.innerHTML += tag;
+                            i = closingBracketIndex; 
+                        }
+                    } else {
+                        element.innerHTML += htmlString.charAt(i);
+                    }
+                    
+                    i++;
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    setTimeout(type, speed);
+                } else {
+                    if (onComplete) {
+                        onComplete();
+                    }
+                }
+            }
+            type();
+        }
+
+        function processCommand(command) {
+            terminalText.appendChild(document.createElement('br'));
+            
+            const prompt = document.createElement('span');
+            prompt.textContent = '> ';
+            prompt.style.color = 'var(--terminal-green)';
+            terminalText.appendChild(prompt);
+            
+            const cmdText = document.createElement('span');
+            cmdText.textContent = command;
+            cmdText.style.color = 'var(--text-color)';
+            terminalText.appendChild(cmdText);
+            
+            terminalText.appendChild(document.createElement('br'));
+            
+            const response = document.createElement('div');
+            response.style.marginTop = '10px';
+            
+            command = command.toLowerCase().trim();
+            
+            let isAnimated = false;
+            
+            const trackNumber = parseInt(command, 10);
+
+            if (command === 'help') {
+                response.innerHTML = `Available commands:<br>
+                    - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
+                    - <span class="highlight">about</span>: Show detailed profile<br>
+                    - <span class="highlight">skills</span>: List technical skills<br>
+                    - <span class="highlight">projects</span>: Show project history<br>
+                    - <span class="highlight">contact</span>: Show contact information<br>
+                    - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
+                    - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
+                    - <span class="highlight">stop</span>: Menghentikan musik.<br>
+                    - <span class="highlight">clear</span>: Clear the terminal<br>
+                    - <span class="highlight">exit</span>: Close terminal (just kidding)`;
+            } else if (command === 'about') {
+                 response.innerHTML = `
+                      <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
+                       "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
+                      </p>
+                    `;
+            } else if (command === 'skills') {
+                response.innerHTML = `>> SKILL MATRIX <<<br><br>
+                    <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
+                    <span style="color: var(--terminal-cyan)">> JAVASCRIPT:            ██████████ 97%</span><br>
+                    <span style="color: var(--terminal-cyan)">> CYBERSECURITY:         ████████▉  88%</span><br>
+                    <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:    ████████▊  86%</span><br>
+                    <span style="color: var(--terminal-cyan)">> AI/ML:                 ███████▍   75%</span><br>
+                    <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:            ██████▎    70%</span><br>`;
+            } else if (command === 'projects') {
+                response.innerHTML = `>> PROJECT HISTORY <<<br><br>
+                    > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
+                    > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
+                    > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
+            } else if (command === 'contact') {
+                response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br>
+                    - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                    - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
+            } else if (command === 'clear') {
+                terminalText.innerHTML = '';
+                commandInput.value = '';
+                return;
+            } else if (command === 'musik') {
+                let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
+                musicList.forEach((song, index) => {
+                    musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`;
+                });
+                musicListHtml += "<br>Ketik nomor untuk memutar musik.";
+                response.innerHTML = musicListHtml;
+            } else if (!isNaN(trackNumber) && trackNumber >= 1 && trackNumber <= musicList.length) {
+                const song = musicList[trackNumber - 1];
+                audioPlayer.src = song.url;
+                audioPlayer.play();
+                response.innerHTML = `Memutar: <span class="highlight">${song.name}</span>`;
+            } else if (command === 'stop') {
+                audioPlayer.pause();
+                audioPlayer.src = '';
+                response.innerHTML = 'Musik dihentikan.';
+            } else if (command === 'uranusfazry') {
+                isAnimated = true;
+                const profileHtml = `
+                    <div style="color: var(--terminal-purple-term); text-decoration: underline;">// URANUSFAZRY - DATA PROFILE //</div><br>
+                    <div><span class="highlight">> BIOGRAFI</span></div>
+                    <p style="margin-left: 15px;">
+                        Uranus Fazry adalah seorang pengembang multi-talenta dan kreator digital yang berbasis di Indonesia. Dengan hasrat untuk teknologi dan inovasi, ia telah membangun berbagai proyek mulai dari aplikasi web canggih hingga platform game interaktif. Dikenal dengan kemampuannya memecahkan masalah kompleks dan kepribadiannya yang kuat, ia adalah 'Raja By One' di dunia digital.
+                    </p><br>
+                    <div><span class="highlight">> HOBI</span></div>
+                    <div style="margin-left: 15px;">
+                        - Gaming (terutama MLBB)<br>
+                        - Trading Forex & Crypto<br>
+                        - Produksi Musik<br>
+                        - Coding & Eksperimen Teknologi Baru
+                    </div><br>
+                    <div><span class="highlight">> KEAHLIAN UTAMA</span></div>
+                    <div style="margin-left: 15px;">
+                        - Full-Stack Web Development (JavaScript, Python)<br>
+                        - Cybersecurity & Network Management<br>
+                        - AI/ML Integration<br>
+                        - Blockchain & Smart Contract
+                    </div><br>
+                    <div><span class="highlight">> KONTAK</span></div>
+                    <div style="margin-left: 15px;">
+                        - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                        - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>
+                    </div>
+                `;
+                
+                terminalText.appendChild(response);
+                commandInput.disabled = true;
+                
+                typewriter(response, profileHtml, () => {
+                    commandInput.disabled = false;
+                    commandInput.focus();
+                    terminalText.appendChild(document.createElement('br'));
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                });
+
+            } else if (command === 'exit') {
+                response.innerHTML = `<span style="color: var(--terminal-red)">Access Denied: Terminal cannot be closed from this session.</span>`;
+            } else {
+                response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span><br>
+                Type <span class="highlight">'help'</span> for available commands.`;
+            }
+            
+            if (!isAnimated) {
+                terminalText.appendChild(response);
+                terminalText.appendChild(document.createElement('br'));
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        }
+        
+        commandInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value;
+                this.value = '';
+                
+                if (command.trim() !== '') {
+                    processCommand(command);
+                }
+            }
         });
-    </script>
+
+        // --- INITIALIZE ALL SCRIPTS ---
+        initPortalApp();
+        init3DBackground();
+        typeNextCharacter();
+    });
+</script>
 
     <!-- MERGED: SCRIPT WATERMARK -->
     <script>
@@ -2441,3 +2588,4 @@
     </script>
 </body>
 </html>
+
