@@ -1648,154 +1648,289 @@
             animate();
         }
 
-        // --- CYBER TERMINAL SCRIPT ---
-        const terminalBody = document.getElementById('terminal-body');
-        const terminalText = document.getElementById('typing-text');
-        const commandLine = document.getElementById('command-line');
-        const commandInput = document.getElementById('command-input');
-        
-        function displayProfilePhoto() {
-            const imgContainer = document.createElement('div');
-            const img = document.createElement('img');
-            img.src = 'https://i.imghippo.com/files/fBt9701PM.jpg';
-            img.alt = 'Foto Uranus Fazry';
-            img.style.cssText = 'max-width: 250px; max-height: 250px; margin-top: 10px; margin-bottom: 10px; border-radius: 8px; border: 2px solid var(--terminal-cyan); box-shadow: 0 0 15px var(--terminal-cyan);';
-            imgContainer.appendChild(img);
-            terminalText.appendChild(imgContainer);
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        }
-
-        const messages = [
-            { text: "Initializing system...", delay: 50 },
-            { text: "Loading profile data...", delay: 50 },
-            { text: "██████████████ 100%", delay: 30, style: "color: var(--terminal-cyan)" },
-            { text: "\n", delay: 200 },
-            { text: "> Welcome to CYBER TERMINAL // ACCESS GRANTED", delay: 10, style: "color: var(--terminal-green); font-weight: bold" },
-            { text: "\n\n", delay: 100 },
-            { text: ">> SYSTEM USER PROFILE <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-            { text: "\n", delay: 100 },
-            { action: 'addPhoto', delay: 200 },
-            { text: "> NAME: ", delay: 20 },
-            { text: "URANUS FAZRY", delay: 50, style: "color: var(--terminal-cyan); font-weight: bold" },
-            { text: "\n", delay: 50 },
-            { text: "> TITLE: ", delay: 20 },
-            { text: "FULL-STACK CYBER DEVELOPER", delay: 50, style: "color: var(--terminal-cyan)" },
-            { text: "\n", delay: 50 },
-            { text: "> LOCATION: ", delay: 20 },
-            { text: "[DATA ENCRYPTED]", delay: 70, style: "color: var(--terminal-red)" },
-            { text: "\n\n", delay: 100 },
-            { text: ">> SKILL MATRIX <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
-            { text: "\n", delay: 100 },
-            { text: "> PYTHON:              █████████▉ 95%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-            { text: "> JAVASCRIPT:          ██████████ 97%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-            { text: "> CYBERSECURITY:       ████████▉  88%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-            { text: "> CLOUD ARCHITECTURE:  ████████▊  86%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-            { text: "> AI/ML:               ███████▍   75%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-            { text: "> BLOCKCHAIN:          ██████▎    70%\n", delay: 20, style: "color: var(--terminal-cyan)" },
-            { text: "\n", delay: 100 },
-            { text: "> Type 'help' for available commands", delay: 30, style: "color: var(--terminal-green)" },
-            { text: "\n", delay: 50 },
-        ];
-        
-        let currentMessageIndex = 0;
-        let currentCharIndex = 0;
-        
-        function typeNextCharacter() {
-            if (currentMessageIndex >= messages.length) {
-                commandLine.classList.remove('hidden');
-                commandInput.focus();
-                return;
-            }
+       // --- CYBER TERMINAL SCRIPT (File 1) ---
+            const terminalBody = document.getElementById('terminal-body');
+            const terminalText = document.getElementById('typing-text');
+            const commandLine = document.getElementById('command-line');
+            const commandInput = document.getElementById('command-input');
             
-            const currentMessage = messages[currentMessageIndex];
-
-            if (currentMessage.action) {
-                if (currentMessage.action === 'addPhoto') { displayProfilePhoto(); }
-                currentMessageIndex++;
-                setTimeout(typeNextCharacter, currentMessage.delay);
-                return;
-            }
-            
-            const textToType = currentMessage.text;
-            
-            if (currentCharIndex < textToType.length) {
-                const char = textToType.charAt(currentCharIndex);
-                const span = document.createElement('span');
-                span.textContent = char;
-                
-                if (currentMessage.style) { span.style.cssText = currentMessage.style; }
-                
-                terminalText.appendChild(span);
+            function displayProfilePhoto() {
+                const imgContainer = document.createElement('div');
+                const img = document.createElement('img');
+                img.src = 'https://i.imghippo.com/files/fBt9701PM.jpg';
+                img.alt = 'Foto Uranus Fazry';
+                img.style.maxWidth = '250px';
+                img.style.maxHeight = '250px';
+                img.style.marginTop = '10px';
+                img.style.marginBottom = '10px'; // Added for spacing
+                img.style.borderRadius = '8px';
+                img.style.border = '2px solid var(--terminal-cyan)';
+                img.style.boxShadow = '0 0 15px var(--terminal-cyan)';
+                imgContainer.appendChild(img);
+                terminalText.appendChild(imgContainer);
                 terminalBody.scrollTop = terminalBody.scrollHeight;
-                currentCharIndex++;
-                
-                setTimeout(typeNextCharacter, currentMessage.delay);
-            } else {
-                currentMessageIndex++;
-                currentCharIndex = 0;
-                setTimeout(typeNextCharacter, 100);
             }
-        }
-        
-        function processCommand(command) {
-            terminalText.appendChild(document.createElement('br'));
-            
-            const prompt = document.createElement('span');
-            prompt.textContent = '> ';
-            prompt.style.color = 'var(--terminal-green)';
-            terminalText.appendChild(prompt);
-            
-            const cmdText = document.createElement('span');
-            cmdText.textContent = command;
-            cmdText.style.color = 'var(--text-color)';
-            terminalText.appendChild(cmdText);
-            
-            terminalText.appendChild(document.createElement('br'));
-            
-            const response = document.createElement('div');
-            response.style.marginTop = '10px';
-            
-            command = command.toLowerCase().trim();
-            const trackNumber = parseInt(command, 10);
 
-            if (command === 'help') {
-                response.innerHTML = `Available commands:<br> - <span class="highlight">about</span>: Show detailed profile<br> - <span class="highlight">skills</span>: List technical skills<br> - <span class="highlight">contact</span>: Show contact information<br> - <span class="highlight">musik</span>: Menampilkan daftar musik.<br> - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar.<br> - <span class="highlight">stop</span>: Menghentikan musik.<br> - <span class="highlight">clear</span>: Clear the terminal<br> - <span class="highlight">exit</span>: Close terminal (just kidding)`;
-            } else if (command === 'about') {
-                response.innerHTML = `<p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">"AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU..."</p>`;
-            } else if (command === 'skills') {
-                response.innerHTML = `>> SKILL MATRIX <<<br><br><span style="color: var(--terminal-cyan)">> PYTHON: [...] 95%</span><br><span style="color: var(--terminal-cyan)">> JAVASCRIPT: [...] 97%</span><br>...`;
-            } else if (command === 'contact') {
-                response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br> - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br> - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
-            } else if (command === 'clear') {
-                terminalText.innerHTML = ''; commandInput.value = ''; return;
-            } else if (command === 'musik') {
-                let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
-                musicList.forEach((song, index) => { musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`; });
-                musicListHtml += "<br>Ketik nomor untuk memutar musik.";
-                response.innerHTML = musicListHtml;
-            } else if (!isNaN(trackNumber) && trackNumber >= 1 && trackNumber <= musicList.length) {
-                const song = musicList[trackNumber - 1];
-                audioPlayer.src = song.url; audioPlayer.play();
-                response.innerHTML = `Memutar: <span class="highlight">${song.name}</span>`;
-            } else if (command === 'stop') {
-                audioPlayer.pause(); audioPlayer.src = '';
-                response.innerHTML = 'Musik dihentikan.';
-            } else {
-                response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span>`;
+            const messages = [
+                { text: "Initializing system...", delay: 50 },
+                { text: "Loading profile data...", delay: 50 },
+                { text: "██████████████ 100%", delay: 30, style: "color: var(--terminal-cyan)" },
+                { text: "\n", delay: 200 },
+                { text: "> Welcome to CYBER TERMINAL // ACCESS GRANTED", delay: 10, style: "color: var(--terminal-green); font-weight: bold" },
+                { text: "\n\n", delay: 100 },
+                { text: ">> SYSTEM USER PROFILE <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "\n", delay: 100 },
+                { action: 'addPhoto', delay: 200 },
+                { text: "> NAME: ", delay: 20 },
+                { text: "URANUS FAZRY", delay: 50, style: "color: var(--terminal-cyan); font-weight: bold" },
+                { text: "\n", delay: 50 },
+                { text: "> TITLE: ", delay: 20 },
+                { text: "FULL-STACK CYBER DEVELOPER", delay: 50, style: "color: var(--terminal-cyan)" },
+                { text: "\n", delay: 50 },
+                { text: "> LOCATION: ", delay: 20 },
+                { text: "[DATA ENCRYPTED]", delay: 70, style: "color: var(--terminal-red)" },
+                { text: "\n\n", delay: 100 },
+                { text: ">> SKILL MATRIX <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "\n", delay: 100 },
+                { text: "> PYTHON:              █████████▉ 95%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> JAVASCRIPT:          ██████████ 97%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> CYBERSECURITY:       ████████▉  88%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> CLOUD ARCHITECTURE:  ████████▊  86%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> AI/ML:               ███████▍   75%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> BLOCKCHAIN:          ██████▎    70%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "\n", delay: 100 },
+                { text: ">> PROJECT HISTORY <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "\n", delay: 100 },
+                { text: "> [2025] CROWNED “KING BY ONE” – MLBB COMPETITIVE ACHIEVEMENT\n", delay: 20 },
+                { text: "> [2025] CRYPTO ENTRY STRATEGY – INDEPENDENT TRADER & ANALYST\n", delay: 20 },
+                { text: "> [2025] WIRELESS INTERNET BUSINESS EXPANSION – FOUNDER\n", delay: 20 },
+                { text: "> [2025] WEB & APP DEVELOPMENT PROJECTS – SELF-TAUGHT DEVELOPER\n", delay: 20 },
+                { text: "> [2021] MLBB KOL INDONESIA – COMPETITIVE PLAYER & CONTENT CREATOR\n", delay: 20 },
+                { text: "> [2020] STREAMING & CONTENT PRODUCTION – MULTI-PLATFORM CREATOR\n", delay: 20 },
+                { text: "\n", delay: 100 },
+                { text: ">> STATUS <<\n", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "TAHUN 2025 MENJADI MOMENTUM PENTING BAGI URANUS FAZRY DENGAN SEJUMLAH PENCAPAIAN STRATEGIS: MERAIH GELAR “RAJA BY ONE” DI MOBILE LEGENDS, MENGEMBANGKAN STRATEGI ENTRI KRIPTO SEBAGAI TRADER DAN ANALIS INDEPENDEN, MEMPERLUAS BISNIS INTERNET WIRELESS SEBAGAI PENDIRI, SERTA MENGERJAKAN BERBAGAI PROYEK PENGEMBANGAN WEB & APLIKASI SECARA MANDIRI. PADA 2021, IA DIPERCAYA SEBAGAI MLBB KOL INDONESIA, MENGGABUNGKAN PERAN SEBAGAI PEMAIN KOMPETITIF DAN PEMBUAT KONTEN YANG BERPENGARUH DI KOMUNITAS ESPORTS. PERJALANANNYA DIMULAI PADA 2020 SEBAGAI STREAMER DAN CONTENT CREATOR MULTI PLATFORM, MEMBANGUN AUDIENS SERTA FONDASI KARIER DIGITALNYA. DENGAN KOMBINASI PENGALAMAN DI TEKNOLOGI, GAMING, DAN BISNIS, IA MEMBANGUN PROFIL PROFESIONAL YANG MENCERMINKAN INOVASI, KETEKUNAN, DAN KEUNGGULAN KOMPETITIF.", delay: 25, style: "color: var(--terminal-green); font-weight: bold; text-transform: uppercase;" },
+                { text: "\n\n", delay: 100 },
+                { text: "> Type 'help' for available commands", delay: 30, style: "color: var(--terminal-green)" },
+                { text: "\n", delay: 50 },
+            ];
+            
+            let currentMessageIndex = 0;
+            let currentCharIndex = 0;
+            
+            function typeNextCharacter() {
+                if (currentMessageIndex >= messages.length) {
+                    commandLine.classList.remove('hidden');
+                    commandInput.focus();
+                    return;
+                }
+                
+                const currentMessage = messages[currentMessageIndex];
+
+                if (currentMessage.action) {
+                    if (currentMessage.action === 'addPhoto') {
+                        displayProfilePhoto();
+                    }
+                    currentMessageIndex++;
+                    setTimeout(typeNextCharacter, currentMessage.delay);
+                    return;
+                }
+                
+                const textToType = currentMessage.text;
+                
+                if (currentCharIndex < textToType.length) {
+                    const char = textToType.charAt(currentCharIndex);
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    
+                    if (currentMessage.style) {
+                        span.style.cssText = currentMessage.style;
+                    }
+                    
+                    terminalText.appendChild(span);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    currentCharIndex++;
+                    
+                    setTimeout(typeNextCharacter, currentMessage.delay);
+                } else {
+                    currentMessageIndex++;
+                    currentCharIndex = 0;
+                    setTimeout(typeNextCharacter, 100);
+                }
             }
             
-            terminalText.appendChild(response);
-            terminalText.appendChild(document.createElement('br'));
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        }
-        
-        commandInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && this.value.trim() !== '') {
-                const command = this.value;
-                this.value = '';
-                processCommand(command);
+            function typewriter(element, htmlString, onComplete) {
+                let i = 0;
+                const speed = 10;
+                element.innerHTML = '';
+
+                function type() {
+                    if (i < htmlString.length) {
+                        if (htmlString.charAt(i) === '<') {
+                            const closingBracketIndex = htmlString.indexOf('>', i);
+                            if (closingBracketIndex !== -1) {
+                                const tag = htmlString.substring(i, closingBracketIndex + 1);
+                                element.innerHTML += tag;
+                                i = closingBracketIndex; 
+                            }
+                        } else {
+                            element.innerHTML += htmlString.charAt(i);
+                        }
+                        
+                        i++;
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                        setTimeout(type, speed);
+                    } else {
+                        if (onComplete) {
+                            onComplete();
+                        }
+                    }
+                }
+                type();
             }
-        });
+
+            function processCommand(command) {
+                terminalText.appendChild(document.createElement('br'));
+                
+                const prompt = document.createElement('span');
+                prompt.textContent = '> ';
+                prompt.style.color = 'var(--terminal-green)';
+                terminalText.appendChild(prompt);
+                
+                const cmdText = document.createElement('span');
+                cmdText.textContent = command;
+                cmdText.style.color = 'var(--text-color)';
+                terminalText.appendChild(cmdText);
+                
+                terminalText.appendChild(document.createElement('br'));
+                
+                const response = document.createElement('div');
+                response.style.marginTop = '10px';
+                
+                command = command.toLowerCase().trim();
+                
+                let isAnimated = false;
+                
+                const trackNumber = parseInt(command, 10);
+
+                if (command === 'help') {
+                    response.innerHTML = `Available commands:<br>
+                        - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
+                        - <span class="highlight">about</span>: Show detailed profile<br>
+                        - <span class="highlight">skills</span>: List technical skills<br>
+                        - <span class="highlight">projects</span>: Show project history<br>
+                        - <span class="highlight">contact</span>: Show contact information<br>
+                        - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
+                        - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
+                        - <span class="highlight">stop</span>: Menghentikan musik.<br>
+                        - <span class="highlight">clear</span>: Clear the terminal<br>
+                        - <span class="highlight">exit</span>: Close terminal (just kidding)`;
+                } else if (command === 'about') {
+                     response.innerHTML = `
+                          <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
+                          "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
+                          </p>
+                        `;
+                } else if (command === 'skills') {
+                    response.innerHTML = `>> SKILL MATRIX <<<br><br>
+                        <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
+                        <span style="color: var(--terminal-cyan)">> JAVASCRIPT:          ██████████ 97%</span><br>
+                        <span style="color: var(--terminal-cyan)">> CYBERSECURITY:       ████████▉  88%</span><br>
+                        <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:  ████████▊  86%</span><br>
+                        <span style="color: var(--terminal-cyan)">> AI/ML:               ███████▍   75%</span><br>
+                        <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:          ██████▎    70%</span><br>`;
+                } else if (command === 'projects') {
+                    response.innerHTML = `>> PROJECT HISTORY <<<br><br>
+                        > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
+                        > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
+                        > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
+                } else if (command === 'contact') {
+                    response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br>
+                        - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                        - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
+                } else if (command === 'clear') {
+                    terminalText.innerHTML = '';
+                    commandInput.value = '';
+                    return;
+                } else if (command === 'musik') {
+                    let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
+                    musicList.forEach((song, index) => {
+                        musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`;
+                    });
+                    musicListHtml += "<br>Ketik nomor untuk memutar musik.";
+                    response.innerHTML = musicListHtml;
+                } else if (!isNaN(trackNumber) && trackNumber >= 1 && trackNumber <= musicList.length) {
+                    const song = musicList[trackNumber - 1];
+                    audioPlayer.src = song.url;
+                    audioPlayer.play();
+                    response.innerHTML = `Memutar: <span class="highlight">${song.name}</span>`;
+                } else if (command === 'stop') {
+                    audioPlayer.pause();
+                    audioPlayer.src = '';
+                    response.innerHTML = 'Musik dihentikan.';
+                } else if (command === 'uranusfazry') {
+                    isAnimated = true;
+                    const profileHtml = `
+                        <div style="color: var(--terminal-purple-term); text-decoration: underline;">// URANUSFAZRY - DATA PROFILE //</div><br>
+                        <div><span class="highlight">> BIOGRAFI</span></div>
+                        <p style="margin-left: 15px;">
+                            Uranus Fazry adalah seorang pengembang multi-talenta dan kreator digital yang berbasis di Indonesia. Dengan hasrat untuk teknologi dan inovasi, ia telah membangun berbagai proyek mulai dari aplikasi web canggih hingga platform game interaktif. Dikenal dengan kemampuannya memecahkan masalah kompleks dan kepribadiannya yang kuat, ia adalah 'Raja By One' di dunia digital.
+                        </p><br>
+                        <div><span class="highlight">> HOBI</span></div>
+                        <div style="margin-left: 15px;">
+                            - Gaming (terutama MLBB)<br>
+                            - Trading Forex & Crypto<br>
+                            - Produksi Musik<br>
+                            - Coding & Eksperimen Teknologi Baru
+                        </div><br>
+                        <div><span class="highlight">> KEAHLIAN UTAMA</span></div>
+                        <div style="margin-left: 15px;">
+                            - Full-Stack Web Development (JavaScript, Python)<br>
+                            - Cybersecurity & Network Management<br>
+                            - AI/ML Integration<br>
+                            - Blockchain & Smart Contract
+                        </div><br>
+                        <div><span class="highlight">> KONTAK</span></div>
+                        <div style="margin-left: 15px;">
+                            - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                            - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>
+                        </div>
+                    `;
+                    
+                    terminalText.appendChild(response);
+                    commandInput.disabled = true;
+                    
+                    typewriter(response, profileHtml, () => {
+                        commandInput.disabled = false;
+                        commandInput.focus();
+                        terminalText.appendChild(document.createElement('br'));
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                    });
+
+                } else if (command === 'exit') {
+                    response.innerHTML = `<span style="color: var(--terminal-red)">Access Denied: Terminal cannot be closed from this session.</span>`;
+                } else {
+                    response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span><br>
+                    Type <span class="highlight">'help'</span> for available commands.`;
+                }
+                
+                if (!isAnimated) {
+                    terminalText.appendChild(response);
+                    terminalText.appendChild(document.createElement('br'));
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                }
+            }
+            
+            commandInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const command = this.value;
+                    this.value = '';
+                    
+                    if (command.trim() !== '') {
+                        processCommand(command);
+                    }
+                }
+            });
 
         // --- INITIALIZE ALL SCRIPTS ---
         initPortalApp();
@@ -1858,4 +1993,3 @@
 
 </body>
 </html>
-
