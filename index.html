@@ -1,117 +1,87 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UranusFazry MLBB Portal | Hayabusa Shura</title>
-
-    <!-- Font Awesome -->
+    <title>Uranusfazry Web & App Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Libraries -->
+    <!-- Import Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Import PDF and Canvas rendering libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
-        /* Import Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+        /* --- Font Imports --- */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Share+Tech+Mono&display=swap');
 
-        /* Color Variables re‑themed for Hayabusa Shura */
+        /* --- Variabel Warna & Tema Neon --- */
         :root {
-            --flame-red: #ce00a7;       /* vibrant magenta */
-            --lava-orange: #4a0072;     /* deep royal purple */
-            --gold: #00c8e0;            /* cool teal accent */
-            --dark-stone: #0b0e31;      /* midnight indigo */
-            --deep-magma: #17051e;      /* dark violet */
-            --bright-gold: #ff5dd8;     /* neon pink highlight */
-            --ember-glow: #510066;      /* shadowy purple glow */
+            --neon-blue: #05d9e8;
+            --neon-pink: #ff2a6d;
+            --neon-purple: #d300c5;
+            --dark-bg: #05010e;
+            --darker-bg: #0d0221;
+            --nav-dark: #12092a;
+            /* --- Variabel Warna Terminal --- */
+            --terminal-bg: #0a0a12;
+            --terminal-green: #0f0;
+            --terminal-cyan: #0ff;
+            --terminal-purple-term: #b19cd9;
+            --terminal-red: #f44;
+            --terminal-glow: rgba(0, 255, 0, 0.7);
+            --text-color: #e0e0e0;
+            --text-shadow: 0 0 8px var(--terminal-glow);
         }
 
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        /* --- Styling Dasar --- */
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, var(--dark-stone) 0%, var(--deep-magma) 100%);
-            color: #fff;
+            background-color: var(--dark-bg);
+            color: white;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            z-index: 0;
         }
 
-        /* Background Effects */
-        #bg-container {
+        #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            overflow: hidden;
+            z-index: -3;
         }
-
-        .bg-media {
-            position: absolute;
+        
+        #bg-video {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.3) saturate(1.5) hue-rotate(10deg);
-            transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+            z-index: -2;
         }
 
-        #bg-video {
-            opacity: 1;
-            z-index: 1;
-        }
-        
-        #bg-image {
-            opacity: 0;
-            z-index: 0;
-        }
-
-        @media (min-width: 1024px) {
-            .bg-media {
-                width: 100vh;
-                height: 100vw;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(-90deg);
-            }
-        }
-
-        /* Ethereal Overlay - Animation Removed */
         body::before {
             content: '';
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 20% 30%, rgba(206, 0, 167, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(74, 0, 114, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(0, 200, 224, 0.1) 0%, transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.8; /* Static opacity */
+            right: 0;
+            bottom: 0;
+            background-image: var(--bg-image, none);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
         }
 
-        /* Subtle grid overlay - Animation Removed */
         body::after {
             content: '';
             position: fixed;
@@ -119,978 +89,1910 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:  
-                linear-gradient(rgba(255, 93, 216, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74, 0, 114, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: 1;
+            background-image: linear-gradient(to right, rgba(5, 217, 232, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(5, 217, 232, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
             pointer-events: none;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        #particle-canvas {
+        /* --- Text Stroke for Readability --- */
+        body.has-bg-media main,
+        body.has-bg-media footer {
+             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+        body.has-bg-media .neon-text-blue,
+        body.has-bg-media .neon-text-pink,
+        body.has-bg-media .neon-text-purple {
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px currentColor;
+        }
+
+        /* --- Font Spesifik --- */
+        h1, h2, h3, .nav-item, .portal-card h3, #time, #date {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .font-tech {
+            font-family: 'Roboto Mono', sans-serif;
+        }
+
+        /* --- Efek Glitch & Neon --- */
+        .glitch-effect { position: relative; color: white; }
+        .glitch-effect::before, .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-effect::before { color: var(--neon-blue); z-index: -1; animation: glitch-effect 3s infinite; }
+        .glitch-effect::after { color: var(--neon-pink); z-index: -2; animation: glitch-effect 2s infinite reverse; }
+
+        @keyframes glitch-effect {
+            0% { transform: translate(0); } 20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); } 60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); } 100% { transform: translate(0); }
+        }
+
+        .neon-text-blue { color: var(--neon-blue); text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue); }
+        .neon-text-pink { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 15px var(--neon-pink); }
+        .neon-text-purple { color: var(--neon-purple); text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple); }
+        .neon-border-blue { border: 1px solid var(--neon-blue); box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue); }
+        .neon-border-pink { border: 1px solid var(--neon-pink); box-shadow: 0 0 5px var(--neon-pink), inset 0 0 5px var(--neon-pink), 0 0 15px var(--neon-pink); }
+
+        .neon-underline { position: relative; display: inline-block; }
+        .neon-underline::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            transform: scaleX(0); transform-origin: bottom right;
+            transition: transform 0.5s ease-out;
+        }
+        .neon-underline:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+
+        /* --- Komponen UI --- */
+        .dropdown { display: none; background: var(--nav-dark); border: 1px solid var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); transition: all 0.3s ease; z-index: 100; }
+        .group:hover .dropdown { display: block; }
+        .nav-item:hover { transform: translateY(-2px); transition: transform 0.3s ease; }
+        .portal-card { transition: all 0.3s ease; backdrop-filter: blur(10px); perspective: 1000px; transform-style: preserve-3d; }
+        .portal-card:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 20px currentColor; }
+        .portal-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .portal-card:hover .portal-card-inner { transform: rotateY(15deg) rotateX(10deg); }
+
+        .profile { margin: 0 auto 1.5rem; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 4px solid var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-purple); transition: transform 0.3s ease; }
+        .profile:hover { transform: scale(1.05); }
+        .profile img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-overlay { background: rgba(5, 1, 14, 0.9); backdrop-filter: blur(5px); animation: fadeIn 0.3s ease; }
+        .modal-content { animation: slideIn 0.3s ease; background: var(--darker-bg); max-height: 90vh; overflow-y: auto; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .color-option { width: 30px; height: 30px; border-radius: 50%; display: inline-block; margin: 5px; cursor: pointer; transition: all 0.3s ease; position: relative; }
+        .color-option:hover { transform: scale(1.1); }
+        .color-option.selected::after { content: "✓"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; }
+        .custom-color-input { width: 100%; height: 30px; border: none; background: transparent; cursor: pointer; margin-top: 10px; }
+        .bg-preview, .icon-preview { max-width: 100%; height: auto; margin-top: 10px; border-radius: 5px; display: none; }
+        .holographic-effect { position: relative; overflow: hidden; }
+        .holographic-effect::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient( to bottom right, rgba(255, 255, 255, 0) 45%, rgba(5, 217, 232, 0.2) 50%, rgba(255, 255, 255, 0) 55% );
+            transform: rotate(30deg); animation: holographic 6s linear infinite;
+        }
+        @keyframes holographic { 0% { transform: translateY(-100%) rotate(30deg); } 100% { transform: translateY(100%) rotate(30deg); } }
+
+        footer { text-align: center; padding: 2rem 0; font-size: 0.9rem; opacity: 0.8; position: relative; z-index: 1; }
+        #mobile-menu { max-height: calc(100vh - 4rem); overflow-y: auto; }
+        #volume-control { position: fixed; bottom: 1rem; right: 1rem; z-index: 100; width: 40px; height: 40px; background: rgba(13, 2, 33, 0.7); border: 1px solid var(--neon-blue); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        #volume-control:hover { background: var(--neon-blue); color: var(--darker-bg); }
+
+        /* --- Preview Mode --- */
+        main, footer, #volume-control, #futuristic-watermark { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; }
+        .navbar { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, background-color 0.5s ease-in-out; }
+        body.preview-mode-active .navbar { opacity: 0; transform: translateY(-100%); pointer-events: none; }
+        body.preview-mode-active main, body.preview-mode-active footer, body.preview-mode-active #volume-control, body.preview-mode-active #futuristic-watermark { opacity: 0; transform: translateY(30px); pointer-events: none; }
+        body.preview-mode-active .navbar #logo-container { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        body.preview-mode-active .navbar { background-color: transparent !important; backdrop-filter: none !important; border-bottom-color: transparent !important; }
+        body.preview-mode-active::after { opacity: 0; }
+
+        /* --- STYLING CYBER TERMINAL --- */
+        .terminal-container { width: 100%; max-width: 800px; height: 40vh; background: var(--terminal-bg); border-radius: 8px; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 255, 0, 0.2); overflow: hidden; border: 1px solid var(--terminal-green); margin: 0 auto 3rem; transition: background 0.5s ease; }
+        .terminal-container.is-transparent { background: rgba(10, 10, 18, 0.7); backdrop-filter: blur(5px); }
+        .terminal-header { background: linear-gradient(to right, #0a0a0a, #111); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; color: var(--terminal-green); font-family: 'Share Tech Mono', monospace; border-bottom: 1px solid var(--terminal-green); box-shadow: 0 2px 15px rgba(0, 255, 0, 0.3); }
+        .terminal-buttons { display: flex; gap: 8px; }
+        .terminal-button { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .terminal-button.red { background: #ff5f56; } .terminal-button.yellow { background: #ffbd2e; } .terminal-button.green { background: #27c93f; }
+        .terminal-body { padding: 15px; height: calc(100% - 40px); overflow-y: auto; color: var(--text-color); text-shadow: var(--text-shadow); line-height: 1.6; font-family: 'Inconsolata', monospace; }
+        .typing-text { white-space: pre-wrap; font-size: 1.1rem; }
+        .command-line { margin-top: 20px; display: flex; align-items: center; }
+        .prompt { color: var(--terminal-green); margin-right: 10px; font-weight: bold; }
+        .cursor { display: inline-block; width: 10px; height: 20px; background: var(--terminal-green); animation: blink 1s infinite; vertical-align: middle; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .command-input { flex-grow: 1; background: transparent; border: none; color: var(--terminal-green); font-family: 'Inconsolata', monospace; font-size: 1.1rem; outline: none; caret-color: var(--terminal-green); text-shadow: var(--text-shadow); }
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--terminal-bg); }
+        .terminal-container.is-transparent .glitch::before, .terminal-container.is-transparent .glitch::after { background: transparent; }
+        .glitch::before { left: 2px; text-shadow: -2px 0 var(--terminal-red); clip: rect(24px, 550px, 90px, 0); animation: glitch-anim-1 2s infinite linear alternate-reverse; }
+        .glitch::after { left: -2px; text-shadow: -2px 0 var(--terminal-cyan); clip: rect(85px, 550px, 140px, 0); animation: glitch-anim-2 2s infinite linear alternate-reverse; }
+        @keyframes glitch-anim-1 { 0% { clip: rect(54px, 800px, 54px, 0); } 20% { clip: rect(27px, 800px, 86px, 0); } 40% { clip: rect(14px, 800px, 75px, 0); } 60% { clip: rect(39px, 800px, 104px, 0); } 80% { clip: rect(18px, 800px, 53px, 0); } 100% { clip: rect(73px, 800px, 112px, 0); } }
+        @keyframes glitch-anim-2 { 0% { clip: rect(35px, 800px, 89px, 0); } 20% { clip: rect(56px, 800px, 103px, 0); } 40% { clip: rect(22px, 800px, 64px, 0); } 60% { clip: rect(88px, 800px, 120px, 0); } 80% { clip: rect(13px, 800px, 32px, 0); } 100% { clip: rect(42px, 800px, 99px, 0); } }
+        .highlight { color: var(--terminal-cyan); } .hidden { display: none; }
+        .terminal-container.is-transparent .terminal-body span, .terminal-container.is-transparent .terminal-body p, .terminal-container.is-transparent .terminal-body li, .terminal-container.is-transparent .terminal-body a, .terminal-container.is-transparent .terminal-body div { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000 !important; }
+        .terminal-container.is-transparent .terminal-body span[style*="var(--terminal-cyan)"], .terminal-container.is-transparent .terminal-body .highlight { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-cyan) !important; }
+        .terminal-container.is-transparent .terminal-body span[style*="var(--terminal-green)"] { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-green) !important; }
+        .terminal-container.is-transparent .terminal-body span[style*="var(--neon-pink)"] { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--neon-pink) !important; }
+        .terminal-container.is-transparent .terminal-body div[style*="var(--terminal-purple-term)"] { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px var(--terminal-purple-term) !important; }
+
+        /* --- MERGED: WATERMARK CSS --- */
+        #futuristic-watermark:root { --glow-color: hsl(186, 100%, 50%); --background-color: rgba(10, 25, 40, 0.85); --border-color: rgba(127, 255, 212, 0.3); --text-color: rgba(230, 255, 255, 0.95); --particle-base-hue: 186; --particle-base-lightness: 60; }
+        @keyframes slideUpFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes logo3DFlip { 0% { transform: rotateY(0deg); filter: brightness(1); } 50% { transform: rotateY(180deg); filter: brightness(2) drop-shadow(0 0 8px var(--glow-color)); } 100% { transform: rotateY(360deg); filter: brightness(1); } }
+        #futuristic-watermark { position: fixed; bottom: 25px; left: 25px; padding: 8px 15px; min-width: 212px; background: var(--background-color, rgba(10, 25, 40, 0.85)); color: var(--text-color, rgba(230, 255, 255, 0.95)); font-family: 'Roboto Mono', monospace; font-weight: 500; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--border-color, rgba(127, 255, 212, 0.3)); border-radius: 10px; box-shadow: 0 0 15px rgba(var(--glow-color, 127, 255, 212), 0.15), 0 0 30px rgba(var(--glow-color, 127, 255, 212), 0.1), inset 0 0 10px rgba(var(--glow-color, 127, 255, 212), 0.1); z-index: 9999; cursor: pointer; user-select: none; overflow: hidden; opacity: 0; animation: slideUpFadeIn 1s ease-out 0.5s forwards; transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        #futuristic-watermark:hover { transform: translateY(-5px) scale(1.03); border-color: rgba(var(--glow-color, 127, 255, 212), 0.8); box-shadow: 0 0 25px rgba(var(--glow-color, 127, 255, 212), 0.4), 0 0 50px rgba(var(--glow-color, 127, 255, 212), 0.25), inset 0 0 12px rgba(var(--glow-color, 127, 255, 212), 0.2); }
+        #futuristic-watermark.light-mode { --glow-color: hsl(220, 90%, 60%); --background-color: rgba(245, 248, 252, 0.85); --border-color: rgba(60, 100, 150, 0.3); --text-color: rgba(10, 25, 40, 0.95); --particle-base-hue: 220; --particle-base-lightness: 40; }
+        #particle-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .f-content-wrapper { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; min-height: 18px; }
+        .f-content { display: flex; align-items: center; gap: 10px; transition: opacity 0.4s ease, transform 0.4s ease; }
+        .f-content.hidden { opacity: 0; pointer-events: none; position: absolute; transform: scale(0.9); }
+        .f-logo-container { width: 18px; height: 18px; transition: transform 0.4s ease; flex-shrink: 0; }
+        .f-logo-container.reacting { animation: logo3DFlip 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+        .f-logo-container svg { width: 100%; height: 100%; stroke: var(--glow-color, hsl(186, 100%, 50%)); stroke-width: 8; transition: stroke 0.5s ease; }
+        #f-watermark-text, #f-follow-message { transition: color 0.5s ease; }
+        #f-watermark-text { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+        #f-follow-message { font-size: 11px; letter-spacing: 0.2px; font-weight: 700; text-align: center; white-space: nowrap; }
+        
+        /* --- [NEW] STYLING IKLAN INTERSTITIAL FULL SCREEN --- */
+        #interstitial-ad {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .content-layer {
-            position: relative;
-            z-index: 10;
-        }
-
-        main.content-layer {
-            flex-grow: 1;
-        }
-
-        /* Typography */
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-playfair { font-family: 'Playfair Display', serif; }
-
-        .flame-text {
-            color: var(--flame-red);
-        }
-
-        .gold-text {
-            color: var(--gold);
-        }
-
-        .lava-text {
-            color: var(--gold);
-        }
-
-        /* Navbar */
-        .navbar {
-            background: rgba(11, 14, 49, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 2px solid rgba(255, 93, 216, 0.3);
-            box-shadow: 0 4px 30px rgba(0, 200, 224, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .navbar .container > div {
-            height: 70px;
-            transition: height 0.3s ease;
-        }
-
-        @media (min-width: 768px) {
-            .navbar .container > div {
-                height: 90px;
-            }
-        }
-
-        .nav-item {
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 1rem;
-        }
-
-        .nav-item:hover span, .nav-item:hover i {
-            color: var(--gold);
-            text-shadow: 0 0 15px var(--bright-gold);
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--lava-orange), var(--gold));
-            transition: width 0.3s ease;
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--gold);
-        }
-
-        .nav-item:hover::after {
-            width: 100%;
-        }
-
-        /* Dropdown */
-        .dropdown {
-            display: none;
-            position: absolute;
-            background: rgba(11, 14, 49, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid var(--gold);
-            box-shadow: 0 10px 40px rgba(0, 200, 224, 0.3);
-            border-radius: 12px;
-            margin-top: 12px;
-            animation: dropFadeIn 0.3s ease;
-        }
-
-        @keyframes dropFadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .group:hover .dropdown {
-            display: block;
-        }
-
-        /* Mobile Menu */
-        #mobile-menu-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 14, 49, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 55;
-            transition: opacity 0.3s ease;
-        }
-
-        #mobile-menu {
-            position: fixed;
-            top: 0;
             right: 0;
-            height: 100%;
-            width: 80%;
-            max-width: 320px;
-            background: rgba(11, 14, 49, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-left: 2px solid var(--gold);
-            z-index: 60;
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 2rem 1.5rem;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
             display: flex;
-            flex-direction: column;
-        }
-
-        #mobile-menu.open {
-            transform: translateX(0);
-        }
-
-        /* Buttons */
-        .btn-lava {
-            font-family: 'Cinzel', serif;
-            background: linear-gradient(135deg, var(--lava-orange), var(--flame-red));
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
             justify-content: center;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 20px rgba(206, 0, 167, 0.4);
-        }
-
-        /* Animation removed from btn-lava */
-        .btn-lava::before {
-            content: none; /* Disable the pseudo-element */
-        }
-
-        .btn-lava:hover {
-            box-shadow: 0 0 30px var(--gold), 0 0 50px var(--flame-red);
-            transform: translateY(-3px);
-            border-color: var(--bright-gold);
-        }
-
-        .btn-lava:active {
-            transform: translateY(0) scale(0.97);
-            box-shadow: 0 0 15px var(--gold);
-            transition-duration: 0.1s;
-        }
-
-        .btn-secondary {
-            font-family: 'Cinzel', serif;
-            background: rgba(0, 200, 224, 0.1);
-            border: 2px solid rgba(0, 200, 224, 0.4);
-            border-radius: 8px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-            color: var(--gold);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 200, 224, 0.2);
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(0, 200, 224, 0.3);
-        }
-
-        /* Portal Cards */
-        .portal-card {
-            background: rgba(23, 5, 30, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 2px solid;
-            border-radius: 16px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
-        }
-
-        .portal-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 40px currentColor;
-        }
-
-        /* Animation removed from portal-card shimmer */
-        .portal-card::before {
-            content: none; /* Disable the shimmer pseudo-element */
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            color: rgba(206, 0, 167, 0.7);
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 20;
-            opacity: 0.7;
-            border: 1px solid rgba(206, 0, 167, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         }
-
-        .portal-card:hover .delete-btn {
+        #interstitial-ad.visible {
             opacity: 1;
+            visibility: visible;
         }
-
-        .delete-btn:hover {
-            color: var(--flame-red);
-            background: rgba(0, 0, 0, 0.6);
-            transform: scale(1.15);
-            box-shadow: 0 0 15px var(--flame-red);
-        }
-
-        /* Profile/Avatar */
-        .profile {
-            margin: 0 auto 2rem;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--gold);
+        #interstitial-ad-container {
             position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: auto;
+            max-height: 90vh;
+            background-color: var(--dark-bg);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 25px var(--neon-blue);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        .profile img, .profile video {
+        #interstitial-close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 35px;
+            height: 35px;
+            background-color: var(--neon-pink);
+            color: white;
+            border-radius: 50%;
+            border: 2px solid white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 10001;
+        }
+        #interstitial-close-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+        #interstitial-content {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Time Display */
-        .time-container {
-            background: rgba(23, 5, 30, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 30px rgba(0, 200, 224, 0.4), inset 0 0 25px rgba(206, 0, 167, 0.2);
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Animation removed from time-container scan */
-        .time-container::before {
-            content: none; /* Disable the scan pseudo-element */
-        }
-
-        /* Modals */
-        .modal-overlay {
-            background: rgba(11, 14, 49, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background: rgba(23, 5, 30, 0.95);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 50px rgba(0, 200, 224, 0.4);
-            border-radius: 16px;
-            animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes modalSlideIn {
-            from { transform: translateY(-40px) scale(0.9); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        /* Inputs */
-        input, textarea, select {
-            background: rgba(11, 14, 49, 0.9) !important;
-            border: 2px solid rgba(0, 200, 224, 0.4);
-            transition: all 0.3s ease;
-            border-radius: 8px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(0, 200, 224, 0.5);
-            outline: none;
-            background: rgba(11, 14, 49, 0.95) !important;
-        }
-
-        select option {
-            background: var(--dark-stone);
-            color: #fff;
-            padding: 10px;
-        }
-
-        ::placeholder {
-            color: rgba(0, 200, 224, 0.5);
-            opacity: 1;
-        }
-
-        .modal-content code {
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--gold);
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: rgba(11, 14, 49, 0.6); }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--lava-orange), var(--gold));
-            border-radius: 6px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--gold), var(--flame-red));
-        }
-
-        /* Logo Animation */
-        .logo-pulse {
-            animation: logoPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-            0%, 100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 15px var(--gold));
-            }
-            50% {
-                transform: scale(1.15);
-                filter: drop-shadow(0 0 30px var(--lava-orange));
-            }
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(11, 14, 49, 0.9);
-            border-top: 2px solid rgba(0, 200, 224, 0.3);
-            margin-top: auto;
-            height: 70px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 0 1rem;
-            box-shadow: 0 -4px 30px rgba(206, 0, 167, 0.2);
-        }
-
-        footer p:first-child {
-            font-size: 14px;
-        }
-
-        /* Utility Classes */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .hidden { display: none; }
-
-        /* Light Mode Override: lighten the background image and bring out colours */
-        body.light-mode #bg-image {
-            opacity: 1 !important;
-            filter: saturate(1.15);
-        }
-        body.light-mode #bg-video {
-            opacity: 0.35;
-            z-index: 1;
+            align-items: center;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen">
 
-    <!-- Background -->
-    <div id="bg-container">
-        <video id="bg-video" class="bg-media" autoplay muted playsinline>
-            <source src="https://files.catbox.moe/gpwsaa.mp4" type="video/mp4"><!-- Tautan video diperbarui -->
-        </video>
-        <img id="bg-image" class="bg-media" src="https://i.imghippo.com/files/eJmg6984JU.jpg" alt="Hayabusa Shura Background">
+    <!-- [NEW] Penjelasan: Struktur HTML untuk Iklan Interstitial Full Screen -->
+    <!-- Iklan ini akan muncul sekali per sesi saat pengunjung masuk -->
+    <div id="interstitial-ad" class="hidden">
+        <div id="interstitial-ad-container">
+            <button id="interstitial-close-btn" aria-label="Close Ad">&times;</button>
+            <div id="interstitial-content">
+                <!-- Iklan dari penyedia akan dimuat di sini oleh JavaScript -->
+                <p class="text-gray-400">Memuat Iklan...</p>
+            </div>
+        </div>
     </div>
-    <canvas id="particle-canvas"></canvas>
+    
+    <!-- Canvas untuk Latar Belakang 3D -->
+    <canvas id="bg-canvas"></canvas>
+    <video autoplay loop muted id="bg-video" class="hidden"></video>
 
     <!-- Navbar -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 content-layer" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50;">
-        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-[#05010e]/90 backdrop-blur-md border-b border-[#12092a]">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <div id="logo-container" style="display: flex; align-items: center; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">
-                    <img src="https://i.imghippo.com/files/EePl9866XxI.png" alt="Hayabusa Shura Logo" class="logo-pulse" style="height: 50px; width: auto; border-radius: 50%;" draggable="false">
-                    <span class="font-cinzel gold-text" style="font-weight: 700; font-size: 1.25rem; letter-spacing: 0.05em; margin-left: 1rem;">MLBB HAYABUSA</span>
+                <div id="logo-container" class="flex items-center cursor-pointer">
+                    <div class="neon-border-pink rounded-full p-2">
+                        <i class="fas fa-terminal text-xl neon-text-pink"></i>
+                    </div>
+                    <span class="ml-3 font-bold text-xl neon-text-blue">URANUSFAZRY</span>
                 </div>
 
-                <!-- Desktop Nav -->
-                <div style="display: none;" class="desktop-nav">
-                    <div class="nav-item relative group" style="display: inline-block; position: relative;">
-                        <button class="flame-text" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.875rem; text-transform: uppercase;">
-                            <i class="fas fa-moon"></i>
-                            <span>Forge</span>
-                            <i class="fas fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s;"></i>
+                <!-- Nav Items -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item relative group">
+                        <button class="flex items-center space-x-1 neon-text-blue neon-underline font-tech">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
                         </button>
-                        <div class="dropdown" style="position: absolute; right: 0; width: 320px; padding: 1.5rem; margin-top: 0.75rem;">
-                            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Craft Portal</h3>
-                            <button onclick="showAddLinkModal()" class="btn-secondary" style="width: 100%; font-size: 0.875rem; margin-bottom: 1rem;">
-                                <i class="fas fa-plus" style="margin-right: 0.5rem;"></i>Tambahkan Portal
+                        <div class="dropdown absolute right-0 mt-2 w-80 rounded-lg p-4">
+                            <h3 class="text-sm neon-text-pink mb-3 uppercase tracking-wider">Portal Management</h3>
+                            <button onclick="showAddLinkModal()"
+                                class="w-full py-2 neon-border-blue rounded flex items-center justify-center mb-3 hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech">
+                                <i class="fas fa-plus mr-2"></i>Add New Portal
                             </button>
 
-                            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Data Vault</h3>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
-                                <button onclick="importData()" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-upload" style="margin-right: 0.25rem;"></i>Import</button>
-                                <button onclick="backupData()" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-download" style="margin-right: 0.25rem;"></i>Backup</button>
+                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Customization</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="bg-image" class="block mb-2 text-xs uppercase tracking-wider">Background Image URL</label>
+                                    <div class="flex">
+                                        <input type="url" id="bg-image" class="flex-grow p-2 rounded-l-lg bg-[#12092a] border-0 focus:ring-0 font-tech"
+                                            placeholder="https://example.com/image.jpg">
+                                        <button onclick="setBackgroundImage()"
+                                            class="px-3 py-2 bg-[var(--neon-blue)] text-[var(--darker-bg)] rounded-r-lg hover:bg-[#00c4d2] transition-all">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                    <div class="bg-upload-container mt-2">
+                                        <label class="block text-xs uppercase tracking-wider">Upload Background Media</label>
+                                        <input type="file" id="bg-upload-media" class="w-full mt-1 text-xs font-tech" accept="image/*,video/*">
+                                        <button onclick="applyUploadedMedia()"
+                                            class="mt-2 px-3 py-1 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all text-xs font-tech">
+                                            Apply Media
+                                        </button>
+                                    </div>
+                                    <button onclick="resetBackgroundMedia()"
+                                        class="mt-4 w-full text-xs px-3 py-1.5 rounded border border-gray-500 hover:bg-gray-500/20 transition-all font-tech">
+                                        Reset Background
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Data Management Section -->
+                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Data Management</h3>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="importData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-upload mr-1"></i>Import</button>
+                                <button onclick="backupData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-download mr-1"></i>Backup</button>
                             </div>
 
-                            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Purge</h3>
-                            <button onclick="showConfirmationModal('Unleash the shadows?', resetAllSettings)" class="btn-secondary" style="width: 100%; font-size: 0.875rem;">
-                                <i class="fas fa-skull-crossbones" style="margin-right: 0.5rem;"></i>Reset Semua
+                            <!-- System Reset Button -->
+                            <h3 class="text-sm neon-text-pink mt-4 mb-3 uppercase tracking-wider">System Reset</h3>
+                            <button onclick="showConfirmationModal('Are you sure you want to reset everything? This will delete all custom portals and your background settings. This action cannot be undone.', resetAllSettings)"
+                                class="w-full py-2 neon-border-pink rounded flex items-center justify-center mb-3 hover:bg-[var(--neon-pink)] hover:text-[var(--darker-bg)] transition-all font-tech">
+                                <i class="fas fa-undo mr-2"></i>Reset All Settings
                             </button>
+
+                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">System Info</h3>
+                            <div class="text-xs space-y-2 font-tech">
+                                <div class="flex justify-between">
+                                    <span>Version</span>
+                                    <span class="text-[var(--neon-blue)]">v7.0.0-interstitial</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Portals</span>
+                                    <span id="portal-count" class="text-[#ff2a6d]">0</span>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="nav-item relative group">
+                        <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" target="_blank" class="flex items-center space-x-1 neon-text-blue neon-underline font-tech">
+                            <i class="fas fa-address-card"></i>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="mobile-nav-toggle">
-                    <button id="mobile-menu-button" class="flame-text" style="background: none; border: none; font-size: 2rem; cursor: pointer; outline: none;">
-                        <i class="fas fa-moon"></i>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="neon-text-pink text-2xl focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-[#05010e] border-t border-[#ff2a6d]">
+            <div class="px-2 py-3 space-y-1">
+                <button onclick="showAddLinkModal()" class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[var(--neon-blue)]/20 font-tech">
+                    <i class="fas fa-plus mr-2"></i>Add New Portal
+                </button>
+                <a href="https://wa.me/6287872521809?text=Halo%2C+saya+tertarik+dengan+aplikasi+atau+website+seperti+Uranus+Fazry.+Saya+dengar+harganya+terjangkau+dan+langsung+dari+Anda.+Boleh+info+lebih+lanjut%3F" target="_blank" class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[var(--neon-blue)]/20 font-tech">
+                    <i class="fas fa-address-card mr-2"></i>WhatsApp
+                </a>
+                <div class="px-3 py-2">
+                    <label class="block text-xs neon-text-blue mb-1">Background Image URL</label>
+                    <div class="flex mb-2">
+                        <input type="url" id="bg-image-mobile" class="flex-grow p-2 rounded-l-lg bg-[#12092a]"
+                            placeholder="Image URL">
+                        <button onclick="setBackgroundImage()"
+                            class="px-3 py-2 bg-[var(--neon-blue)] text-[#0d0221] rounded-r-lg hover:bg-[#00c4d2] transition-all">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                    <div class="bg-upload-container mt-2">
+                        <label class="block text-xs uppercase tracking-wider">Upload Background Media</label>
+                        <input type="file" id="bg-upload-media-mobile" class="w-full mt-1 text-xs font-tech" accept="image/*,video/*">
+                        <button onclick="applyUploadedMedia()"
+                            class="mt-2 px-3 py-1 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all text-xs font-tech">
+                            Apply Media
+                        </button>
+                    </div>
+                    <button onclick="resetBackgroundMedia()"
+                        class="w-full mt-3 px-3 py-1.5 text-xs rounded border border-gray-500 hover:bg-gray-500/20 transition-all">
+                        Reset Background
+                    </button>
+                </div>
+                 <div class="px-3 py-2 border-t border-gray-700 mt-2">
+                    <h3 class="text-sm neon-text-blue mb-2 uppercase tracking-wider">Data Management</h3>
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                         <button onclick="importData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-upload mr-1"></i>Import</button>
+                         <button onclick="backupData()" class="w-full py-2 neon-border-blue rounded flex items-center justify-center hover:bg-[var(--neon-blue)] hover:text-[var(--darker-bg)] transition-all font-tech text-xs"><i class="fas fa-download mr-1"></i>Backup</button>
+                    </div>
+                </div>
+                <div class="px-3 py-2 border-t border-gray-700 mt-2">
+                     <button onclick="showConfirmationModal('Are you sure you want to reset everything? This will delete all custom portals and your background settings. This action cannot be undone.', resetAllSettings)" class="block px-3 py-2 rounded-md text-red-500 w-full text-left hover:bg-red-500/20 font-tech">
+                        <i class="fas fa-undo mr-2"></i>Reset All Settings
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu-overlay" class="fixed inset-0 z-50 hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 55;" onclick="closeMobileMenu()"></div>
-    <div id="mobile-menu" style="padding: 2rem 1.5rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(0, 200, 224, 0.3);">
-            <span class="font-cinzel" style="font-size: 1.125rem; color: var(--gold);">CRAFT</span>
-            <button onclick="closeMobileMenu()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gold);">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <div style="flex-grow: 1; overflow-y: auto;">
-            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-bottom: 0.75rem; margin-top: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Portal</h3>
-            <button onclick="showAddLinkModal(); closeMobileMenu();" class="btn-secondary" style="width: 100%; font-size: 0.875rem; margin-bottom: 1rem;">
-                <i class="fas fa-plus" style="margin-right: 0.5rem;"></i>Tambah Portal
-            </button>
-
-            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Data</h3>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1rem;">
-                <button onclick="importData(); closeMobileMenu();" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-upload" style="margin-right: 0.25rem;"></i>Import</button>
-                <button onclick="backupData(); closeMobileMenu();" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-download" style="margin-right: 0.25rem;"></i>Backup</button>
+    <!-- Main container -->
+    <main class="container mx-auto px-4 py-8 relative z-10 mt-20">
+        
+        <!-- Penjelasan: Slot Iklan Header/Footer (Responsif) -->
+        <!-- 728x90 (Desktop), 468x60 (Tablet), 320x50 (Mobile) -->
+        <div class="mb-8 text-center mx-auto">
+            <div class="hidden lg:inline-block">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '67f52a8e6f5a7f97909d1ab521d9f77e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//librarysituation.com/67f52a8e6f5a7f97909d1ab521d9f77e/invoke.js"></script>
             </div>
-
-            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">System</h3>
-            <button onclick="showConfirmationModal('Unleash reset?', resetAllSettings); closeMobileMenu();" class="btn-secondary" style="width: 100%; font-size: 0.875rem; margin-bottom: 1rem;">
-                <i class="fas fa-skull-crossbones" style="margin-right: 0.5rem;"></i>Reset Semua
-            </button>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="container content-layer" style="padding-top: 120px; padding-bottom: 2rem;">
-        <header style="text-align: center; margin-bottom: 3rem;">
-            <!-- Profile (MODIFIKASI: Diubah dari <img> menjadi <video>) --><div class="profile">
-            <!-- Ganti img dengan video, tambahkan object-position --><video src="https://files.catbox.moe/gs4lq5.mp4" alt="Profile Video" autoplay loop muted playsinline
-                style="object-position: 50% 25%; will-change: transform;"> <!-- [DITAMBAHKAN] Memicu akselerasi GPU --></video>
-        </div>
-
-            <!-- Hero Title -->
-            <div style="display: inline-block; margin-bottom: 1.5rem;">
-                <h1 class="font-playfair" data-text="HAYABUSA SHURA" style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; color: var(--gold);">HAYABUSA SHURA</h1>
+            <div class="hidden md:inline-block lg:hidden">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '074326eea4380e8cdf3e8ee380d2d5ed', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//librarysituation.com/074326eea4380e8cdf3e8ee380d2d5ed/invoke.js"></script>
             </div>
-            <p class="font-cinzel flame-text" style="font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">MLBB Creator &amp; Web Developer</p>
-            <p style="max-width: 42rem; margin: 1.5rem auto 0; font-size: 1rem; line-height: 1.6; color: rgba(0, 200, 224, 0.8);">
-                <!-- Optionally add a subtitle or description here -->
-            </p>
-        </header>
-
-        <!-- Time Display -->
-        <div style="display: flex; justify-content: center; margin-bottom: 3rem;">
-            <div class="time-container" style="padding: 1.5rem 2rem; text-align: center;">
-                <div id="time" class="font-cinzel gold-text" style="font-size: 2.5rem; font-weight: 700;">00:00:00</div>
-                <div id="date" class="font-cinzel flame-text" style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">Loading...</div>
+            <div class="md:hidden">
+                <script type="text/javascript">
+                    atOptions = { 'key' : 'a32216f9f7b9366853d9698f57d92a55', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//librarysituation.com/a32216f9f7b9366853d9698f57d92a55/invoke.js"></script>
             </div>
         </div>
 
-        <!-- Portal Grid -->
-        <div id="portals-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-            <!-- Portal cards rendered by JS -->
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="content-layer" style="text-align: center; color: #fff;">
-        <p class="font-cinzel" style="font-size: 0.875rem; opacity: 0.85;">© 2025 Created by SHURA | All Rights Reserved</p>
-        <p class="gold-text font-cinzel" style="font-size: 0.75rem; margin-top: 0.5rem;">Forged by Uranus Support Technology</p>
-    </footer>
-
-    <!-- Add Portal Modal -->
-    <div id="add-portal-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; z-index: 50;">
-        <div class="modal-content" style="max-width: 28rem; width: 100%; margin: 0 1.5rem; position: relative; padding: 2rem;">
-            <button onclick="document.getElementById('add-portal-modal').style.display = 'none'" style="position: absolute; top: 1rem; right: 1rem; font-size: 2rem; background: none; border: none; cursor: pointer; transition: all 0.3s;" class="flame-text">×</button>
-            
-            <h2 class="font-cinzel gold-text" style="font-size: 1.5rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Craft New Portal</h2>
-
-            <form id="portal-form" style="display: flex; flex-direction: column; gap: 1rem;">
-                <div>
-                    <label for="portal-name" class="font-cinzel gold-text" style="display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.05em;">Portal Name</label>
-                    <input type="text" id="portal-name" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-size: 1rem;" placeholder="Enter portal name" required>
-                </div>
-
-                <div>
-                    <label for="portal-url" class="font-cinzel gold-text" style="display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.05em;">Destination URL</label>
-                    <input type="url" id="portal-url" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-size: 1rem;" placeholder="https://your-link.com" required>
-                </div>
-
-                <div>
-                    <label for="portal-icon" class="font-cinzel gold-text" style="display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.05em;">Portal Icon</label>
-                    <select id="portal-icon" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-size: 1rem; appearance: none;">
-                        <option value="fas fa-mask">🎭 Mask</option>
-                        <option value="fas fa-crosshairs">🎯 Target</option>
-                        <option value="fas fa-dragon">🐉 Dragon</option>
-                        <option value="fas fa-fan">🌀 Fan</option>
-                        <option value="fas fa-star">⭐ Star</option>
-                        <option value="fas fa-heart">❤️ Heart</option>
-                        <option value="fas fa-bolt">⚡ Bolt</option>
-                        <option value="fab fa-whatsapp">💬 WhatsApp</option>
-                        <option value="fab fa-youtube">▶️ YouTube</option>
-                        <option value="fab fa-instagram">📸 Instagram</option>
-                        <option value="fab fa-tiktok">🎵 TikTok</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label for="portal-description" class="font-cinzel gold-text" style="display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.05em;">Description</label>
-                    <textarea id="portal-description" rows="2" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-size: 1rem; resize: vertical;" placeholder="Brief description..."></textarea>
-                </div>
-
-                <div>
-                    <label class="font-cinzel gold-text" style="display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.05em;">Portal Theme</label>
-                    <div style="display: flex; justify-content: space-around; padding-top: 0.5rem;">
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: all 0.3s;">
-                            <input type="radio" name="portal-color" value="#4a0072" style="width: 1.25rem; height: 1.25rem; accent-color: var(--lava-orange);" checked>
-                            <span class="font-cinzel" style="font-weight: 700; color: var(--lava-orange);">Purple</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: all 0.3s;">
-                            <input type="radio" name="portal-color" value="#ce00a7" style="width: 1.25rem; height: 1.25rem; accent-color: var(--flame-red);">
-                            <span class="font-cinzel" style="font-weight: 700; color: var(--flame-red);">Magenta</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: all 0.3s;">
-                            <input type="radio" name="portal-color" value="#00c8e0" style="width: 1.25rem; height: 1.25rem; accent-color: var(--gold);">
-                            <span class="font-cinzel" style="font-weight: 700; color: var(--gold);">Teal</span>
-                        </label>
+        <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+            <!-- Konten Utama -->
+            <div class="lg:col-span-9">
+                <!-- Header -->
+                <header class="text-center mb-12">
+                    <div class="profile">
+                        <img src="https://i.imghippo.com/files/hkw7793vi.jpg" alt="Foto profil pribadi" onerror="this.onerror=null;this.src='https://placehold.co/120x120/0d0221/ffffff?text=UF';">
+                    </div>
+                    <div class="relative inline-block">
+                        <h1 class="glitch-effect text-5xl md:text-7xl font-bold mb-4" data-text="URANUS FAZRY">URANUS FAZRY</h1>
+                        <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[var(--neon-blue)] to-transparent"></span>
+                        <span class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[var(--neon-pink)] to-transparent"></span>
+                    </div>
+                    <p class="text-lg md:text-xl neon-text-purple uppercase tracking-wider mt-8">Web & App Digital Creator</p>
+                     <p class="max-w-2xl mx-auto mt-6 text-base md:text-lg text-gray-300 leading-relaxed">
+                        Selamat datang di pusat berbagai proyek digital yang saya rancang dan kembangkan. Di sini Anda dapat menjelajahi karya-karya saya.
+                    </p>
+                </header>
+                <!-- Time and date display -->
+                <div class="flex justify-center mb-12">
+                    <div class="neon-border-blue rounded-lg p-4 text-center backdrop-blur-sm bg-[#0d0221]/50 holographic-effect">
+                        <div id="time" class="text-3xl md:text-4xl font-bold neon-text-blue">00:00:00</div>
+                        <div id="date" class="text-lg md:text-xl uppercase tracking-wider mt-1">Loading...</div>
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; padding-top: 0.5rem;">
-                    <button type="button" onclick="document.getElementById('add-portal-modal').style.display = 'none'" class="btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
+                <!-- Penjelasan: Slot Iklan 300x250 di dalam konten -->
+                <div class="my-8 flex justify-center">
+                    <script type="text/javascript">
+                        atOptions = { 'key' : 'e1690ea948979754ea67242819fbbe80', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                    </script>
+                    <script type="text/javascript" src="//librarysituation.com/e1690ea948979754ea67242819fbbe80/invoke.js"></script>
+                </div>
+
+                <!-- CYBER TERMINAL -->
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <div class="terminal-button red"></div>
+                            <div class="terminal-button yellow"></div>
+                            <div class="terminal-button green"></div>
+                        </div>
+                        <div class="glitch" data-text="uranusfazry@cyberterminal">uranusfazry@cyberterminal</div>
+                        <div class="terminal-buttons"><div style="width: 20px;"></div></div>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <div id="typing-text" class="typing-text"></div>
+                        <div id="command-line" class="command-line hidden">
+                            <span class="prompt">></span>
+                            <input type="text" class="command-input" id="command-input" autocomplete="off">
+                            <span class="cursor"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Penjelasan: Slot Native Banner sebelum grid portal -->
+                <div id="container-dc918ca138d058b9a562210d0d7c46cd" class="my-8"></div>
+                <script async="async" data-cfasync="false" src="//librarysituation.com/dc918ca138d058b9a562210d0d7c46cd/invoke.js"></script>
+
+                <!-- Portals grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12" id="portals-grid">
+                    <!-- Portals will be added here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="hidden lg:block lg:col-span-3">
+                <!-- Penjelasan: Slot Iklan Sidebar 160x600 & 160x300 -->
+                 <div class="sticky top-20 space-y-8 text-center">
+                    <div>
+                        <script type="text/javascript">
+                            atOptions = { 'key' : 'ff01190b2f4f2f812816ee58b640908c', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
+                        </script>
+                        <script type="text/javascript" src="//librarysituation.com/ff01190b2f4f2f812816ee58b640908c/invoke.js"></script>
+                    </div>
+                    <div>
+                        <script type="text/javascript">
+                            atOptions = { 'key' : 'bc2c1ab527d40b3295df8b1f2cb70663', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+                        </script>
+                        <script type="text/javascript" src="//librarysituation.com/bc2c1ab527d40b3295df8b1f2cb70663/invoke.js"></script>
+                    </div>
+                 </div>
+            </aside>
+        </div>
+    </main>
+    
+    <footer class="text-white">
+        © 2025 Created by Uranus Fazry | All Rights Reserved
+    </footer>
+
+    <div id="volume-control" class="hidden">
+        <i id="volume-icon" class="fas fa-volume-mute"></i>
+    </div>
+
+    <!-- Add Portal Modal -->
+    <div id="add-portal-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+        <div class="modal-content neon-border-blue rounded-xl p-8 max-w-md w-full mx-4 relative">
+            <button id="close-portal-modal" onclick="document.getElementById('add-portal-modal').classList.add('hidden')"
+                class="absolute top-4 right-4 text-xl hover:text-[#ff2a6d] transition-all">×</button>
+            <h2 class="text-2xl neon-text-pink mb-6 uppercase tracking-wider">Create New Portal</h2>
+
+            <form id="portal-form" class="space-y-4">
+                <div>
+                    <label for="portal-name" class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Portal Name</label>
+                    <input type="text" id="portal-name" class="w-full p-3 rounded-lg bg-[#12092a] border-0 focus:outline-none focus:ring-2 focus:ring-[var(--neon-blue)]" required>
+                </div>
+
+                <div>
+                    <label for="portal-url" class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Destination URL</label>
+                    <input type="url" id="portal-url" class="w-full p-3 rounded-lg bg-[#12092a] border-0 focus:outline-none focus:ring-2 focus:ring-[var(--neon-blue)]" placeholder="https://" required>
+                </div>
+                
+                <div>
+                    <label for="portal-description" class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Description</label>
+                    <textarea id="portal-description" rows="2" class="w-full p-3 rounded-lg bg-[#12092a] border-0 focus:outline-none focus:ring-2 focus:ring-[var(--neon-blue)]" placeholder="A short description..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Icon</label>
+                    <select id="portal-icon" class="w-full p-3 rounded-lg bg-[#0d0221] border border-[#05d9e8] focus:outline-none focus:border focus:border-[#ff2a6d]">
+                        <option value="fas fa-link">Default Link</option>
+                        <option value="fas fa-trophy">Trophy</option>
+                        <option value="fas fa-star">Star</option>
+                        <option value="fas fa-store">Store</option>
+                        <option value="fas fa-desktop">Desktop</option>
+                        <option value="fas fa-mobile-alt">Mobile</option>
+                        <option value="fas fa-chart-line">Chart Line</option>
+                        <option value="fas fa-globe">Globe</option>
+                        <option value="fas fa-gamepad">Gamepad</option>
+                        <option value="fas fa-newspaper">Newspaper</option>
+                        <option value="fas fa-laptop-code">Laptop Code</option>
+                        <option value="fas fa-envelope">Envelope</option>
+                        <option value="fab fa-tiktok">TikTok</option>
+                        <option value="fab fa-youtube">YouTube</option>
+                        <option value="fab fa-instagram">Instagram</option>
+                        <option value="fab fa-facebook">Facebook</option>
+                        <option value="fab fa-twitter">Twitter</option>
+                        <option value="fab fa-github">GitHub</option>
+                        <option value="fab fa-linkedin">LinkedIn</option>
+                        <option value="fab fa-discord">Discord</option>
+                        <option value="fab fa-spotify">Spotify</option>
+                        <option value="fab fa-whatsapp">WhatsApp</option>
+                        <option value="fab fa-telegram">Telegram</option>
+                        <option value="fab fa-reddit">Reddit</option>
+                        <option value="fab fa-twitch">Twitch</option>
+                        <option value="fab fa-pinterest">Pinterest</option>
+                        <option value="fab fa-apple">Apple</option>
+                        <option value="fab fa-android">Android</option>
+                        <option value="fab fa-windows">Windows</option>
+                        <option value="fab fa-bitcoin">Bitcoin</option>
+                        <option value="fab fa-ethereum">Ethereum</option>
+                        <option value="fas fa-address-book">Address Book</option>
+                        <option value="fas fa-anchor">Anchor</option>
+                        <option value="fas fa-archive">Archive</option>
+                        <option value="fas fa-atom">Atom</option>
+                        <option value="fas fa-award">Award</option>
+                        <option value="fas fa-balance-scale">Balance Scale</option>
+                        <option value="fas fa-basketball-ball">Basketball</option>
+                        <option value="fas fa-battery-full">Battery</option>
+                        <option value="fas fa-bell">Bell</option>
+                        <option value="fas fa-bicycle">Bicycle</option>
+                        <option value="fas fa-bomb">Bomb</option>
+                        <option value="fas fa-book">Book</option>
+                        <option value="fas fa-bookmark">Bookmark</option>
+                        <option value="fas fa-brain">Brain</option>
+                        <option value="fas fa-briefcase">Briefcase</option>
+                        <option value="fas fa-bug">Bug</option>
+                        <option value="fas fa-building">Building</option>
+                        <option value="fas fa-bullhorn">Bullhorn</option>
+                        <option value="fas fa-bus">Bus</option>
+                        <option value="fas fa-calculator">Calculator</option>
+                        <option value="fas fa-calendar-alt">Calendar</option>
+                        <option value="fas fa-camera">Camera</option>
+                        <option value="fas fa-car">Car</option>
+                        <option value="fas fa-certificate">Certificate</option>
+                        <option value="fas fa-chart-bar">Chart Bar</option>
+                        <option value="fas fa-chart-pie">Chart Pie</option>
+                        <option value="fas fa-check-circle">Check Circle</option>
+                        <option value="fas fa-chess">Chess</option>
+                        <option value="fas fa-cloud">Cloud</option>
+                        <option value="fas fa-code">Code</option>
+                        <option value="fas fa-coffee">Coffee</option>
+                        <option value="fas fa-cog">Cog</option>
+                        <option value="fas fa-coins">Coins</option>
+                        <option value="fas fa-compass">Compass</option>
+                        <option value="fas fa-copy">Copy</option>
+                        <option value="fas fa-credit-card">Credit Card</option>
+                        <option value="fas fa-crop">Crop</option>
+                        <option value="fas fa-crosshairs">Crosshairs</option>
+                        <option value="fas fa-cube">Cube</option>
+                        <option value="fas fa-database">Database</option>
+                        <option value="fas fa-dna">DNA</option>
+                        <option value="fas fa-dollar-sign">Dollar</option>
+                        <option value="fas fa-download">Download</option>
+                        <option value="fas fa-drafting-compass">Drafting Compass</option>
+                        <option value="fas fa-dragon">Dragon</option>
+                        <option value="fas fa-edit">Edit</option>
+                        <option value="fas fa-eject">Eject</option>
+                        <option value="fas fa-ellipsis-h">Ellipsis H</option>
+                        <option value="fas fa-euro-sign">Euro</option>
+                        <option value="fas fa-exchange-alt">Exchange</option>
+                        <option value="fas fa-exclamation-triangle">Warning</option>
+                        <option value="fas fa-eye">Eye</option>
+                        <option value="fas fa-fighter-jet">Fighter Jet</option>
+                        <option value="fas fa-file-alt">File</option>
+                        <option value="fas fa-film">Film</option>
+                        <option value="fas fa-filter">Filter</option>
+                        <option value="fas fa-fire">Fire</option>
+                        <option value="fas fa-flag">Flag</option>
+                        <option value="fas fa-flask">Flask</option>
+                        <option value="fas fa-folder">Folder</option>
+                        <option value="fas fa-futbol">Soccer Ball</option>
+                        <option value="fas fa-gem">Gem</option>
+                        <option value="fas fa-gift">Gift</option>
+                        <option value="fas fa-glass-martini">Martini</option>
+                        <option value="fas fa-graduation-cap">Graduation Cap</option>
+                        <option value="fas fa-guitar">Guitar</option>
+                        <option value="fas fa-hdd">HDD</option>
+                        <option value="fas fa-headphones">Headphones</option>
+                        <option value="fas fa-heart">Heart</option>
+                        <option value="fas fa-helicopter">Helicopter</option>
+                        <option value="fas fa-history">History</option>
+                        <option value="fas fa-home">Home</option>
+                        <option value="fas fa-hospital">Hospital</option>
+                        <option value="fas fa-hourglass">Hourglass</option>
+                        <option value="fas fa-image">Image</option>
+                        <option value="fas fa-inbox">Inbox</option>
+                        <option value="fas fa-industry">Industry</option>
+                        <option value="fas fa-info-circle">Info</option>
+                        <option value="fas fa-key">Key</option>
+                        <option value="fas fa-keyboard">Keyboard</option>
+                        <option value="fas fa-leaf">Leaf</option>
+                        <option value="fas fa-lemon">Lemon</option>
+                        <option value="fas fa-life-ring">Life Ring</option>
+                        <option value="fas fa-lightbulb">Lightbulb</option>
+                        <option value="fas fa-lock">Lock</option>
+                        <option value="fas fa-magic">Magic</option>
+                        <option value="fas fa-magnet">Magnet</option>
+                        <option value="fas fa-map-marker-alt">Map Marker</option>
+                        <option value="fas fa-microphone">Microphone</option>
+                        <option value="fas fa-microchip">Microchip</option>
+                        <option value="fas fa-moon">Moon</option>
+                        <option value="fas fa-motorcycle">Motorcycle</option>
+                        <option value="fas fa-mouse-pointer">Mouse Pointer</option>
+                        <option value="fas fa-music">Music</option>
+                        <option value="fas fa-paint-brush">Paint Brush</option>
+                        <option value="fas fa-paper-plane">Paper Plane</option>
+                        <option value="fas fa-paw">Paw</option>
+                        <option value="fas fa-pen">Pen</option>
+                        <option value="fas fa-phone">Phone</option>
+                        <option value="fas fa-plane">Plane</option>
+                        <option value="fas fa-plug">Plug</option>
+                        <option value="fas fa-puzzle-piece">Puzzle Piece</option>
+                        <option value="fas fa-qrcode">QR Code</option>
+                        <option value="fas fa-question-circle">Question</option>
+                        <option value="fas fa-quote-right">Quote</option>
+                        <option value="fas fa-recycle">Recycle</option>
+                        <option value="fas fa-robot">Robot</option>
+                        <option value="fas fa-rocket">Rocket</option>
+                        <option value="fas fa-rss">RSS</option>
+                        <option value="fas fa-save">Save</option>
+                        <option value="fas fa-search">Search</option>
+                        <option value="fas fa-server">Server</option>
+                        <option value="fas fa-share-alt">Share</option>
+                        <option value="fas fa-shield-alt">Shield</option>
+                        <option value="fas fa-ship">Ship</option>
+                        <option value="fas fa-shopping-cart">Shopping Cart</option>
+                        <option value="fas fa-signal">Signal</option>
+                        <option value="fas fa-sitemap">Sitemap</option>
+                        <option value="fas fa-skull">Skull</option>
+                        <option value="fas fa-sliders-h">Sliders</option>
+                        <option value="fas fa-snowflake">Snowflake</option>
+                        <option value="fas fa-space-shuttle">Space Shuttle</option>
+                        <option value="fas fa-spinner">Spinner</option>
+                        <option value="fas fa-stamp">Stamp</option>
+                        <option value="fas fa-sun">Sun</option>
+                        <option value="fas fa-sync">Sync</option>
+                        <option value="fas fa-tag">Tag</option>
+                        <option value="fas fa-tasks">Tasks</option>
+                        <option value="fas fa-taxi">Taxi</option>
+                        <option value="fas fa-terminal">Terminal</option>
+                        <option value="fas fa-thumbtack">Thumbtack</option>
+                        <option value="fas fa-ticket-alt">Ticket</option>
+                        <option value="fas fa-tint">Tint</option>
+                        <option value="fas fa-toggle-on">Toggle On</option>
+                        <option value="fas fa-tools">Tools</option>
+                        <option value="fas fa-train">Train</option>
+                        <option value="fas fa-trash">Trash</option>
+                        <option value="fas fa-tree">Tree</option>
+                        <option value="fas fa-truck">Truck</option>
+                        <option value="fas fa-tv">TV</option>
+                        <option value="fas fa-umbrella">Umbrella</option>
+                        <option value="fas fa-university">University</option>
+                        <option value="fas fa-unlock">Unlock</option>
+                        <option value="fas fa-upload">Upload</option>
+                        <option value="fas fa-user">User</option>
+                        <option value="fas fa-user-secret">User Secret</option>
+                        <option value="fas fa-video">Video</option>
+                        <option value="fas fa-volume-up">Volume Up</option>
+                        <option value="fas fa-wallet">Wallet</option>
+                        <option value="fas fa-wrench">Wrench</option>
+                        <option value="custom-icon">Custom Icon</option>
+                    </select>
+
+                    <div id="custom-icon-options" class="custom-icon-option mt-3" style="display: none;">
+                        <div class="flex space-x-4">
+                            <div class="flex-1">
+                                <label class="block mb-2 text-xs uppercase tracking-wider">Upload Icon</label>
+                                <input type="file" id="icon-upload" class="w-full text-xs" accept="image/*">
+                            </div>
+                            <div class="flex-1">
+                                <label class="block mb-2 text-xs uppercase tracking-wider">Icon URL</label>
+                                <input type="url" id="icon-url" class="w-full p-2 rounded bg-[#0d0221]" placeholder="https://example.com/icon.png">
+                            </div>
+                        </div>
+                        <img id="icon-preview" class="icon-preview" src="#" alt="Icon Preview">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Color</label>
+                    <div class="color-picker-container text-center neon-border-blue rounded-lg p-2">
+                        <div class="color-option" style="background-color: #ff2a6d;" onclick="selectPortalColor('#ff2a6d', this)"></div>
+                        <div class="color-option selected" style="background-color: #05d9e8;" onclick="selectPortalColor('#05d9e8', this)"></div>
+                        <div class="color-option" style="background-color: #d300c5;" onclick="selectPortalColor('#d300c5', this)"></div>
+                        <div class="color-option" style="background-color: #00ff9d;" onclick="selectPortalColor('#00ff9d', this)"></div>
+                        <div class="color-option" style="background-color: #ffcc00;" onclick="selectPortalColor('#ffcc00', this)"></div>
+                        <div class="color-option" style="background-color: #ffffff;" onclick="selectPortalColor('#ffffff', this)"></div>
+                        <div class="color-option" style="background-color: #1DA1F2;" onclick="selectPortalColor('#1DA1F2', this)"></div>
+                        <div class="color-option" style="background-color: #FF5700;" onclick="selectPortalColor('#FF5700', this)"></div>
+                        <input type="color" id="portal-custom-color" class="custom-color-input w-full h-8 mt-2" onchange="applyCustomPortalColor(this.value)">
+                    </div>
+                    <input type="hidden" id="portal-color" value="#05d9e8">
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" onclick="document.getElementById('add-portal-modal').classList.add('hidden')"
+                        class="px-4 py-2 rounded-lg border border-[#ff2a6d] hover:bg-[#ff2a6d] hover:text-white transition-all">
                         Cancel
                     </button>
-                    <button type="submit" class="btn-lava" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
-                        Craft
+                    <button type="submit"
+                        class="px-6 py-2 neon-border-blue rounded-lg hover:bg-[var(--neon-blue)] hover:text-[#0d0221] transition-all font-bold">
+                        Create Portal
                     </button>
                 </div>
             </form>
         </div>
     </div>
-
+    
     <!-- Confirmation Modal -->
-    <div id="confirmation-modal" class="fixed inset-0 flex items-center justify-center hidden modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; z-index: 60;">
-        <div class="modal-content" style="max-width: 28rem; width: 100%; margin: 0 1rem; position: relative; padding: 2rem; text-align: center;">
-            <h2 class="font-cinzel flame-text" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700;">Confirm Action</h2>
-            <p id="confirmation-message" style="margin-bottom: 1.5rem; font-size: 1.125rem; color: rgba(0, 200, 224, 0.9);">Are you sure?</p>
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-                <button id="confirm-cancel-btn" class="btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
-                    Cancel
-                </button>
-                <button id="confirm-ok-btn" class="btn-lava" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">
-                    Confirm
-                </button>
-            </div>
+    <div id="confirmation-modal" class="fixed inset-0 flex items-center justify-center z-[60] hidden modal-overlay">
+        <div class="modal-content neon-border-pink rounded-xl p-8 max-w-sm w-full mx-4 relative text-center">
+             <h2 class="text-xl neon-text-pink mb-4">Confirm Action</h2>
+             <p id="confirmation-message" class="mb-6 text-gray-300">Are you sure?</p>
+             <div class="flex justify-center space-x-4">
+                 <button id="confirm-cancel-btn" class="px-6 py-2 rounded-lg border border-gray-500 hover:bg-gray-500/20 transition-all font-bold">
+                     Cancel
+                 </button>
+                 <button id="confirm-ok-btn" class="px-6 py-2 neon-border-pink rounded-lg hover:bg-[var(--neon-pink)] hover:text-[#0d0221] transition-all font-bold">
+                     Confirm
+                 </button>
+             </div>
         </div>
     </div>
 
-    <input type="file" id="import-file-input" class="hidden" style="display: none;" accept=".zip,.txt,application/json">
+    <!-- Audio Player Element -->
+    <audio id="audio-player"></audio>
+    
+    <!-- Hidden file input for import -->
+    <input type="file" id="import-file-input" class="hidden" accept=".txt,application/json">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let isVideoFinished = false;
+<script>
+    // --- [NEW] FUNGSI IKLAN INTERSTITIAL ---
+    // Penjelasan: Iklan ini muncul sekali per sesi.
+    function showInterstitialAd() {
+        if (!sessionStorage.getItem('interstitialShown')) {
+            const interstitialAd = document.getElementById('interstitial-ad');
+            const interstitialContent = document.getElementById('interstitial-content');
+            
+            // Hapus pesan "Memuat Iklan..."
+            interstitialContent.innerHTML = '';
 
-            const bgVideo = document.getElementById('bg-video');
-            const bgImage = document.getElementById('bg-image');
+            // Buat script iklan
+            const adScript = document.createElement('script');
+            adScript.type = 'text/javascript';
+            adScript.innerHTML = `
+                atOptions = {
+                    'key' : 'e1690ea948979754ea67242819fbbe80', // Gunakan key 300x250 atau yang sesuai
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            `;
+            
+            const invokeScript = document.createElement('script');
+            invokeScript.type = 'text/javascript';
+            invokeScript.src = '//librarysituation.com/e1690ea948979754ea67242819fbbe80/invoke.js';
 
-            // DIUBAH: Logika dikembalikan untuk memutar video dulu
-            if (bgVideo && bgImage) {
-                const handleVideoEnd = () => {
-                    bgVideo.style.opacity = '0';
-                    if (!document.body.classList.contains('light-mode')) {
-                        bgImage.style.opacity = '0.45'; // Tampilkan gambar setelah video selesai
+            interstitialContent.appendChild(adScript);
+            interstitialContent.appendChild(invokeScript);
+
+            interstitialAd.classList.remove('hidden');
+            setTimeout(() => {
+                interstitialAd.classList.add('visible');
+            }, 10); // Sedikit delay untuk transisi
+
+            sessionStorage.setItem('interstitialShown', 'true');
+        }
+    }
+
+    function closeInterstitialAd() {
+        const interstitialAd = document.getElementById('interstitial-ad');
+        interstitialAd.classList.remove('visible');
+        setTimeout(() => {
+            interstitialAd.classList.add('hidden');
+        }, 300); // Tunggu transisi selesai
+    }
+
+
+    // --- SCRIPT UTAMA PORTAL ---
+    document.addEventListener('DOMContentLoaded', async function() {
+        
+        // --- [NEW] Panggil Iklan Interstitial ---
+        showInterstitialAd();
+        document.getElementById('interstitial-close-btn').addEventListener('click', closeInterstitialAd);
+
+        // --- NEON PORTAL SCRIPT ---
+        const portalsGrid = document.getElementById('portals-grid');
+        const portalForm = document.getElementById('portal-form');
+        const portalCount = document.getElementById('portal-count');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const timeDisplay = document.getElementById('time');
+        const dateDisplay = document.getElementById('date');
+        const portalIconSelect = document.getElementById('portal-icon');
+        const customIconOptions = document.getElementById('custom-icon-options');
+        const iconUpload = document.getElementById('icon-upload');
+        const iconPreview = document.getElementById('icon-preview');
+        const bgVideo = document.getElementById('bg-video');
+        const volumeControl = document.getElementById('volume-control');
+        const volumeIcon = document.getElementById('volume-icon');
+        const logoContainer = document.getElementById('logo-container');
+        const bgUploadMedia = document.getElementById('bg-upload-media');
+        const bgUploadMediaMobile = document.getElementById('bg-upload-media-mobile');
+        const audioPlayer = document.getElementById('audio-player');
+        const importFileInput = document.getElementById('import-file-input');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const confirmOkBtn = document.getElementById('confirm-ok-btn');
+        const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+
+        let portals = [];
+        let currentBgImage = '';
+        let currentBgVideo = '';
+        let selectedMediaFile = null;
+        let onConfirmCallback = null;
+        
+        let touchStartX = 0; 
+        let dragStartX = 0;
+        let isDragging = false;
+        
+        // --- IndexedDB Helper Functions ---
+        const DB_NAME = 'uranusfazryDB';
+        const STORE_NAME = 'mediaFiles';
+        const FILE_KEY = 'userBackgroundMedia';
+        let db;
+
+        async function openDB() {
+            return new Promise((resolve, reject) => {
+                if (db) return resolve(db);
+                const request = indexedDB.open(DB_NAME, 1);
+                request.onerror = (event) => reject("Error opening IndexedDB.");
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    resolve(db);
+                };
+                request.onupgradeneeded = (event) => {
+                    const dbInstance = event.target.result;
+                    if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                        dbInstance.createObjectStore(STORE_NAME);
                     }
-                    isVideoFinished = true;
                 };
+            });
+        }
 
-                const handleVideoError = (e) => {
-                    console.error("Video background failed:", e);
-                    handleVideoEnd();
+        async function saveFileToDB(file) {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.put(file, FILE_KEY);
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject("Failed to save file: " + event.target.error);
+            });
+        }
+
+        async function getFileFromDB() {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(FILE_KEY);
+                request.onsuccess = (event) => resolve(event.target.result);
+                request.onerror = (event) => reject("Failed to get file: " + event.target.error);
+            });
+        }
+
+        async function deleteFileFromDB() {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(FILE_KEY);
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject("Failed to delete file: " + event.target.error);
+            });
+        }
+
+        const musicList = [
+            { name: 'Chammak Challo', url: 'https://c.top4top.io/m_3457ukcau0.mp3' },
+            { name: 'Chammak Challo 2', url: 'https://i.top4top.io/m_3510lx6lu0.m4a' },
+            { name: 'DJ CAMPURAN VIRAL', url: 'https://h.top4top.io/m_345748hje1.mp3' },
+            { name: 'DJ CAMPURAN VIRAL 2', url: 'https://h.top4top.io/m_3483c2rkf1.m4a' },
+            { name: 'DJ CAMPURAN VIRAL 3', url: 'https://h.top4top.io/m_34894tuhu1.m4a' },
+            { name: 'DJ CAMPURAN VIRAL 4', url: 'https://k.top4top.io/m_3458s4twa1.m4a' },
+            { name: 'DJ CAMPURAN VIRAL 5', url: 'https://e.top4top.io/m_3504ymzax0.m4a' }
+        ];
+
+        const defaultPortals = [
+            { name: 'BY ONE SEKARANG', url: 'https://website-induk.vercel.app/', icon: 'fas fa-trophy', color: '#ffcc00', description: 'Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah.' },
+            { name: 'TESTIMONI BY ONE', url: 'https://testimoni-dun.vercel.app/', icon: 'fas fa-star', color: '#ff2a6d', description: 'Semua kekalahan dan penderitaan kalian saat by one lawan Master ada di sini.' },
+            { name: 'Uranus Studio', url: 'https://uranustudio.vercel.app/', icon: 'fas fa-store', color: '#d300c5', description: 'Solusi digital untuk mengubah kreativitas menjadi penghasilan.' },
+            { name: 'Uranus Space', url: 'https://uranuspace.vercel.app/', icon: 'fas fa-rocket', color: '#6C63FF', description: 'Manajemen keuangan, waktu, split bill, my diary & HTML akses kapan saja.' },
+            { name: 'Uranustify (Desktop)', url: 'https://uranustify-desktop.vercel.app/', icon: 'fas fa-desktop', color: '#00ff9d', description: 'Simpan & dengarkan musik favoritmu tanpa batas.' },
+            { name: 'Uranustify (Mobile)', url: 'https://uranustify.vercel.app/', icon: 'fas fa-mobile-alt', color: '#00ff9d', description: 'Simpan & dengarkan musik tanpa iklan.' },
+            { name: 'Uranus Crypto', url: 'https://uranus-crypto-three.vercel.app/', icon: 'fas fa-chart-line', color: '#f7931a', description: 'Strategi trading kripto cerdas dengan fokus pada profit konsisten dan risiko terukur.' },
+            { name: 'Uranus Super', url: 'https://trakteer.id/uranusfazry/shop/uranus-super-paket-lengkap-uranus-4-alat-digital-MY9SU', icon: 'fas fa-wallet', color: '#9D72FF', description: 'Paket premium berisi 4 alat Uranus Studio, Uranustify, Uranus Crypto, dan Uranus Space dengan harga paling murah.' },
+            { name: 'Uranus Supreme', url: 'https://uranusupreme.vercel.app', icon: 'fas fa-crown', color: '#FFD700', description: 'Akses website premium dengan pengalaman lebih cepat dan lebih eksklusif.' },
+            { name: 'Uranus Support', url: 'https://uranusupport.vercel.app/', icon: 'fas fa-star', color: '#FF5700', description: 'Kumpulan website induk bertema MLBB, dirancang khusus untuk kreator MLBB.' },
+            { name: 'Uranus Store', url: 'https://buylink.id/uranusfazry', icon: 'fas fa-store', color: '#4CAF50', description: 'Tempat top up termurah dan lengkap untuk pulsa, paket data, voucher game, dan kebutuhan digital lainnya.' },
+            { name: 'Uranus Shop', url: 'https://trakteer.id/uranusfazry/shop', icon: 'fas fa-gem', color: '#ffffff', description: 'Kumpulan karya premium Uranus siap pakai dengan inovasi dan kualitas terbaik.' },
+            { name: 'Uranus WIFI', url: 'https://uranusfazry-wifi-wireless.vercel.app/', icon: 'fas fa-wifi', color: '#1DA1F2', description: 'Internet wireless cepat & stabil untuk kebutuhan online Anda.' },
+            { name: 'Uranus Play', url: 'https://uranusplay.vercel.app/', icon: 'fas fa-gamepad', color: '#9147ff', description: 'Game Multiplayer terbaik No. 1 tanpa install.' },
+            { name: 'Uranus Blogger', url: 'https://uranusfazry.blogspot.com/', icon: 'fas fa-newspaper', color: '#FF5700', description: 'Artikel yang menyajikan informasi singkat, padat, dan bermanfaat.' },
+            { name: 'Uranus Studio V2', url: 'https://trakteer.id/uranusfazry/shop/uranus-studio-unilD', icon: 'fas fa-wand-sparkles', color: '#8A2BE2', description: 'Tempat kreator bikin desain brat V2, gambar 4K, anime, dan konten keren dalam satu platform.' },
+            { name: 'Brat Generator', url: 'https://bratgenerator.vercel.app/', icon: 'fas fa-child', color: '#39FF14', description: 'Ciptakan Kalimat menjadi gambar dengan mudah.' },
+            { name: 'Brat Generator V2', url: 'https://bratgenerator2.vercel.app/', icon: 'fas fa-child', color: '#FF4DFF', description: 'Ubah teks menjadi gambar secara instan.' },
+            { name: 'Uranus Loader', url: 'https://uranusloader.vercel.app/', icon: 'fas fa-cloud-download-alt', color: '#00E5FF', description: 'Download video TikTok dengan kualitas terbaik dan tanpa watermark.' },
+            { name: 'Uranus Loader V2', url: 'https://uranusloader2.vercel.app/', icon: 'fas fa-download', color: '#C29D5F', description: 'Unduh konten TikTok secara cepat dan bersih dalam satu klik.' },
+            { name: 'WhatsApp Generator', url: 'https://wagenerator.vercel.app/', icon: 'fas fa-comment-dots', color: '#25D366', description: 'Simulasi chat WhatsApp realistis dengan hasil 4K tanpa batas.' },
+           
+            { name: 'Iphone Generator', url: 'https://iphonev4.vercel.app/', icon: 'fas fa-mobile-screen', color: '#FFFFFF', description: 'Generator iPhone Quoted bergaya putih bersih khas iPhone, tampil elegan dan minimalis.' },
+            { name: 'Iphone Generator V2', url: 'https://iphonev5.vercel.app/', icon: 'fas fa-mobile-screen', color: '#007AFF', description: 'Tampilan iPhone Quoted mode gelap dengan nuansa profesional dan eksklusif khas Apple.' },
+            { name: 'Iphone Generator V3', url: 'https://iphonev6.vercel.app/', icon: 'fas fa-mobile-screen', color: '#7D7AFF', description: 'Desain iPhone Quoted premium dengan warna ungu kebiruan khas iPhone Pro, terlihat mewah dan futuristik.' },
+            { name: 'Uranus Web & App Development', url: 'https://wa.me/6287872521809?text=Halo,%20saya%20tertarik%20dengan%20aplikasi%20atau%20website%20seperti%20Uranus%20Fazry', icon: 'fas fa-laptop-code', color: '#25D366', description: 'Dapatkan website atau aplikasi dengan harga terjangkau.' },
+            { name: 'Skyway Community', url: 'https://skyway-chi.vercel.app/', icon: 'fas fa-users', color: '#191970', description: 'Komunitas yang menjelajahi sisi gelap kehidupan.' },
+            { name: 'Contact Me', url: 'https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com', icon: 'fas fa-envelope', color: '#EA4335', description: 'Get in touch for collaborations or inquiries.' },
+        ];
+
+        async function initPortalApp() {
+            portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
+            currentBgImage = localStorage.getItem('bgImage') || '';
+            
+            try {
+                const storedFile = await getFileFromDB();
+                if (storedFile) {
+                    const fileUrl = URL.createObjectURL(storedFile);
+                    if (storedFile.type.startsWith('image/')) {
+                        currentBgImage = fileUrl;
+                        currentBgVideo = '';
+                    } else if (storedFile.type.startsWith('video/')) {
+                        currentBgVideo = fileUrl;
+                        currentBgImage = '';
+                    }
+                }
+            } catch (error) {
+                console.error("Could not load media from DB:", error);
+            }
+
+            renderPortals();
+            updateTime();
+            setInterval(updateTime, 1000);
+            loadBackgroundMedia();
+            
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpening = mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden', !mobileMenu.classList.contains('hidden'));
+                if (isOpening) {
+                    bgUploadMediaMobile.value = '';
+                    selectedMediaFile = null;
+                }
+            });
+
+            portalForm.addEventListener('submit', handlePortalFormSubmit);
+            portalIconSelect.addEventListener('change', () => {
+                customIconOptions.style.display = (portalIconSelect.value === 'custom-icon') ? 'block' : 'none';
+            });
+            
+            iconUpload.addEventListener('change', (e) => handleImageUpload(e, iconPreview));
+            volumeControl.addEventListener('click', toggleMute);
+            logoContainer.addEventListener('click', togglePreviewMode);
+            
+            bgUploadMedia.addEventListener('change', handleMediaSelect);
+            bgUploadMediaMobile.addEventListener('change', handleMediaSelect);
+
+            document.body.addEventListener('touchstart', handleTouchStart, false);
+            document.body.addEventListener('touchend', handleTouchEnd, false);
+            document.body.addEventListener('mousedown', handleDragStart);
+            document.body.addEventListener('mouseup', handleDragEnd);
+            document.body.addEventListener('mouseleave', handleDragLeave);
+            
+            importFileInput.addEventListener('change', handleFileImport);
+            
+            confirmCancelBtn.addEventListener('click', () => confirmationModal.classList.add('hidden'));
+            confirmOkBtn.addEventListener('click', () => {
+                if (typeof onConfirmCallback === 'function') {
+                    onConfirmCallback();
+                }
+                confirmationModal.classList.add('hidden');
+                onConfirmCallback = null;
+            });
+        }
+        
+        window.showConfirmationModal = function(message, callback) {
+            confirmationMessage.textContent = message;
+            onConfirmCallback = callback;
+            confirmationModal.classList.remove('hidden');
+        }
+
+        function handleTouchStart(event) {
+            if (document.body.classList.contains('preview-mode-active')) {
+                touchStartX = event.touches[0].clientX;
+            }
+        }
+
+        function handleTouchEnd(event) {
+            if (document.body.classList.contains('preview-mode-active')) {
+                const touchEndX = event.changedTouches[0].clientX;
+                if (touchStartX - touchEndX > 75) { // Swipe left
+                    togglePreviewMode();
+                }
+            }
+        }
+
+        function handleDragStart(event) {
+            if (document.body.classList.contains('preview-mode-active')) {
+                isDragging = true;
+                dragStartX = event.clientX;
+                event.preventDefault();
+            }
+        }
+
+        function handleDragEnd(event) {
+            if (isDragging && document.body.classList.contains('preview-mode-active')) {
+                const dragEndX = event.clientX;
+                if (dragStartX - dragEndX > 100) {
+                    togglePreviewMode();
+                }
+            }
+            isDragging = false;
+        }
+        
+        function handleDragLeave() {
+            if (isDragging) {
+                isDragging = false;
+            }
+        }
+
+        function handleMediaSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedMediaFile = file;
+            }
+        }
+
+        window.handleImageUpload = function(event, previewElement) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewElement.src = e.target.result;
+                    previewElement.style.display = 'block';
                 };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function renderPortals() {
+            portalsGrid.innerHTML = '';
+            
+            portals.forEach((portal, index) => {
+                const portalElement = document.createElement('div');
+                portalElement.className = 'h-full';
                 
-                bgVideo.addEventListener('ended', handleVideoEnd);
-                bgVideo.addEventListener('error', handleVideoError);
+                const portalColor = portal.color || '#ffffff';
+                const textColorStyle = `color: ${portalColor}; text-shadow: 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
+                const borderStyle = `border: 1px solid ${portalColor}; box-shadow: 0 0 5px ${portalColor}, inset 0 0 5px ${portalColor}, 0 0 10px ${portalColor};`;
+                
+                const iconHtml = portal.icon.startsWith('data:image') || portal.icon.startsWith('http')
+                    ? `<img src="${portal.icon}" class="mx-auto h-12 w-12 mb-4 object-contain" alt="${portal.name} icon">`
+                    : `<i class="${portal.icon} text-4xl mb-4" style="${textColorStyle}"></i>`;
 
-                const playPromise = bgVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.warn("Autoplay blocked:", error);
-                        handleVideoEnd();
-                    });
-                }
-            }
-
-            const logoContainer = document.getElementById('logo-container');
-            const portalsGrid = document.getElementById('portals-grid');
-            const portalForm = document.getElementById('portal-form');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-            const timeDisplay = document.getElementById('time');
-            const dateDisplay = document.getElementById('date');
-            const importFileInput = document.getElementById('import-file-input');
-            const confirmationModal = document.getElementById('confirmation-modal');
-            const confirmationMessage = document.getElementById('confirmation-message');
-            const confirmOkBtn = document.getElementById('confirm-ok-btn');
-            const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
-
-            let portals = [];
-            let onConfirmCallback = null;
-
-            // Default portals for Hayabusa Shura theme
-            const defaultPortals = [
-                { name: 'BY ONE SEKARANG', url: 'https://website-induk.vercel.app/', icon: 'fas fa-trophy', color: '#ffcc00', description: 'Hadapi aku sekarang. Buktikan siapa yang pantas menjadi Raja dan mendapatkan hadiah.' },
-                { name: 'TESTIMONI BY ONE', url: 'https://testimoni-dun.vercel.app/', icon: 'fas fa-star', color: '#ff2a6d', description: 'Semua kekalahan dan penderitaan kalian saat by one lawan Master ada di sini.' },
-                { name: 'Uranus Studio', url: 'https://uranustudio.vercel.app/', icon: 'fas fa-store', color: '#d300c5', description: 'Solusi digital untuk mengubah kreativitas menjadi penghasilan.' },
-                { name: 'Uranus Space', url: 'https://uranuspace.vercel.app/', icon: 'fas fa-rocket', color: '#6C63FF', description: 'Manajemen keuangan, waktu, split bill, my diary & HTML akses kapan saja.' },
-                { name: 'Uranustify (Desktop)', url: 'https://uranustify-desktop.vercel.app/', icon: 'fas fa-desktop', color: '#00ff9d', description: 'Simpan & dengarkan musik favoritmu tanpa batas.' },
-                { name: 'Uranustify (Mobile)', url: 'https://uranustify.vercel.app/', icon: 'fas fa-mobile-alt', color: '#00ff9d', description: 'Simpan & dengarkan musik tanpa iklan.' },
-                { name: 'Uranus Crypto', url: 'https://uranus-crypto-three.vercel.app/', icon: 'fas fa-chart-line', color: '#f7931a', description: 'Strategi trading kripto cerdas dengan fokus pada profit konsisten dan risiko terukur.' },
-                { name: 'Uranus Super', url: 'https://trakteer.id/uranusfazry/shop/uranus-super-paket-lengkap-uranus-4-alat-digital-MY9SU', icon: 'fas fa-wallet', color: '#9D72FF', description: 'Paket premium berisi 4 alat Uranus Studio, Uranustify, Uranus Crypto, dan Uranus Space dengan harga paling murah.' },
-                { name: 'Uranus Supreme', url: 'https://uranusupreme.vercel.app', icon: 'fas fa-crown', color: '#FFD700', description: 'Akses website premium dengan pengalaman lebih cepat dan lebih eksklusif.' },
-                { name: 'Uranus Support', url: 'https://uranusupport.vercel.app/', icon: 'fas fa-star', color: '#FF5700', description: 'Kumpulan website induk bertema MLBB, dirancang khusus untuk kreator MLBB.' },
-                { name: 'Uranus Store', url: 'https://buylink.id/uranusfazry', icon: 'fas fa-store', color: '#4CAF50', description: 'Tempat top up termurah dan lengkap untuk pulsa, paket data, voucher game, dan kebutuhan digital lainnya.' },
-                { name: 'Uranus Shop', url: 'https://trakteer.id/uranusfazry/shop', icon: 'fas fa-gem', color: '#ffffff', description: 'Kumpulan karya premium Uranus siap pakai dengan inovasi dan kualitas terbaik.' },
-                { name: 'Uranus WIFI', url: 'https://uranusfazry-wifi-wireless.vercel.app/', icon: 'fas fa-wifi', color: '#1DA1F2', description: 'Internet wireless cepat & stabil untuk kebutuhan online Anda.' },
-                { name: 'Uranus Play', url: 'https://uranusplay.vercel.app/', icon: 'fas fa-gamepad', color: '#9147ff', description: 'Game Multiplayer terbaik No. 1 tanpa install.' },
-                { name: 'Uranus Blogger', url: 'https://uranusfazry.blogspot.com/', icon: 'fas fa-newspaper', color: '#FF5700', description: 'Artikel yang menyajikan informasi singkat, padat, dan bermanfaat.' },
-                { name: 'Uranus Studio V2', url: 'https://trakteer.id/uranusfazry/shop/uranus-studio-unilD', icon: 'fas fa-wand-sparkles', color: '#8A2BE2', description: 'Tempat kreator bikin desain brat V2, gambar 4K, anime, dan konten keren dalam satu platform.' },
-                { name: 'Brat Generator', url: 'https://bratgenerator.vercel.app/', icon: 'fas fa-child', color: '#39FF14', description: 'Ciptakan Kalimat menjadi gambar dengan mudah.' },
-                { name: 'Brat Generator V2', url: 'https://bratgenerator2.vercel.app/', icon: 'fas fa-child', color: '#FF4DFF', description: 'Ubah teks menjadi gambar secara instan.' },
-                { name: 'Uranus Loader', url: 'https://uranusloader.vercel.app/', icon: 'fas fa-cloud-download-alt', color: '#00E5FF', description: 'Download video TikTok dengan kualitas terbaik dan tanpa watermark.' },
-                { name: 'Uranus Loader V2', url: 'https://uranusloader2.vercel.app/', icon: 'fas fa-download', color: '#C29D5F', description: 'Unduh konten TikTok secara cepat dan bersih dalam satu klik.' },
-                { name: 'WhatsApp Generator', url: 'https://wagenerator.vercel.app/', icon: 'fas fa-comment-dots', color: '#25D366', description: 'Simulasi chat WhatsApp realistis dengan hasil 4K tanpa batas.' },
-                { name: 'Iphone Generator', url: 'https://iphonev4.vercel.app/', icon: 'fas fa-mobile-screen', color: '#FFFFFF', description: 'Generator iPhone Quoted bergaya putih bersih khas iPhone, tampil elegan dan minimalis.' },
-                { name: 'Iphone Generator V2', url: 'https://iphonev5.vercel.app/', icon: 'fas fa-mobile-screen', color: '#007AFF', description: 'Tampilan iPhone Quoted mode gelap dengan nuansa profesional dan eksklusif khas Apple.' },
-                { name: 'Iphone Generator V3', url: 'https://iphonev6.vercel.app/', icon: 'fas fa-mobile-screen', color: '#7D7AFF', description: 'Desain iPhone Quoted premium dengan warna ungu kebiruan khas iPhone Pro, terlihat mewah dan futuristik.' },
-                { name: 'Uranus Web & App Development', url: 'https://wa.me/6287872521809?text=Halo,%20saya%20tertarik%20dengan%20aplikasi%20atau%20website%20seperti%20Uranus%20Fazry', icon: 'fas fa-laptop-code', color: '#25D366', description: 'Dapatkan website atau aplikasi dengan harga terjangkau.' },
-                { name: 'Skyway Community', url: 'https://skyway-chi.vercel.app/', icon: 'fas fa-users', color: '#191970', description: 'Komunitas yang menjelajahi sisi gelap kehidupan.' },
-                { name: 'Contact Me', url: 'https://mail.google.com/mail/?view=cm&to=irawanfazry697@gmail.com', icon: 'fas fa-envelope', color: '#EA4335', description: 'Get in touch for collaborations or inquiries.' }
-            ];
-
-            function initPortalApp() {
-                portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
-                renderPortals();
-                updateTime();
-                setInterval(updateTime, 1000);
-
-                logoContainer.addEventListener('click', () => {
-                    // Toggle light mode only when video is considered finished
-                    if (!isVideoFinished) {
-                        return;
-                    }
-                    document.body.classList.toggle('light-mode');
-                    if (!document.body.classList.contains('light-mode') && bgVideo.style.opacity === '0') {
-                        bgImage.style.opacity = '0.45';
-                    }
+                portalElement.innerHTML = `
+                    <div class="portal-card h-full" style="color: ${portalColor};">
+                        <a href="${portal.url}" target="_blank" class="block h-full p-6 rounded-lg text-center relative overflow-hidden backdrop-blur-sm bg-[#0d0221]/50 transition-all duration-300 flex flex-col" style="${borderStyle}">
+                            <div class="portal-card-inner flex flex-col justify-center items-center flex-grow">
+                                ${iconHtml}
+                                <h3 class="font-bold uppercase tracking-wider break-words text-lg" style="${textColorStyle}">${portal.name}</h3>
+                                <p class="text-sm text-gray-300 mt-2 leading-normal">${portal.description || ''}</p>
+                            </div>
+                            <button onclick="showConfirmationModal('Are you sure you want to delete this portal?', () => deletePortalAction(${index}))" 
+                                class="absolute top-2 right-2 text-xs text-red-500 hover:text-red-400 opacity-50 hover:opacity-100 transition-opacity z-10">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </a>
+                    </div>
+                `;
+                portalElement.querySelector('button').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                 });
-
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.add('open');
-                    mobileMenuOverlay.classList.remove('hidden');
-                    mobileMenuOverlay.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                });
-
-                mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-
-                portalForm.addEventListener('submit', handlePortalFormSubmit);
-                importFileInput.addEventListener('change', handleFileImport);
-                confirmCancelBtn.addEventListener('click', () => {
-                    confirmationModal.classList.add('hidden');
-                    confirmationModal.style.display = 'none';
-                });
-                confirmOkBtn.addEventListener('click', () => {
-                    if (typeof onConfirmCallback === 'function') {
-                        onConfirmCallback();
-                    }
-                    confirmationModal.classList.add('hidden');
-                    confirmationModal.style.display = 'none';
-                    onConfirmCallback = null;
-                });
-
-                window.addEventListener('resize', updateNavDisplay);
-                updateNavDisplay();
-            }
-
-            function updateNavDisplay() {
-                const desktopNav = document.querySelector('.desktop-nav');
-                const mobileToggle = document.querySelector('.mobile-nav-toggle');
-                if (window.innerWidth >= 768) {
-                    if (desktopNav) desktopNav.style.display = 'block';
-                    if (mobileToggle) mobileToggle.style.display = 'none';
+                
+                portalsGrid.appendChild(portalElement);
+            });
+            
+            portalCount.textContent = portals.length;
+        }
+        
+        function handlePortalFormSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('portal-name').value;
+            const url = document.getElementById('portal-url').value;
+            const description = document.getElementById('portal-description').value;
+            let icon = document.getElementById('portal-icon').value;
+            const color = document.getElementById('portal-color').value;
+            
+            if (icon === 'custom-icon') {
+                const iconUrlInput = document.getElementById('icon-url');
+                const iconFileInput = document.getElementById('icon-upload');
+                
+                if (iconUrlInput.value) {
+                    addPortalToArray(name, url, iconUrlInput.value, color, description);
+                } else if (iconFileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => addPortalToArray(name, url, event.target.result, color, description);
+                    reader.readAsDataURL(iconFileInput.files[0]);
                 } else {
-                    if (desktopNav) desktopNav.style.display = 'none';
-                    if (mobileToggle) mobileToggle.style.display = 'block';
+                    addPortalToArray(name, url, 'fas fa-link', color, description); // Fallback
                 }
-            }
-
-            window.closeMobileMenu = function() {
-                mobileMenu.classList.remove('open');
-                mobileMenuOverlay.classList.add('hidden');
-                mobileMenuOverlay.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-
-            window.showConfirmationModal = function(message, callback) {
-                confirmationMessage.textContent = message;
-                onConfirmCallback = callback;
-                confirmationModal.classList.remove('hidden');
-                confirmationModal.style.display = 'flex';
-            }
-
-            function renderPortals() {
-                portalsGrid.innerHTML = '';
-
-                portals.forEach((portal, index) => {
-                    const portalElement = document.createElement('div');
-                    portalElement.style.height = '100%';
-
-                    const portalColor = portal.color || '#4a0072';
-                    const cardStyle = `color: ${portalColor}; border-color: ${portalColor};`;
-                    const textStyle = `color: ${portalColor}; text-shadow: 0 0 15px ${portalColor};`;
-                    
-                    let iconClass = portal.icon || 'fas fa-mask';
-                    if (!portal.icon || (!portal.icon.startsWith('fa') && !portal.icon.startsWith('http') && !portal.icon.startsWith('data:image'))) {
-                        iconClass = 'fas fa-mask';
-                    }
-
-                    const iconHtml = (iconClass.startsWith('data:image') || iconClass.startsWith('http'))
-                        ? `<img src="${iconClass}" style="margin: 0 auto 1rem; height: 3rem; width: 3rem; object-fit: contain;" alt="${portal.name} icon" onerror="this.style.display='none'; this.nextSibling.style.display='block';"><i class="fas fa-mask" style="font-size: 3rem; margin-bottom: 1rem; display: none; ${textStyle}"></i>`
-                        : `<i class="${iconClass}" style="font-size: 3rem; margin-bottom: 1rem; ${textStyle}"></i>`;
-
-                    const descriptionHtml = portal.description ? portal.description : '&nbsp;';
-
-                    portalElement.innerHTML = `
-                        <div class="portal-card" style="${cardStyle} height: 100%;">
-                            <a href="${portal.url}" target="_blank" style="display: block; height: 100%; padding: 1.5rem; text-align: center; position: relative; text-decoration: none; color: inherit;">
-                                <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                                    ${iconHtml}
-                                    <h3 class="font-cinzel" style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; word-break: break-word; font-size: 1.125rem; margin-bottom: 0.5rem; ${textStyle}">${portal.name}</h3>
-                                    <p style="font-size: 0.875rem; color: rgba(0, 200, 224, 0.8); margin-top: 0.5rem; line-height: 1.4;">${descriptionHtml}</p>
-                                </div>
-                                
-                                <button onclick="event.preventDefault(); event.stopPropagation(); showConfirmationModal('Destroy portal ${portal.name}?', () => deletePortalAction(${index}))" class="delete-btn">
-                                    <i class="fas fa-times" style="font-size: 0.875rem;"></i>
-                                </button>
-                            </a>
-                        </div>
-                    `;
-
-                    portalsGrid.appendChild(portalElement);
-                });
-            }
-
-            function handlePortalFormSubmit(e) {
-                e.preventDefault();
-
-                const name = document.getElementById('portal-name').value;
-                const url = document.getElementById('portal-url').value || "#";
-                const description = document.getElementById('portal-description').value || "";
-                const icon = document.getElementById('portal-icon').value;
-                const color = document.querySelector('input[name="portal-color"]:checked').value;
-
+            } else {
                 addPortalToArray(name, url, icon, color, description);
             }
-
-            function addPortalToArray(name, url, icon, color, description) {
-                portals.push({ name, url, icon, color, description });
-                savePortals();
-                renderPortals();
-                document.getElementById('add-portal-modal').classList.add('hidden');
-                document.getElementById('add-portal-modal').style.display = 'none';
-                resetPortalForm();
+        }
+        
+        function addPortalToArray(name, url, icon, color, description) {
+            portals.push({ name, url, icon, color, description });
+            savePortals();
+            renderPortals();
+            document.getElementById('add-portal-modal').classList.add('hidden');
+            resetPortalForm();
+        }
+        
+        window.deletePortalAction = function(index) {
+            portals.splice(index, 1);
+            savePortals();
+            renderPortals();
+        }
+        
+        function resetPortalForm() {
+            portalForm.reset();
+            customIconOptions.style.display = 'none';
+            if(iconPreview) {
+                iconPreview.style.display = 'none';
+                iconPreview.src = '#';
             }
-
-            window.deletePortalAction = function(index) {
-                portals.splice(index, 1);
-                savePortals();
-                renderPortals();
+            document.getElementById('portal-color').value = '#05d9e8';
+            const colorOptions = document.querySelectorAll('#add-portal-modal .color-option');
+            colorOptions.forEach(el => el.classList.remove('selected'));
+            colorOptions[1].classList.add('selected');
+        }
+        
+        function savePortals() {
+            localStorage.setItem('portals', JSON.stringify(portals));
+        }
+        
+        window.showAddLinkModal = function() {
+            document.getElementById('add-portal-modal').classList.remove('hidden');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
             }
+        }
+        
+        function updateTime() {
+            const now = new Date();
+            timeDisplay.textContent = now.toLocaleTimeString('en-GB');
+            dateDisplay.textContent = now.toLocaleDateString('id-ID', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+        }
+        
+        window.selectPortalColor = function(color, element) {
+            const container = element.closest('.color-picker-container');
+            container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('portal-color').value = color;
+        }
 
-            function resetPortalForm() {
-                portalForm.reset();
-            }
-
-            function savePortals() {
-                localStorage.setItem('portals', JSON.stringify(portals));
-            }
-
-            window.showAddLinkModal = function() {
-                document.getElementById('add-portal-modal').classList.remove('hidden');
-                document.getElementById('add-portal-modal').style.display = 'flex';
-                resetPortalForm();
-                if (mobileMenu.classList.contains('open')) {
-                    closeMobileMenu();
-                }
-            }
-
-            function updateTime() {
-                const now = new Date();
-                timeDisplay.textContent = now.toLocaleTimeString('en-GB');
-                dateDisplay.textContent = now.toLocaleDateString('id-ID', {
-                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-                });
-            }
-
-            window.resetAllSettings = function() {
-                localStorage.removeItem('portals');
-                location.reload();
-            }
-
-            window.backupData = async () => {
-                const dataToBackup = {
-                    portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals,
-                };
-                const dataStr = JSON.stringify(dataToBackup, null, 2);
+        window.applyCustomPortalColor = function(color) {
+            document.getElementById('portal-color').value = color;
+            const container = document.getElementById('add-portal-modal');
+            container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+        }
+        
+        window.setBackgroundImage = async function() {
+            const bgUrlInput = document.getElementById('bg-image-mobile').value ? document.getElementById('bg-image-mobile') : document.getElementById('bg-image');
+            if (bgUrlInput && bgUrlInput.value) {
                 try {
-                    const zip = new JSZip();
-                    zip.file("uranusfazry_backup.json", dataStr);
-                    const content = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
-                    const url = URL.createObjectURL(content);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'uranusfazry_backup.zip';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                } catch (error) {
-                    console.error("Error creating ZIP:", error);
-                    alert("Backup failed.");
+                    await deleteFileFromDB();
+                } catch(e) { console.error("Could not clear DB file when setting URL", e); }
+                updateBackgroundMedia(bgUrlInput.value, null);
+            }
+        }
+
+        window.applyUploadedMedia = async function() {
+            if (!selectedMediaFile) return;
+
+            try {
+                await saveFileToDB(selectedMediaFile);
+                localStorage.removeItem('bgImage');
+
+                const storedFile = await getFileFromDB();
+                if (storedFile) {
+                    const fileUrl = URL.createObjectURL(storedFile);
+                    if (storedFile.type.startsWith('image/')) {
+                        updateBackgroundMedia(fileUrl, null);
+                    } else if (storedFile.type.startsWith('video/')) {
+                        updateBackgroundMedia(null, fileUrl);
+                    }
                 }
+            } catch (error) {
+                console.error("Failed to apply uploaded media:", error);
+                alert("Sorry, could not save the media file. It might be too large or your browser has storage restrictions.");
+            }
+
+            bgUploadMedia.value = '';
+            bgUploadMediaMobile.value = '';
+            selectedMediaFile = null;
+
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        function updateBackgroundMedia(imageUrl, videoUrl) {
+            if (currentBgVideo && currentBgVideo.startsWith('blob:')) { URL.revokeObjectURL(currentBgVideo); }
+            if (currentBgImage && currentBgImage.startsWith('blob:')) { URL.revokeObjectURL(currentBgImage); }
+
+            if (imageUrl) {
+                currentBgImage = imageUrl;
+                currentBgVideo = '';
+                if (!imageUrl.startsWith('blob:')) {
+                    localStorage.setItem('bgImage', currentBgImage);
+                }
+            } else if (videoUrl) {
+                currentBgImage = '';
+                currentBgVideo = videoUrl;
+            }
+            loadBackgroundMedia();
+        }
+        
+        function loadBackgroundMedia() {
+            document.body.classList.remove('has-bg-media');
+            bgVideo.classList.add('hidden');
+            document.body.style.setProperty('--bg-image', 'none');
+            volumeControl.classList.add('hidden');
+
+            if (currentBgVideo) {
+                document.body.classList.add('has-bg-media');
+                bgVideo.src = currentBgVideo;
+                bgVideo.classList.remove('hidden');
+                bgVideo.muted = true; 
+                bgVideo.play().catch(e => console.error("Video play failed:", e));
+                volumeControl.classList.remove('hidden');
+                updateVolumeIcon();
+            } else if (currentBgImage) {
+                document.body.classList.add('has-bg-media');
+                document.body.style.setProperty('--bg-image', `url('${currentBgImage}')`);
+            }
+            
+            const terminalContainer = document.querySelector('.terminal-container');
+            if(terminalContainer) {
+                terminalContainer.classList.toggle('is-transparent', !!currentBgImage || !!currentBgVideo);
+            }
+        }
+        
+        window.resetBackgroundMedia = async function() {
+            if(currentBgVideo && currentBgVideo.startsWith('blob:')) { URL.revokeObjectURL(currentBgVideo); }
+            if(currentBgImage && currentBgImage.startsWith('blob:')) { URL.revokeObjectURL(currentBgImage); }
+            bgVideo.pause();
+            bgVideo.removeAttribute('src');
+
+            currentBgImage = '';
+            currentBgVideo = '';
+            localStorage.removeItem('bgImage');
+            
+            try {
+                await deleteFileFromDB();
+            } catch (error) {
+                console.error("Failed to delete media from DB:", error);
+            }
+            
+            loadBackgroundMedia();
+            
+            document.querySelectorAll('input[type="url"]').forEach(input => input.value = '');
+            document.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
+
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        window.resetAllSettings = async function() {
+            localStorage.removeItem('portals');
+            localStorage.removeItem('bgImage');
+
+            try {
+                await deleteFileFromDB();
+            } catch (error) {
+                console.error("Failed to delete media from DB during full reset:", error);
+            }
+
+            location.reload();
+        }
+
+        function toggleMute() {
+            bgVideo.muted = !bgVideo.muted;
+            updateVolumeIcon();
+        }
+
+        function updateVolumeIcon() {
+            if (bgVideo.muted) {
+                volumeIcon.classList.remove('fa-volume-up');
+                volumeIcon.classList.add('fa-volume-mute');
+            } else {
+                volumeIcon.classList.remove('fa-volume-mute');
+                volumeIcon.classList.add('fa-volume-up');
+            }
+        }
+
+        function togglePreviewMode() {
+            if (!document.body.classList.contains('preview-mode-active') && !currentBgImage && !currentBgVideo) {
+                return; 
+            }
+            document.body.classList.toggle('preview-mode-active');
+        }
+        
+        // --- DATA MANAGEMENT FUNCTIONS ---
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function base64ToBlob(base64, mimeType) {
+            const byteCharacters = atob(base64.split(',')[1]);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            return new Blob([byteArray], { type: mimeType });
+        }
+        
+        window.backupData = async () => {
+            const dataToBackup = {
+                portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals,
+                bgImage: localStorage.getItem('bgImage') || null,
+                bgMedia: null
             };
 
-            window.importData = () => {
-                importFileInput.click();
-            };
-
-            async function handleFileImport(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                if (file.type === "application/zip" || file.name.endsWith(".zip")) {
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        try {
-                            const zip = await JSZip.loadAsync(e.target.result);
-                            const backupFile = zip.file("uranusfazry_backup.json");
-                            if (backupFile) {
-                                const jsonContent = await backupFile.async("string");
-                                await processImportedData(jsonContent);
-                            } else {
-                                alert('Invalid ZIP file.');
-                            }
-                        } catch (error) {
-                            console.error('Error reading ZIP:', error);
-                            alert('Failed to read ZIP file.');
-                        }
-                    };
-                    reader.readAsArrayBuffer(file);
-                } else if (file.type === "text/plain" || file.type === "application/json" || file.name.endsWith(".txt")) {
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        await processImportedData(e.target.result);
-                    };
-                    reader.readAsText(file);
-                } else {
-                    alert("Unsupported file type.");
+            try {
+                const storedFile = await getFileFromDB();
+                if (storedFile) {
+                    const base64Data = await fileToBase64(storedFile);
+                    dataToBackup.bgMedia = { type: storedFile.type, data: base64Data };
+                    dataToBackup.bgImage = null;
                 }
-                event.target.value = '';
+            } catch (error) {
+                console.error("Could not read media file for backup:", error);
             }
+            
+            const dataStr = JSON.stringify(dataToBackup, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'text/plain' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'uranusfazry_backup.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
 
-            async function processImportedData(jsonContent) {
+        window.importData = () => {
+            importFileInput.click();
+        };
+
+        async function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
                 try {
-                    const importedData = JSON.parse(jsonContent);
+                    const importedData = JSON.parse(e.target.result);
                     if (importedData && Array.isArray(importedData.portals)) {
+                        await deleteFileFromDB();
+                        localStorage.removeItem('bgImage');
+
                         localStorage.setItem('portals', JSON.stringify(importedData.portals));
-                        showConfirmationModal('Data imported. Page will reload.', () => {
+
+                        if (importedData.bgMedia && importedData.bgMedia.data) {
+                            const mediaBlob = base64ToBlob(importedData.bgMedia.data, importedData.bgMedia.type);
+                            await saveFileToDB(mediaBlob);
+                        } else if (typeof importedData.bgImage === 'string') {
+                            localStorage.setItem('bgImage', importedData.bgImage);
+                        }
+
+                        showConfirmationModal('Data imported successfully. The page will now reload to apply changes.', () => {
                             location.reload();
                         });
                     } else {
-                        alert('Invalid backup format.');
+                        alert('Invalid backup file format.');
                     }
                 } catch (error) {
-                    console.error('Error parsing backup:', error);
-                    alert('Failed to parse backup file.');
+                    console.error('Error parsing backup file:', error);
+                    alert('Could not read the backup file. It may be corrupted or in the wrong format.');
                 }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // --- 3D BACKGROUND SCRIPT ---
+        function init3DBackground() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({
+                canvas: document.querySelector('#bg-canvas'),
+                alpha: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            camera.position.z = 50;
+
+            const particleCount = 200;
+            const particles = new THREE.BufferGeometry();
+            const posArray = new Float32Array(particleCount * 3);
+            const velocities = [];
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 200;
+                velocities.push((Math.random() - 0.5) * 0.1);
             }
 
-            initPortalApp();
-        });
-    </script>
+            particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.2,
+                color: 0x05d9e8,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+            const particleMesh = new THREE.Points(particles, particleMaterial);
+            scene.add(particleMesh);
+
+            const lineGeometry = new THREE.BufferGeometry();
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: 0xff2a6d,
+                transparent: true,
+                opacity: 0.1
+            });
+            const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lineMesh);
+            
+            const mouse = new THREE.Vector2();
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            });
+            
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            });
+
+            const clock = new THREE.Clock();
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+                
+                const positions = particles.attributes.position.array;
+                for(let i = 0; i < particleCount; i++) {
+                    positions[i * 3] += velocities[i * 3] * 0.1;
+                    positions[i * 3 + 1] += velocities[i * 3 + 1] * 0.1;
+                    positions[i * 3 + 2] += velocities[i * 3 + 2] * 0.1;
+                    
+                    if (positions[i*3+1] < -100) positions[i*3+1] = 100;
+                    if (positions[i*3] > 100) positions[i*3] = -100;
+                    else if (positions[i*3] < -100) positions[i*3] = 100;
+                }
+                particles.attributes.position.needsUpdate = true;
+                
+                const linePositions = [];
+                for (let i = 0; i < particleCount; i++) {
+                    for (let j = i + 1; j < particleCount; j++) {
+                        const p1 = new THREE.Vector3(positions[i*3], positions[i*3+1], positions[i*3+2]);
+                        const p2 = new THREE.Vector3(positions[j*3], positions[j*3+1], positions[j*3+2]);
+                        const distance = p1.distanceTo(p2);
+
+                        if (distance < 15) {
+                            linePositions.push(p1.x, p1.y, p1.z);
+                            linePositions.push(p2.x, p2.y, p2.z);
+                        }
+                    }
+                }
+                lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+                lineGeometry.attributes.position.needsUpdate = true;
+
+                camera.position.x += (mouse.x * 5 - camera.position.x) * 0.02;
+                camera.position.y += (mouse.y * 5 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+                
+                particleMesh.rotation.y = elapsedTime * 0.05;
+
+                renderer.render(scene, camera);
+                window.requestAnimationFrame(animate);
+            };
+
+            animate();
+        }
+
+       // --- CYBER TERMINAL SCRIPT (File 1) ---
+            const terminalBody = document.getElementById('terminal-body');
+            const terminalText = document.getElementById('typing-text');
+            const commandLine = document.getElementById('command-line');
+            const commandInput = document.getElementById('command-input');
+            
+            function displayProfilePhoto() {
+                const imgContainer = document.createElement('div');
+                const img = document.createElement('img');
+                img.src = 'https://i.imghippo.com/files/fBt9701PM.jpg';
+                img.alt = 'Foto Uranus Fazry';
+                img.style.maxWidth = '250px';
+                img.style.maxHeight = '250px';
+                img.style.marginTop = '10px';
+                img.style.marginBottom = '10px'; // Added for spacing
+                img.style.borderRadius = '8px';
+                img.style.border = '2px solid var(--terminal-cyan)';
+                img.style.boxShadow = '0 0 15px var(--terminal-cyan)';
+                imgContainer.appendChild(img);
+                terminalText.appendChild(imgContainer);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+
+            const messages = [
+                { text: "Initializing system...", delay: 50 },
+                { text: "Loading profile data...", delay: 50 },
+                { text: "██████████████ 100%", delay: 30, style: "color: var(--terminal-cyan)" },
+                { text: "\n", delay: 200 },
+                { text: "> Welcome to CYBER TERMINAL // ACCESS GRANTED", delay: 10, style: "color: var(--terminal-green); font-weight: bold" },
+                { text: "\n\n", delay: 100 },
+                { text: ">> SYSTEM USER PROFILE <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "\n", delay: 100 },
+                { action: 'addPhoto', delay: 200 },
+                { text: "> NAME: ", delay: 20 },
+                { text: "URANUS FAZRY", delay: 50, style: "color: var(--terminal-cyan); font-weight: bold" },
+                { text: "\n", delay: 50 },
+                { text: "> TITLE: ", delay: 20 },
+                { text: "FULL-STACK CYBER DEVELOPER", delay: 50, style: "color: var(--terminal-cyan)" },
+                { text: "\n", delay: 50 },
+                { text: "> LOCATION: ", delay: 20 },
+                { text: "[DATA ENCRYPTED]", delay: 70, style: "color: var(--terminal-red)" },
+                { text: "\n\n", delay: 100 },
+                { text: ">> SKILL MATRIX <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "\n", delay: 100 },
+                { text: "> PYTHON:              █████████▉ 95%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> JAVASCRIPT:          ██████████ 97%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> CYBERSECURITY:       ████████▉  88%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> CLOUD ARCHITECTURE:  ████████▊  86%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> AI/ML:               ███████▍   75%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "> BLOCKCHAIN:          ██████▎    70%\n", delay: 20, style: "color: var(--terminal-cyan)" },
+                { text: "\n", delay: 100 },
+                { text: ">> PROJECT HISTORY <<", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "\n", delay: 100 },
+                { text: "> [2025] CROWNED “KING BY ONE” – MLBB COMPETITIVE ACHIEVEMENT\n", delay: 20 },
+                { text: "> [2025] CRYPTO ENTRY STRATEGY – INDEPENDENT TRADER & ANALYST\n", delay: 20 },
+                { text: "> [2025] WIRELESS INTERNET BUSINESS EXPANSION – FOUNDER\n", delay: 20 },
+                { text: "> [2025] WEB & APP DEVELOPMENT PROJECTS – SELF-TAUGHT DEVELOPER\n", delay: 20 },
+                { text: "> [2021] MLBB KOL INDONESIA – COMPETITIVE PLAYER & CONTENT CREATOR\n", delay: 20 },
+                { text: "> [2020] STREAMING & CONTENT PRODUCTION – MULTI-PLATFORM CREATOR\n", delay: 20 },
+                { text: "\n", delay: 100 },
+                { text: ">> STATUS <<\n", delay: 10, style: "color: var(--terminal-purple-term); text-decoration: underline" },
+                { text: "TAHUN 2025 MENJADI MOMENTUM PENTING BAGI URANUS FAZRY DENGAN SEJUMLAH PENCAPAIAN STRATEGIS: MERAIH GELAR “RAJA BY ONE” DI MOBILE LEGENDS, MENGEMBANGKAN STRATEGI ENTRI KRIPTO SEBAGAI TRADER DAN ANALIS INDEPENDEN, MEMPERLUAS BISNIS INTERNET WIRELESS SEBAGAI PENDIRI, SERTA MENGERJAKAN BERBAGAI PROYEK PENGEMBANGAN WEB & APLIKASI SECARA MANDIRI. PADA 2021, IA DIPERCAYA SEBAGAI MLBB KOL INDONESIA, MENGGABUNGKAN PERAN SEBAGAI PEMAIN KOMPETITIF DAN PEMBUAT KONTEN YANG BERPENGARUH DI KOMUNITAS ESPORTS. PERJALANANNYA DIMULAI PADA 2020 SEBAGAI STREAMER DAN CONTENT CREATOR MULTI PLATFORM, MEMBANGUN AUDIENS SERTA FONDASI KARIER DIGITALNYA. DENGAN KOMBINASI PENGALAMAN DI TEKNOLOGI, GAMING, DAN BISNIS, IA MEMBANGUN PROFIL PROFESIONAL YANG MENCERMINKAN INOVASI, KETEKUNAN, DAN KEUNGGULAN KOMPETITIF.", delay: 25, style: "color: var(--terminal-green); font-weight: bold; text-transform: uppercase;" },
+                { text: "\n\n", delay: 100 },
+                { text: "> Type 'help' for available commands", delay: 30, style: "color: var(--terminal-green)" },
+                { text: "\n", delay: 50 },
+            ];
+            
+            let currentMessageIndex = 0;
+            let currentCharIndex = 0;
+            
+            function typeNextCharacter() {
+                if (currentMessageIndex >= messages.length) {
+                    commandLine.classList.remove('hidden');
+                    commandInput.focus();
+                    return;
+                }
+                
+                const currentMessage = messages[currentMessageIndex];
+
+                if (currentMessage.action) {
+                    if (currentMessage.action === 'addPhoto') {
+                        displayProfilePhoto();
+                    }
+                    currentMessageIndex++;
+                    setTimeout(typeNextCharacter, currentMessage.delay);
+                    return;
+                }
+                
+                const textToType = currentMessage.text;
+                
+                if (currentCharIndex < textToType.length) {
+                    const char = textToType.charAt(currentCharIndex);
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    
+                    if (currentMessage.style) {
+                        span.style.cssText = currentMessage.style;
+                    }
+                    
+                    terminalText.appendChild(span);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    currentCharIndex++;
+                    
+                    setTimeout(typeNextCharacter, currentMessage.delay);
+                } else {
+                    currentMessageIndex++;
+                    currentCharIndex = 0;
+                    setTimeout(typeNextCharacter, 100);
+                }
+            }
+            
+            function typewriter(element, htmlString, onComplete) {
+                let i = 0;
+                const speed = 10;
+                element.innerHTML = '';
+
+                function type() {
+                    if (i < htmlString.length) {
+                        if (htmlString.charAt(i) === '<') {
+                            const closingBracketIndex = htmlString.indexOf('>', i);
+                            if (closingBracketIndex !== -1) {
+                                const tag = htmlString.substring(i, closingBracketIndex + 1);
+                                element.innerHTML += tag;
+                                i = closingBracketIndex; 
+                            }
+                        } else {
+                            element.innerHTML += htmlString.charAt(i);
+                        }
+                        
+                        i++;
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                        setTimeout(type, speed);
+                    } else {
+                        if (onComplete) {
+                            onComplete();
+                        }
+                    }
+                }
+                type();
+            }
+
+            function processCommand(command) {
+                terminalText.appendChild(document.createElement('br'));
+                
+                const prompt = document.createElement('span');
+                prompt.textContent = '> ';
+                prompt.style.color = 'var(--terminal-green)';
+                terminalText.appendChild(prompt);
+                
+                const cmdText = document.createElement('span');
+                cmdText.textContent = command;
+                cmdText.style.color = 'var(--text-color)';
+                terminalText.appendChild(cmdText);
+                
+                terminalText.appendChild(document.createElement('br'));
+                
+                const response = document.createElement('div');
+                response.style.marginTop = '10px';
+                
+                command = command.toLowerCase().trim();
+                
+                let isAnimated = false;
+                
+                const trackNumber = parseInt(command, 10);
+
+                if (command === 'help') {
+                    response.innerHTML = `Available commands:<br>
+                        - <span class="highlight">uranusfazry</span>: Show complete profile of UranusFazry<br>
+                        - <span class="highlight">about</span>: Show detailed profile<br>
+                        - <span class="highlight">skills</span>: List technical skills<br>
+                        - <span class="highlight">projects</span>: Show project history<br>
+                        - <span class="highlight">contact</span>: Show contact information<br>
+                        - <span class="highlight">musik</span>: Menampilkan daftar musik.<br>
+                        - <span class="highlight">&lt;nomor&gt;</span>: Memutar musik dari daftar (misal: '1').<br>
+                        - <span class="highlight">stop</span>: Menghentikan musik.<br>
+                        - <span class="highlight">clear</span>: Clear the terminal<br>
+                        - <span class="highlight">exit</span>: Close terminal (just kidding)`;
+                } else if (command === 'about') {
+                     response.innerHTML = `
+                          <p style="color: var(--terminal-green); font-weight: bold; text-transform: uppercase;">
+                          "AKU URANUS FAZRY, MAHKOTA RAJA BY ONE MLBB ADA DI KEPALA AKU. AKU CONTENT KREATOR, STREAMER, TRADER FOREX & CRYPTO, DEVELOPER WEB & APP, KOL MLBB INDONESIA, PUNYA BISNIS WIFI WIRELESS, DAN BERHASIL BIKIN STRATEGI ENTRY KRIPTO YANG BIKIN KAMU CUMA BISA NGIKUTIN. DI GAME GUE HABISIN KAMU, DI DUNIA NYATA GUE KUASAIN KAMU."
+                          </p>
+                        `;
+                } else if (command === 'skills') {
+                    response.innerHTML = `>> SKILL MATRIX <<<br><br>
+                        <span style="color: var(--terminal-cyan)">> PYTHON:              █████████▉ 95%</span><br>
+                        <span style="color: var(--terminal-cyan)">> JAVASCRIPT:          ██████████ 97%</span><br>
+                        <span style="color: var(--terminal-cyan)">> CYBERSECURITY:       ████████▉  88%</span><br>
+                        <span style="color: var(--terminal-cyan)">> CLOUD ARCHITECTURE:  ████████▊  86%</span><br>
+                        <span style="color: var(--terminal-cyan)">> AI/ML:               ███████▍   75%</span><br>
+                        <span style="color: var(--terminal-cyan)">> BLOCKCHAIN:          ██████▎    70%</span><br>`;
+                } else if (command === 'projects') {
+                    response.innerHTML = `>> PROJECT HISTORY <<<br><br>
+                        > [2023] DECENTRALIZED IDENTITY SYSTEM - LEAD DEVELOPER<br>
+                        > [2022] QUANTUM-RESISTANT ENCRYPTION PROTOCOL - RESEARCH TEAM<br>
+                        > [2021] NEURAL NETWORK SECURITY FRAMEWORK - AI SPECIALIST<br>`;
+                } else if (command === 'contact') {
+                    response.innerHTML = `>> SECURE CONTACT CHANNELS <<<br><br>
+                        - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                        - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>`;
+                } else if (command === 'clear') {
+                    terminalText.innerHTML = '';
+                    commandInput.value = '';
+                    return;
+                } else if (command === 'musik') {
+                    let musicListHtml = '>> DAFTAR MUSIK <<<br><br>';
+                    musicList.forEach((song, index) => {
+                        musicListHtml += `<span class="highlight">${index + 1}.</span> ${song.name}<br>`;
+                    });
+                    musicListHtml += "<br>Ketik nomor untuk memutar musik.";
+                    response.innerHTML = musicListHtml;
+                } else if (!isNaN(trackNumber) && trackNumber >= 1 && trackNumber <= musicList.length) {
+                    const song = musicList[trackNumber - 1];
+                    audioPlayer.src = song.url;
+                    audioPlayer.play();
+                    response.innerHTML = `Memutar: <span class="highlight">${song.name}</span>`;
+                } else if (command === 'stop') {
+                    audioPlayer.pause();
+                    audioPlayer.src = '';
+                    response.innerHTML = 'Musik dihentikan.';
+                } else if (command === 'uranusfazry') {
+                    isAnimated = true;
+                    const profileHtml = `
+                        <div style="color: var(--terminal-purple-term); text-decoration: underline;">// URANUSFAZRY - DATA PROFILE //</div><br>
+                        <div><span class="highlight">> BIOGRAFI</span></div>
+                        <p style="margin-left: 15px;">
+                            Uranus Fazry adalah seorang pengembang multi-talenta dan kreator digital yang berbasis di Indonesia. Dengan hasrat untuk teknologi dan inovasi, ia telah membangun berbagai proyek mulai dari aplikasi web canggih hingga platform game interaktif. Dikenal dengan kemampuannya memecahkan masalah kompleks dan kepribadiannya yang kuat, ia adalah 'Raja By One' di dunia digital.
+                        </p><br>
+                        <div><span class="highlight">> HOBI</span></div>
+                        <div style="margin-left: 15px;">
+                            - Gaming (terutama MLBB)<br>
+                            - Trading Forex & Crypto<br>
+                            - Produksi Musik<br>
+                            - Coding & Eksperimen Teknologi Baru
+                        </div><br>
+                        <div><span class="highlight">> KEAHLIAN UTAMA</span></div>
+                        <div style="margin-left: 15px;">
+                            - Full-Stack Web Development (JavaScript, Python)<br>
+                            - Cybersecurity & Network Management<br>
+                            - AI/ML Integration<br>
+                            - Blockchain & Smart Contract
+                        </div><br>
+                        <div><span class="highlight">> KONTAK</span></div>
+                        <div style="margin-left: 15px;">
+                            - Email: <a href="mailto:irawanfazry697@gmail.com" class="highlight">irawanfazry697@gmail.com</a><br>
+                            - WhatsApp: <a href="https://wa.me/6287872521809" target="_blank" class="highlight">wa.me/6287872521809</a>
+                        </div>
+                    `;
+                    
+                    terminalText.appendChild(response);
+                    commandInput.disabled = true;
+                    
+                    typewriter(response, profileHtml, () => {
+                        commandInput.disabled = false;
+                        commandInput.focus();
+                        terminalText.appendChild(document.createElement('br'));
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                    });
+
+                } else if (command === 'exit') {
+                    response.innerHTML = `<span style="color: var(--terminal-red)">Access Denied: Terminal cannot be closed from this session.</span>`;
+                } else {
+                    response.innerHTML = `<span style="color: var(--terminal-red)">Command not found: ${command}</span><br>
+                    Type <span class="highlight">'help'</span> for available commands.`;
+                }
+                
+                if (!isAnimated) {
+                    terminalText.appendChild(response);
+                    terminalText.appendChild(document.createElement('br'));
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                }
+            }
+            
+            commandInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const command = this.value;
+                    this.value = '';
+                    
+                    if (command.trim() !== '') {
+                        processCommand(command);
+                    }
+                }
+            });
+
+        // --- INITIALIZE ALL SCRIPTS ---
+        initPortalApp();
+        init3DBackground();
+        typeNextCharacter();
+    });
+</script>
+
+<!-- MERGED: SCRIPT WATERMARK -->
+<script>
+  (function() {
+    function initializeWatermark() {
+        const watermarkHTML = `<div id="futuristic-watermark" title="Design by ©URANUSFAZRY"><canvas id="particle-canvas"></canvas><div class="f-content-wrapper"><div id="f-main-content" class="f-content"><div class="f-logo-container"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 20 L80 20 L80 80 L20 80 Z" stroke-opacity="0.5"/><path d="M50 5 L95 50 L50 95 L5 50 Z"/></svg></div><span id="f-watermark-text">©URANUSFAZRY</span></div><div id="f-follow-content" class="f-content hidden"><span id="f-follow-message"></span></div></div></div>`;
+        document.body.insertAdjacentHTML('beforeend', watermarkHTML);
+
+        const watermarkEl = document.getElementById('futuristic-watermark');
+        const textEl = document.getElementById('f-watermark-text');
+        const logoEl = watermarkEl.querySelector('.f-logo-container');
+        const mainContentEl = document.getElementById('f-main-content');
+        const followContentEl = document.getElementById('f-follow-content');
+        const followMessageEl = document.getElementById('f-follow-message');
+        
+        let isAnimating = false, autoPlayInterval = null, currentSequence = 0;
+        const sequenceActions = ['scramble', 'logo', 'youtube', 'tiktok', 'reset'];
+
+        const canvas = document.getElementById('particle-canvas'), ctx = canvas.getContext('2d');
+        let particles = [];
+        const resizeCanvas = () => { if (watermarkEl) { canvas.width = watermarkEl.offsetWidth; canvas.height = watermarkEl.offsetHeight; } };
+        class Particle {
+            constructor() { this.reset(); this.baseSpeedX = (Math.random() - 0.5) * 0.5; this.baseSpeedY = (Math.random() - 0.5) * 0.5; this.speedX = this.baseSpeedX; this.speedY = this.baseSpeedY; }
+            update() { this.x += this.speedX; this.y += this.speedY; this.opacity -= this.fadeSpeed; if (this.opacity <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); } }
+            draw() { const style = getComputedStyle(watermarkEl); const hue = style.getPropertyValue('--particle-base-hue').trim(); const lightness = parseFloat(style.getPropertyValue('--particle-base-lightness').trim()); ctx.globalAlpha = this.opacity; ctx.fillStyle = `hsl(${hue}, 100%, ${lightness + this.opacity * 40}%)`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+            reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.opacity = Math.random() * 0.5 + 0.2; this.size = Math.random() * 1.5 + 0.5; this.fadeSpeed = Math.random() * 0.015 + 0.005; }
+        }
+        const animateParticles = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); ctx.globalAlpha = 1.0; requestAnimationFrame(animateParticles); };
+        
+        const textScramble = (el) => { const originalText = "©URANUSFAZRY", chars = '!<>*#{}[]'; let frame = 0; isAnimating = true; const interval = setInterval(() => { el.innerText = originalText.split('').map((char, i) => { const p = (frame - i * 2) / 15; if (p < 0) return ' '; if (p > 1) return char; return chars[Math.floor(Math.random() * chars.length)]; }).join(''); if (frame >= originalText.length * 2 + 15) { clearInterval(interval); el.innerText = originalText; isAnimating = false; } frame++; }, 30); };
+        const typewriter = (el, text) => { let i = 0; el.innerHTML = ""; isAnimating = true; const interval = setInterval(() => { if (i < text.length) { el.innerHTML += text.charAt(i); i++; } else { clearInterval(interval); isAnimating = false; } }, 50); };
+        
+        const runAutoSequence = () => { if (isAnimating) return; const action = sequenceActions[currentSequence]; switch (action) { case 'scramble': textScramble(textEl); break; case 'logo': isAnimating = true; logoEl.classList.add('reacting'); logoEl.addEventListener('animationend', () => { logoEl.classList.remove('reacting'); isAnimating = false; }, { once: true }); break; case 'youtube': isAnimating = true; mainContentEl.classList.add('hidden'); setTimeout(() => { followContentEl.classList.remove('hidden'); typewriter(followMessageEl, "Follow uranusfazry YouTube"); }, 400); break; case 'tiktok': typewriter(followMessageEl, "Follow uranusfazry TikTok"); break; case 'reset': isAnimating = true; followContentEl.classList.add('hidden'); setTimeout(() => { mainContentEl.classList.remove('hidden'); isAnimating = false; }, 400); break; } currentSequence = (currentSequence + 1) % sequenceActions.length; };
+        const startAutoPlay = () => { if (autoPlayInterval) clearInterval(autoPlayInterval); runAutoSequence(); autoPlayInterval = setInterval(runAutoSequence, 3500); };
+        
+        watermarkEl.addEventListener('click', () => { watermarkEl.classList.toggle('light-mode'); });
+        
+        const init = () => { resizeCanvas(); for (let i = 0; i < 40; i++) particles.push(new Particle()); animateParticles(); window.addEventListener('resize', resizeCanvas); startAutoPlay(); };
+        init();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeWatermark);
+    } else {
+        initializeWatermark();
+    }
+  })();
+</script>
+
+<!-- Penjelasan: Popunder & Social Bar diletakkan di akhir untuk optimasi -->
+<script type='text/javascript' src='//librarysituation.com/e6/76/1b/e6761b94cda2fd588c88af39c480b18a.js'></script>
+<script type='text/javascript' src='//librarysituation.com/93/75/5e/93755e58b4cebd39cb75c37822f25138.js'></script>
 
 </body>
 </html>
